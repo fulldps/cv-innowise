@@ -12,12 +12,15 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "codegen": "graphql-codegen",
+    "codegen:watch": "graphql-codegen --watch"
   },
   "dependencies": {
     "@apollo/client": "^4.2.6",
     "@apollo/client-integration-nextjs": "^0.14.5",
     "@base-ui/react": "^1.6.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@hookform/resolvers": "^5.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
