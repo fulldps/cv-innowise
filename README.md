@@ -38,3 +38,29 @@
 
 - [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/)
 - [pnpm](https://pnpm.io/)
+
+## Getting Started
+
+Prerequisites: Node.js `>=20.9` (see `.nvmrc`) and [pnpm](https://pnpm.io/).
+
+```bash
+pnpm install
+cp .env.example .env.local
+pnpm dev
+```
+
+The app runs on [http://localhost:3000](http://localhost:3000).
+
+`NEXT_PUBLIC_GRAPHQL_URL` in `.env.local` must point to the running GraphQL backend
+([cv-node](https://github.com/cv-innowise/cv-node), default `http://localhost:3001/api/graphql`).
+
+## Scripts
+
+| Script              | Description                       |
+| ------------------- | --------------------------------- |
+| `pnpm dev`          | Start the dev server.             |
+| `pnpm build`        | Production build.                 |
+| `pnpm start`        | Run the production build.         |
+| `pnpm lint`         | Run ESLint.                       |
+| `pnpm format`       | Format with Prettier.             |
+| `pnpm format:check` | Check formatting without writing. |
