@@ -31,7 +31,7 @@ export const mockUsers: User[] = [
       last_name: 'Doe',
       full_name: 'John Doe',
 
-      avatar: 'https://i.pravatar.cc/300?img=1',
+      avatar: null,
 
       skills: [
         {
@@ -87,7 +87,7 @@ export const mockUsers: User[] = [
       last_name: 'Smith',
       full_name: 'Jane Smith',
 
-      avatar: 'https://i.pravatar.cc/300?img=5',
+      avatar: null,
 
       skills: [
         {
@@ -182,7 +182,7 @@ export const mockUsers: User[] = [
       last_name: 'Brown',
       full_name: 'Michael Brown',
 
-      avatar: 'https://i.pravatar.cc/300?img=8',
+      avatar: null,
 
       skills: [
         {
@@ -282,7 +282,7 @@ export const mockUsers: User[] = [
       last_name: 'Miller',
       full_name: 'David Miller',
 
-      avatar: 'https://i.pravatar.cc/300?img=12',
+      avatar: null,
 
       skills: [],
 
