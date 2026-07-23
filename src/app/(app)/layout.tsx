@@ -5,6 +5,7 @@ import type { PropsWithChildren } from 'react';
 
 import { Sidebar } from '@/widgets/sidebar';
 import { useCurrentUser } from '@/entities/user';
+import { Breadcrumbs } from '@/widgets/breadcrumbs';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   const currentUser = useCurrentUser();
@@ -19,7 +20,13 @@ export default function AppLayout({ children }: PropsWithChildren) {
         onToggle={() => setCollapsed((prev) => !prev)}
       />
 
-      <main className="flex-1">{children}</main>
+      <main className="flex min-w-0 flex-1 bg-primary-foreground">
+        <div className="flex w-full flex-col">
+          <Breadcrumbs />
+
+          {children}
+        </div>
+      </main>
     </div>
   );
 }
