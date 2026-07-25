@@ -22,8 +22,8 @@ export function NavigationItem({ item, collapsed }: NavigationItemProps) {
     <Link
       href={item.href}
       className={cn(
-        'flex rounded-r-full h-11 transition-colors',
-        collapsed ? 'mr-2 justify-center' : 'mr-6 justify-start pl-4',
+        'flex rounded-r-full h-12 transition-colors justify-start pl-4',
+        collapsed ? 'mr-2' : 'mr-6',
         isActive
           ? 'bg-sidebar-accent text-sidebar-foreground'
           : 'text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground',

@@ -11,7 +11,7 @@ interface SidebarCollapseButtonProps {
 
 export function SidebarCollapseButton({ collapsed, onToggle }: SidebarCollapseButtonProps) {
   return (
-    <div className={cn('flex pb-4', collapsed ? 'justify-center' : 'justify-start pl-2')}>
+    <div className="flex pb-4 justify-start pl-2">
       <button
         type="button"
         aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}

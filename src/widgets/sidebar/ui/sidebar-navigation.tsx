@@ -15,7 +15,7 @@ export function SidebarNavigation({ role, collapsed }: SidebarNavigationProps) {
   const navigation = navigationByRole[role];
 
   return (
-    <nav className="flex flex-col gap-1 pt-8">
+    <nav className="flex flex-col gap-2 pt-9">
       {navigation.map((item) => (
         <Fragment key={item.href}>
           <NavigationItem item={item} collapsed={collapsed} />
