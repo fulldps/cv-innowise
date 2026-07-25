@@ -18,7 +18,7 @@ export function SidebarFooter({ currentUser, collapsed }: SidebarFooterProps) {
     currentUser.email[0].toUpperCase();
 
   return (
-    <div className={cn('mt-auto p-4', collapsed ? 'flex flex-col items-center' : 'pl-2')}>
+    <div className="mt-auto pb-4 pl-2">
       <div className="flex items-center gap-2">
         {profile.avatar ? (
           <Image
@@ -36,7 +36,9 @@ export function SidebarFooter({ currentUser, collapsed }: SidebarFooterProps) {
 
         {!collapsed && (
           <div className="min-w-0">
-            <p className="truncate text-sidebar-foreground">{profile.full_name ?? currentUser.email}</p>
+            <p className="truncate text-sidebar-foreground">
+              {profile.full_name ?? currentUser.email}
+            </p>
           </div>
         )}
       </div>
