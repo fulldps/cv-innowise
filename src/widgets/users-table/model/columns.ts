@@ -1,3 +1,5 @@
+import { UsersSortField } from "@/widgets/users-list/model/sort";
+
 export interface UsersTableColumn {
   key: 'avatar' | 'first_name' | 'last_name' | 'email' | 'department' | 'position' | 'actions';
 
@@ -5,7 +7,7 @@ export interface UsersTableColumn {
 
   className?: string;
 
-  sortable?: boolean;
+  sortable?: UsersSortField;
 }
 
 export const userTableColumns: readonly UsersTableColumn[] = [
@@ -16,27 +18,23 @@ export const userTableColumns: readonly UsersTableColumn[] = [
   {
     key: 'first_name',
     label: 'First Name',
-    sortable: true,
   },
   {
     key: 'last_name',
     label: 'Last Name',
-    sortable: true,
   },
   {
     key: 'email',
     label: 'Email',
-    sortable: true,
   },
   {
     key: 'department',
     label: 'Department',
-    sortable: true,
+    sortable: 'department',
   },
   {
     key: 'position',
     label: 'Position',
-    sortable: true,
   },
   {
     key: 'actions',

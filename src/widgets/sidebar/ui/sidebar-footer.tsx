@@ -3,7 +3,6 @@
 import Image from 'next/image';
 
 import type { User } from '@/entities/user';
-import { cn } from '@/shared/lib/utils';
 
 interface SidebarFooterProps {
   currentUser: User;

@@ -6,7 +6,8 @@ import { UsersToolbar } from '@/widgets/users-toolbar';
 import { useUsersListPage } from '../model/use-users-list';
 
 export function UsersList() {
-  const { rows, searchValue, setSearchValue, showCreateButton } = useUsersListPage();
+  const { rows, searchValue, setSearchValue, showCreateButton, sort, toggleSort } =
+    useUsersListPage();
 
   return (
     <div className="flex flex-col gap-2 bg-primary-foreground">
@@ -16,7 +17,7 @@ export function UsersList() {
         canCreateUser={showCreateButton}
       />
 
-      <UsersTable rows={rows} />
+      <UsersTable rows={rows} sort={sort} onSortChange={toggleSort} />
     </div>
   );
 }
