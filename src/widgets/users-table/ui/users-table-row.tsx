@@ -20,7 +20,7 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
   const cellClassName = 'px-4 text-[15px] text-primary';
 
   return (
-    <TableRow className="h-17 border-border transition-colors hover:bg-accent/40">
+    <TableRow className="h-15 border-border transition-colors hover:bg-accent/40">
       {/* Avatar */}
       <TableCell className="w-18 pl-3">
         {profile.avatar ? (
@@ -57,9 +57,9 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
       <TableCell className="w-16 pr-4">
         <div className="flex justify-end">
           {canManage ? (
-            <EllipsisVertical className="h-5 w-5 text-chart-3" />
+            <EllipsisVertical className="h-5 w-5 text-foreground" />
           ) : (
-            <ChevronRight className="h-5 w-5 text-chart-3" />
+            <ChevronRight className="h-5 w-5 text-muted-foreground" />
           )}
         </div>
       </TableCell>

@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 
-import { useCurrentUser, UserRole, useUsersList } from '@/entities/user';
+import { useCurrentUser, User, UserRole, useUsersList } from '@/entities/user';
 
 import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 
 import type { UsersTableRowModel } from '@/widgets/users-table';
+
+import { useUsersSort } from './use-users-sort';
+import { USERS_SORT_FIELDS, UsersSortField } from './sort';
 
 export function useUsersListPage() {
   const users = useUsersList();
@@ -17,6 +20,8 @@ export function useUsersListPage() {
   const debouncedSearch = useDebounce(searchValue, 600);
 
   const normalizedSearch = debouncedSearch.trim().toLowerCase();
+
+  const { sort, toggleSort } = useUsersSort();
 
   const filteredUsers = !normalizedSearch
     ? users.data
@@ -32,7 +37,23 @@ export function useUsersListPage() {
         );
       });
 
-  const rows: UsersTableRowModel[] = filteredUsers.map((user) => ({
+  const sortValueGetters = {
+    [USERS_SORT_FIELDS.department]: (user: User) => user.department_name ?? '',
+  } satisfies Record<UsersSortField, (user: User) => string>;
+
+  const sortedUsers = [...filteredUsers];
+
+  if (sort.direction) {
+    const getValue = sortValueGetters[sort.field];
+
+    sortedUsers.sort((a, b) => {
+      const result = getValue(a).localeCompare(getValue(b));
+
+      return sort.direction === 'asc' ? result : -result;
+    });
+  }
+
+  const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
     id: user.id,
     user,
     canManage: currentUser.role === UserRole.Admin || currentUser.id === user.id,
@@ -45,5 +66,8 @@ export function useUsersListPage() {
     setSearchValue,
 
     showCreateButton: currentUser.role === UserRole.Admin,
+
+    sort,
+    toggleSort,
   };
 }
