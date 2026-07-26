@@ -2,7 +2,7 @@ import { Table, TableBody } from '@/shared/ui/table';
 
 import type { UsersSort, UsersSortField } from '@/widgets/users-list/model/sort';
 
-import type { UsersTableRowModel } from '../model/users-table-row';
+import type { UsersTableRowModel } from '../model/users-table-row-model';
 
 import { UsersTableHeader } from './users-table-header';
 import { UsersTableRow } from './users-table-row';
@@ -22,7 +22,7 @@ export function UsersTable({ rows, sort, onSortChange }: UsersTableProps) {
 
         <TableBody>
           {rows.map((row) => (
-            <UsersTableRow key={row.id} row={row} />
+            <UsersTableRow key={row.user.id} row={row} />
           ))}
         </TableBody>
       </Table>

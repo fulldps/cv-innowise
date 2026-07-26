@@ -16,10 +16,12 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 type Documents = {
     "\n  mutation CreateCv($cv: CreateCvInput!) {\n    createCv(cv: $cv) {\n      id\n      name\n      description\n    }\n  }\n": typeof types.CreateCvDocument,
     "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      user {\n        id\n        email\n      }\n    }\n  }\n": typeof types.CvsDocument,
+    "\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n": typeof types.UsersDocument,
 };
 const documents: Documents = {
     "\n  mutation CreateCv($cv: CreateCvInput!) {\n    createCv(cv: $cv) {\n      id\n      name\n      description\n    }\n  }\n": types.CreateCvDocument,
     "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      user {\n        id\n        email\n      }\n    }\n  }\n": types.CvsDocument,
+    "\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n": types.UsersDocument,
 };
 
 /**
@@ -44,6 +46,10 @@ export function graphql(source: "\n  mutation CreateCv($cv: CreateCvInput!) {\n 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      user {\n        id\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      user {\n        id\n        email\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

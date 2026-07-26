@@ -3,7 +3,7 @@
 import { UsersTable } from '@/widgets/users-table';
 import { UsersToolbar } from '@/widgets/users-toolbar';
 
-import { useUsersListPage } from '../model/use-users-list';
+import { useUsersListPage } from '../model/use-users-list-page';
 
 export function UsersList() {
   const { rows, searchValue, setSearchValue, showCreateButton, sort, toggleSort } =

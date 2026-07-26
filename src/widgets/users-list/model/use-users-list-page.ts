@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useCurrentUser, User, UserRole, useUsersList } from '@/entities/user';
+import { useCurrentUser, UserListItem, UserRole, useUsersList } from '@/entities/user';
 
 import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 
@@ -38,8 +38,8 @@ export function useUsersListPage() {
       });
 
   const sortValueGetters = {
-    [USERS_SORT_FIELDS.department]: (user: User) => user.department_name ?? '',
-  } satisfies Record<UsersSortField, (user: User) => string>;
+    [USERS_SORT_FIELDS.department]: (user: UserListItem) => user.department_name ?? '',
+  } satisfies Record<UsersSortField, (user: UserListItem) => string>;
 
   const sortedUsers = [...filteredUsers];
 
@@ -54,7 +54,6 @@ export function useUsersListPage() {
   }
 
   const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
-    id: user.id,
     user,
     canManage: currentUser.role === UserRole.Admin || currentUser.id === user.id,
   }));

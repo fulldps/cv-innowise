@@ -3,7 +3,7 @@ import { ChevronRight, EllipsisVertical } from 'lucide-react';
 
 import { TableCell, TableRow } from '@/shared/ui/table';
 
-import type { UsersTableRowModel } from '../model/users-table-row';
+import type { UsersTableRowModel } from '../model/users-table-row-model';
 
 interface UsersTableRowProps {
   row: UsersTableRowModel;
@@ -14,8 +14,7 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
   const { profile } = user;
 
   const initials =
-    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` ||
-    user.email[0].toUpperCase();
+    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` || user.email[0].toUpperCase();
 
   const cellClassName = 'px-4 text-[15px] text-primary';
 
@@ -29,6 +28,7 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
             alt={profile.full_name ?? user.email}
             width={40}
             height={40}
+            unoptimized
             className="h-9 w-9 rounded-full object-cover"
           />
         ) : (
