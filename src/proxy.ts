@@ -5,7 +5,7 @@ export function proxy(request: NextRequest) {
   const isAuthPage = request.nextUrl.pathname.startsWith('/auth');
 
   if (token && isAuthPage) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/users', request.url));
   }
 
   if (!token && !isAuthPage) {
