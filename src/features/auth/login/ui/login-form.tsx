@@ -34,7 +34,7 @@ export function LoginForm() {
       setError('root', { message: error });
       return;
     }
-    router.push('/');
+    router.push('/users');
     router.refresh();
   };
 
