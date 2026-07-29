@@ -1,6 +1,7 @@
 'use client';
 
 import { useCvsList } from '@/entities/cv/api/use-cvs-list';
+import { CreateCv } from '@/features/cv/create-cv';
 import { Input } from '@/shared/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/ui/table';
 import { ArrowUp } from 'lucide-react';
@@ -60,6 +61,7 @@ export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] })
               )}
             </TableHead>
           </TableRow>
+          <CreateCv />
         </TableHeader>
         <TableBody>
           {sorted.map((cv) => (
