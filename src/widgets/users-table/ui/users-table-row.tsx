@@ -1,15 +1,19 @@
 import Image from 'next/image';
-import { ChevronRight, EllipsisVertical } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import { TableCell, TableRow } from '@/shared/ui/table';
 
 import type { UsersTableRowModel } from '../model/users-table-row-model';
+import { UserActionsMenu } from './user-actions-menu';
 
 interface UsersTableRowProps {
   row: UsersTableRowModel;
+
+  onEdit(userId: string): void;
+  onDelete?(userId: string): void;
 }
 
-export function UsersTableRow({ row }: UsersTableRowProps) {
+export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
   const { user, canManage } = row;
   const { profile } = user;
 
@@ -57,7 +61,12 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
       <TableCell className="w-16 pr-4">
         <div className="flex justify-end">
           {canManage ? (
-            <EllipsisVertical className="h-5 w-5 text-foreground" />
+            <UserActionsMenu
+              userId={user.id}
+              canDelete={row.canDelete}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
           ) : (
             <ChevronRight className="h-5 w-5 text-muted-foreground" />
           )}

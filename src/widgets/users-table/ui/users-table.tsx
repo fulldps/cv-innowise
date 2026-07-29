@@ -12,9 +12,12 @@ interface UsersTableProps {
 
   sort: UsersSort;
   onSortChange(field: UsersSortField): void;
+
+  onEdit(userId: string): void;
+  onDelete?(userId: string): void;
 }
 
-export function UsersTable({ rows, sort, onSortChange }: UsersTableProps) {
+export function UsersTable({ rows, sort, onSortChange, onEdit, onDelete }: UsersTableProps) {
   return (
     <section className="overflow-hidden pr-5">
       <Table>
@@ -22,7 +25,7 @@ export function UsersTable({ rows, sort, onSortChange }: UsersTableProps) {
 
         <TableBody>
           {rows.map((row) => (
-            <UsersTableRow key={row.user.id} row={row} />
+            <UsersTableRow key={row.user.id} row={row} onEdit={onEdit} onDelete={onDelete} />
           ))}
         </TableBody>
       </Table>

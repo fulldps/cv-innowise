@@ -15,6 +15,14 @@ export function useUsersListPage() {
   const users = useUsersList();
   const currentUser = useCurrentUser();
 
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
+
   const [searchValue, setSearchValue] = useState('');
 
   const debouncedSearch = useDebounce(searchValue, 600);
@@ -56,6 +64,7 @@ export function useUsersListPage() {
   const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
     user,
     canManage: currentUser.role === UserRole.Admin || currentUser.id === user.id,
+    canDelete: currentUser.role === UserRole.Admin && currentUser.id !== user.id,
   }));
 
   return {
@@ -68,5 +77,18 @@ export function useUsersListPage() {
 
     sort,
     toggleSort,
+
+    isCreateOpen,
+    setIsCreateOpen,
+
+    isEditOpen,
+    setIsEditOpen,
+    editingUserId,
+    setEditingUserId,
+
+    isDeleteOpen,
+    setIsDeleteOpen,
+    deletingUserId,
+    setDeletingUserId,
   };
 }
