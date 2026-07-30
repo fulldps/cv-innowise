@@ -52,6 +52,6 @@ describe('LoginForm', () => {
     await userEvent.type(screen.getByPlaceholderText('Password'), 'password123');
     await userEvent.click(screen.getByRole('button', { name: /log in/i }));
 
-    await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/'));
+    await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/users'));
   });
 });
