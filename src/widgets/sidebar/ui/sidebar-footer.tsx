@@ -1,15 +1,14 @@
 'use client';
 
+import { useCurrentUser } from '@/entities/user';
 import Image from 'next/image';
 
-import type { User } from '@/entities/user';
-
 interface SidebarFooterProps {
-  currentUser: User;
   collapsed: boolean;
 }
 
-export function SidebarFooter({ currentUser, collapsed }: SidebarFooterProps) {
+export function SidebarFooter({ collapsed }: SidebarFooterProps) {
+  const currentUser = useCurrentUser();
   const { profile } = currentUser;
 
   const initials =

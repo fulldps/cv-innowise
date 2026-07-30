@@ -1,17 +1,17 @@
 'use client';
 
-import { UserRole } from '@/entities/user';
+import { useCurrentUser } from '@/entities/user';
+import { cn } from '@/shared/lib/utils';
+import { Fragment } from 'react';
 import { navigationByRole } from '../model/navigation';
 import { NavigationItem } from './navigation-item';
-import { Fragment } from 'react';
-import { cn } from '@/shared/lib/utils';
 
 interface SidebarNavigationProps {
-  role: UserRole;
   collapsed: boolean;
 }
 
-export function SidebarNavigation({ role, collapsed }: SidebarNavigationProps) {
+export function SidebarNavigation({ collapsed }: SidebarNavigationProps) {
+  const { role } = useCurrentUser();
   const navigation = navigationByRole[role];
 
   return (

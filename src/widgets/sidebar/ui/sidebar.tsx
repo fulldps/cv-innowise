@@ -2,19 +2,13 @@
 
 import { useState } from 'react';
 
-import type { User } from '@/entities/user';
-
+import { SidebarCollapseButton } from './sidebar-collapse-button';
 import { SidebarFooter } from './sidebar-footer';
 import { SidebarNavigation } from './sidebar-navigation';
-import { SidebarCollapseButton } from './sidebar-collapse-button';
 
 import { cn } from '@/shared/lib/utils';
 
-interface SidebarProps {
-  currentUser: User;
-}
-
-export function Sidebar({ currentUser }: SidebarProps) {
+export function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
 
   const handleToggle = () => {
@@ -26,10 +20,10 @@ export function Sidebar({ currentUser }: SidebarProps) {
       className={cn('sticky top-0 flex h-screen flex-col bg-sidebar', collapsed ? 'w-16' : 'w-50')}
     >
       <div className="flex-1">
-        <SidebarNavigation role={currentUser.role} collapsed={collapsed} />
+        <SidebarNavigation collapsed={collapsed} />
       </div>
 
-      <SidebarFooter currentUser={currentUser} collapsed={collapsed} />
+      <SidebarFooter collapsed={collapsed} />
 
       <SidebarCollapseButton collapsed={collapsed} onToggle={handleToggle} />
     </aside>
