@@ -14,5 +14,5 @@ export const editUserSchema = z.object({
 
   positionId: z.string().min(1, 'Position is required'),
 
-  role: z.enum([UserRole.Employee, UserRole.Admin]),
+  role: z.enum(UserRole),
 });

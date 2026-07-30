@@ -27,6 +27,8 @@ export function UsersList() {
     setIsDeleteOpen,
     deletingUserId,
     setDeletingUserId,
+    deletingUserFullName,
+    setDeletingUserFullName,
   } = useUsersListPage();
 
   return (
@@ -47,8 +49,9 @@ export function UsersList() {
             setEditingUserId(userId);
             setIsEditOpen(true);
           }}
-          onDelete={(userId) => {
+          onDelete={(userId, fullName) => {
             setDeletingUserId(userId);
+            setDeletingUserFullName(fullName);
             setIsDeleteOpen(true);
           }}
         />
@@ -65,12 +68,12 @@ export function UsersList() {
       />
       <DeleteUserDialog
         userId={deletingUserId}
+        userFullName={deletingUserFullName}
         open={isDeleteOpen}
-        onOpenChange={(open) => {
-          setIsDeleteOpen(open);
-          if (!open) {
-            setDeletingUserId(null);
-          }
+        onOpenChange={setIsDeleteOpen}
+        onClosed={() => {
+          setDeletingUserId(null);
+          setDeletingUserFullName('');
         }}
       />
     </>

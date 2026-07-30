@@ -12,6 +12,13 @@ export const UPDATE_USER_MUTATION = graphql(`
   mutation UpdateUser($user: UpdateUserInput!) {
     updateUser(user: $user) {
       id
+      department {
+        id
+      }
+      position {
+        id
+      }
+      role
     }
   }
 `);

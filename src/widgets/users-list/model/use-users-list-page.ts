@@ -22,6 +22,7 @@ export function useUsersListPage() {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
+  const [deletingUserFullName, setDeletingUserFullName] = useState('');
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -63,7 +64,7 @@ export function useUsersListPage() {
 
   const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
     user,
-    canManage: currentUser.role === UserRole.Admin || currentUser.id === user.id,
+    canEdit: currentUser.role === UserRole.Admin || currentUser.id === user.id,
     canDelete: currentUser.role === UserRole.Admin && currentUser.id !== user.id,
   }));
 
@@ -90,5 +91,7 @@ export function useUsersListPage() {
     setIsDeleteOpen,
     deletingUserId,
     setDeletingUserId,
+    deletingUserFullName,
+    setDeletingUserFullName,
   };
 }

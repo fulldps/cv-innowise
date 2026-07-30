@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
@@ -31,9 +31,11 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
 
     defaultValues: getCreateUserDefaultValues(),
 
-    mode: 'onBlur',
+    mode: 'onChange',
     reValidateMode: 'onChange',
   });
+
+  const { isValid } = useFormState({ control: form.control });
 
   const handleClose = () => {
     form.reset(getCreateUserDefaultValues());
@@ -66,39 +68,34 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
         onOpenChange(true);
       }}
     >
-      <DialogContent className="max-w-4xl rounded-md px-8 pb-8 pt-6">
-        <DialogHeader className="mb-6">
-          <DialogTitle className="text-[18px] font-semibold">Create User</DialogTitle>
+      <DialogContent className="max-w-4xl rounded-sm px-6 pb-2 pt-4">
+        <DialogHeader className="mb-3">
+          <DialogTitle className="text-[20px] font-semibold">Create user</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-10">
-          <UserForm
-            form={form}
-            departments={departments}
-            positions={positions}
-            disabled={{
-              fields: loading,
-              email: loading,
-              password: loading,
-              role: loading,
-            }}
-          />
+        <form
+          onSubmit={form.handleSubmit(onSubmit, async () => {
+            await form.trigger();
+          })}
+          className="flex flex-col gap-2"
+        >
+          <UserForm form={form} departments={departments} positions={positions} />
 
-          <DialogFooter className="flex justify-end gap-4">
+          <DialogFooter className="flex justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               onClick={handleClose}
               disabled={loading}
-              className="h-14 w-67.5 rounded-full uppercase tracking-wide"
+              className="h-12 w-52 rounded-full uppercase tracking-wide"
             >
               Cancel
             </Button>
 
             <Button
               type="submit"
-              disabled={loading}
-              className="h-14 w-67.5 rounded-full uppercase tracking-wide"
+              disabled={loading || !isValid}
+              className="h-12 w-52 rounded-full uppercase tracking-wide"
             >
               {loading ? 'Creating...' : 'Create'}
             </Button>

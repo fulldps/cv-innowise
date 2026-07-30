@@ -14,13 +14,22 @@ interface UsersTableProps {
   onSortChange(field: UsersSortField): void;
 
   onEdit(userId: string): void;
-  onDelete?(userId: string): void;
+  onDelete?(userId: string, userFullName: string): void;
 }
 
 export function UsersTable({ rows, sort, onSortChange, onEdit, onDelete }: UsersTableProps) {
   return (
     <section className="overflow-hidden pr-5">
-      <Table>
+      <Table className="w-full table-fixed">
+        <colgroup>
+          <col className="w-17" />
+          <col className="w-45" />
+          <col className="w-45" />
+          <col className="w-90" />
+          <col className="w-40" />
+          <col />
+          <col className="w-12" />
+        </colgroup>
         <UsersTableHeader sort={sort} onSortChange={onSortChange} />
 
         <TableBody>

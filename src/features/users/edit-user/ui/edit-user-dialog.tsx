@@ -1,7 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
@@ -16,6 +15,7 @@ import { useEditUser } from '../api/use-edit-user';
 import { editUserSchema } from '../model/edit-user.schema';
 import { getEditUserDefaultValues } from '../model/edit-user.defaults';
 import { UserFormValues } from '@/shared/model/user-form.types';
+import { useEffect } from 'react';
 
 interface EditUserDialogProps {
   userId: string | null;
@@ -32,17 +32,28 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
 
   const currentUser = useCurrentUser();
 
-  const editUserDefaultValues = useMemo(
-    () => (data?.user ? getEditUserDefaultValues(data.user) : undefined),
-    [data],
-  );
-
   const form = useForm<UserFormValues>({
     resolver: zodResolver(editUserSchema),
-    values: editUserDefaultValues,
+    defaultValues: {
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      departmentId: '',
+      positionId: '',
+      role: UserRole.Employee,
+    },
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });
+
+  useEffect(() => {
+    if (!data?.user) return;
+
+    form.reset(getEditUserDefaultValues(data.user));
+  }, [data?.user, form]);
+
+  const { isDirty } = useFormState({ control: form.control });
 
   const handleClose = () => {
     onOpenChange(false);
@@ -80,39 +91,43 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
         onOpenChange(true);
       }}
     >
-      <DialogContent className="max-w-4xl rounded-md px-8 pb-8 pt-6">
-        <DialogHeader className="mb-6">
-          <DialogTitle className="text-[18px] font-semibold">Edit User</DialogTitle>
+      <DialogContent className="max-w-4xl rounded-sm px-6 pb-2 pt-4">
+        <DialogHeader className="mb-3">
+          <DialogTitle className="text-[20px] font-semibold">Update user</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-10">
+        <form
+          onSubmit={form.handleSubmit(onSubmit, async () => {
+            await form.trigger();
+          })}
+          className="flex flex-col gap-2"
+        >
           <UserForm
             form={form}
             departments={departments}
             positions={positions}
             disabled={{
-              fields: disabled,
               email: true,
               password: true,
-              role: disabled || !canEditRole,
+              role: !canEditRole,
             }}
           />
 
-          <DialogFooter className="flex justify-end gap-4">
+          <DialogFooter className="flex justify-end gap-2">
             <Button
               type="button"
               variant="outline"
               disabled={disabled}
               onClick={handleClose}
-              className="h-14 w-67.5 rounded-full uppercase tracking-wide"
+              className="h-12 w-52 rounded-full uppercase tracking-wide"
             >
               Cancel
             </Button>
 
             <Button
               type="submit"
-              disabled={disabled}
-              className="h-14 w-67.5 rounded-full uppercase tracking-wide"
+              disabled={disabled || !isDirty}
+              className="h-12 w-52 rounded-full uppercase tracking-wide"
             >
               {updateLoading ? 'Updating...' : 'Update'}
             </Button>

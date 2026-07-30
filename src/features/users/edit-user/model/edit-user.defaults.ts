@@ -13,7 +13,7 @@ export function getEditUserDefaultValues(user: UpdateUserData): UserFormValues {
 
     email: user.email,
 
-    password: '',
+    password: '**********',
 
     departmentId: user.department?.id ?? '',
 

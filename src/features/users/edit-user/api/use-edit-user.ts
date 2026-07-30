@@ -14,16 +14,18 @@ export function useEditUser() {
   const client = useApolloClient();
 
   const editUser = async (userId: string, values: UserFormValues) => {
-    await updateUserMutation({
-      variables: {
-        user: mapUpdateUserInput(userId, values),
-      },
-    });
-    await updateProfileMutation({
-      variables: {
-        profile: mapUpdateProfileInput(userId, values),
-      },
-    });
+    await Promise.all([
+      updateUserMutation({
+        variables: {
+          user: mapUpdateUserInput(userId, values),
+        },
+      }),
+      updateProfileMutation({
+        variables: {
+          profile: mapUpdateProfileInput(userId, values),
+        },
+      }),
+    ]);
     await client.refetchQueries({
       include: [USERS_QUERY],
     });

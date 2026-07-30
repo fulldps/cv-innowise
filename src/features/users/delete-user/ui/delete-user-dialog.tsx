@@ -9,12 +9,13 @@ import { useDeleteUser } from '../api/use-delete-user';
 
 interface DeleteUserDialogProps {
   userId: string | null;
-
+  userFullName: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onClosed: () => void;
 }
 
-export function DeleteUserDialog({ userId, open, onOpenChange }: DeleteUserDialogProps) {
+export function DeleteUserDialog({ userId, userFullName, open, onOpenChange, onClosed }: DeleteUserDialogProps) {
   const { deleteUser, loading } = useDeleteUser();
 
   const handleClose = () => {
@@ -48,33 +49,37 @@ export function DeleteUserDialog({ userId, open, onOpenChange }: DeleteUserDialo
 
         onOpenChange(true);
       }}
+      onOpenChangeComplete={(nextOpen) => {
+        if (!nextOpen) {
+          onClosed();
+        }
+      }}
     >
-      <DialogContent className="max-w-md rounded-md px-8 pb-8 pt-6">
-        <DialogHeader className="mb-4">
-          <DialogTitle className="text-[18px] font-semibold">Delete User</DialogTitle>
+      <DialogContent className="max-w-xl rounded-sm px-6 pb-2 pt-4">
+        <DialogHeader className="mb-3">
+          <DialogTitle className="text-[20px] font-semibold">Delete user</DialogTitle>
         </DialogHeader>
 
-        <p className="text-sm text-muted-foreground">
-          Are you sure you want to delete this user? This action cannot be undone.
+        <p className="text-base text-foreground">
+          Are you sure you want to delete user <span className="font-semibold">{userFullName}</span>?
         </p>
 
-        <DialogFooter className="mt-8 flex justify-end gap-4">
+        <DialogFooter className="flex justify-end gap-2">
           <Button
             type="button"
             variant="outline"
             disabled={loading}
             onClick={handleClose}
-            className="h-14 w-40 rounded-full uppercase tracking-wide"
+            className="h-12 w-52 rounded-full uppercase tracking-wide"
           >
             Cancel
           </Button>
 
           <Button
             type="button"
-            variant="destructive"
             disabled={loading}
             onClick={handleDelete}
-            className="h-14 w-40 rounded-full uppercase tracking-wide"
+            className="h-12 w-52 rounded-full uppercase tracking-wide"
           >
             {loading ? 'Deleting...' : 'Delete'}
           </Button>
