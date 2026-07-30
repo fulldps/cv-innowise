@@ -9,5 +9,7 @@ export function UserProvider({ user, children }: { user: User; children: React.R
 }
 
 export function useCurrentUser() {
-  return useContext(UserContext);
+  const user = useContext(UserContext);
+  if (!user) throw new Error('useCurrentUser must be used within UserProvider');
+  return user;
 }

@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useCreateCv } from '@/entities/cv/api/use-create-cv';
+import { useCurrentUser } from '@/entities/user';
 import { Button } from '@/shared/ui/button';
 import {
   Dialog,
@@ -26,6 +27,7 @@ type CreateCvValues = z.infer<typeof createCvSchema>;
 
 export function CreateCv() {
   const [open, setOpen] = useState(false);
+  const currentUser = useCurrentUser();
 
   const {
     control,
@@ -40,7 +42,7 @@ export function CreateCv() {
   const [createCv, { loading }] = useCreateCv();
   const onSubmit = async (values: CreateCvValues) => {
     try {
-      await createCv({ variables: { cv: { ...values, userId: '614' } } });
+      await createCv({ variables: { cv: { ...values, userId: currentUser.id } } });
       setOpen(false);
     } catch (e) {
       setError('root', { message: e instanceof Error ? e.message : 'Something went wrong...' });
