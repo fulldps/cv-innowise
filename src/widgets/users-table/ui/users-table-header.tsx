@@ -18,25 +18,23 @@ export function UsersTableHeader({ sort, onSortChange }: UsersTableHeaderProps) 
       <TableRow className="h-11 border-border hover:bg-transparent">
         {userTableColumns.map((column) => (
           <TableHead key={column.key} className={cn('px-4 font-semibold', column.className)}>
-            {column.sortable ? (
-              <button
-                type="button"
-                aria-label={`Sort by ${column.label}`}
-                onClick={() => onSortChange(column.sortable!)}
-                className="flex items-center gap-1 transition-colors hover:text-foreground"
-              >
-                <span>{column.label}</span>
+            <button
+              type="button"
+              aria-label={`Sort by ${column.label}`}
+              onClick={() => onSortChange(column.sortable!)}
+              className="flex items-center gap-1 transition-colors hover:text-foreground"
+            >
+              <span>{column.label}</span>
 
+              {column.sortable === sort.field && (
                 <ArrowUp
                   className={cn(
-                    'h-3.5 w-3.5 transition-transform text-muted-foreground',
+                    'h-3.5 w-3.5 text-muted-foreground transition-transform',
                     sort.direction === 'desc' && 'rotate-180',
                   )}
                 />
-              </button>
-            ) : (
-              column.label
-            )}
+              )}
+            </button>
           </TableHead>
         ))}
       </TableRow>

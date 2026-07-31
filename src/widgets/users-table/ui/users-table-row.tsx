@@ -21,9 +21,7 @@ export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
     `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` || user.email[0].toUpperCase();
 
   const userFullName =
-    profile.first_name && profile.last_name
-      ? `${profile.first_name} ${profile.last_name}`
-      : 'Anonymous';
+    [profile.first_name, profile.last_name].filter(Boolean).join(' ') || 'Anonymous';
 
   const cellClassName = 'px-4 text-[15px] text-primary';
 
@@ -37,7 +35,6 @@ export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
             alt={profile.full_name ?? user.email}
             width={40}
             height={40}
-            unoptimized
             className="h-9 w-9 rounded-full object-cover"
           />
         ) : (

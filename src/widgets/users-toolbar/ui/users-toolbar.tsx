@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react';
 import type { UsersToolbarProps } from '../model/types';
 
 import { SearchInput } from './search-input';
+import { Button } from '@/shared/ui/button';
 
 export function UsersToolbar({
   searchValue,
@@ -15,14 +16,22 @@ export function UsersToolbar({
       <SearchInput value={searchValue} onValueChange={onSearchChange} />
 
       {canCreateUser && (
-        <button
+        <Button
           type="button"
+          variant="ghost"
           onClick={onCreateUser}
-          className="flex items-center gap-2 text-destructive font-semibold tracking-wide transition-colors hover:text-destructive/70 cursor-pointer"
+          className="
+            gap-2
+            font-semibold
+            tracking-wide
+            text-destructive
+            hover:text-destructive/70
+            hover:bg-transparent
+        "
         >
-          <Plus className="h-5 w-5" />
+          <Plus className="size-5" />
           <span className="text-[13px]">CREATE USER</span>
-        </button>
+        </Button>
       )}
     </section>
   );

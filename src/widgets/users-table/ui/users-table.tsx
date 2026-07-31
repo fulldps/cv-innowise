@@ -1,4 +1,4 @@
-import { Table, TableBody } from '@/shared/ui/table';
+import { Table, TableBody, TableCell, TableRow } from '@/shared/ui/table';
 
 import type { UsersSort, UsersSortField } from '@/widgets/users-list/model/sort';
 
@@ -6,9 +6,12 @@ import type { UsersTableRowModel } from '../model/users-table-row-model';
 
 import { UsersTableHeader } from './users-table-header';
 import { UsersTableRow } from './users-table-row';
+import { userTableColumns } from '../model/columns';
 
 interface UsersTableProps {
   rows: UsersTableRowModel[];
+  loading: boolean;
+  error: Error | null;
 
   sort: UsersSort;
   onSortChange(field: UsersSortField): void;
@@ -17,7 +20,16 @@ interface UsersTableProps {
   onDelete?(userId: string, userFullName: string): void;
 }
 
-export function UsersTable({ rows, sort, onSortChange, onEdit, onDelete }: UsersTableProps) {
+export function UsersTable({
+  rows,
+  loading,
+  error,
+  sort,
+  onSortChange,
+  onEdit,
+  onDelete,
+}: UsersTableProps) {
+  const columnsCount = userTableColumns.length;
   return (
     <section className="overflow-hidden pr-5">
       <Table className="w-full table-fixed">
@@ -33,9 +45,29 @@ export function UsersTable({ rows, sort, onSortChange, onEdit, onDelete }: Users
         <UsersTableHeader sort={sort} onSortChange={onSortChange} />
 
         <TableBody>
-          {rows.map((row) => (
-            <UsersTableRow key={row.user.id} row={row} onEdit={onEdit} onDelete={onDelete} />
-          ))}
+          {loading ? (
+            <TableRow>
+              <TableCell colSpan={columnsCount} className="h-40 text-center text-muted-foreground">
+                Loading...
+              </TableCell>
+            </TableRow>
+          ) : error ? (
+            <TableRow>
+              <TableCell colSpan={columnsCount} className="h-40 text-center text-destructive">
+                Failed to load users.
+              </TableCell>
+            </TableRow>
+          ) : rows.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={columnsCount} className="h-40 text-center text-muted-foreground">
+                No users found.
+              </TableCell>
+            </TableRow>
+          ) : (
+            rows.map((row) => (
+              <UsersTableRow key={row.user.id} row={row} onEdit={onEdit} onDelete={onDelete} />
+            ))
+          )}
         </TableBody>
       </Table>
     </section>

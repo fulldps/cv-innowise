@@ -107,9 +107,10 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
             departments={departments}
             positions={positions}
             disabled={{
+              fields: disabled,
               email: true,
               password: true,
-              role: !canEditRole,
+              role: disabled || !canEditRole,
             }}
           />
 

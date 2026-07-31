@@ -14,6 +14,7 @@ interface Option {
 }
 
 interface UserFormDisabled {
+  fields?: boolean;
   email?: boolean;
   password?: boolean;
   role?: boolean;
@@ -31,6 +32,7 @@ export function UserForm({
   departments,
   positions,
   disabled = {
+    fields: false,
     email: false,
     password: false,
     role: false,
@@ -98,6 +100,7 @@ export function UserForm({
               autoFocus
               label="First Name"
               aria-invalid={!!errors.firstName}
+              disabled={disabled.fields}
             />
           )}
         />
@@ -110,7 +113,12 @@ export function UserForm({
           control={control}
           name="lastName"
           render={({ field }) => (
-            <FloatingInput {...field} label="Last Name" aria-invalid={!!errors.lastName} />
+            <FloatingInput
+              {...field}
+              label="Last Name"
+              aria-invalid={!!errors.lastName}
+              disabled={disabled.fields}
+            />
           )}
         />
 
@@ -128,6 +136,7 @@ export function UserForm({
               onValueChange={field.onChange}
               options={departments}
               aria-invalid={!!errors.departmentId}
+              disabled={disabled.fields}
             />
           )}
         />
@@ -146,6 +155,7 @@ export function UserForm({
               onValueChange={field.onChange}
               options={positions}
               aria-invalid={!!errors.positionId}
+              disabled={disabled.fields}
             />
           )}
         />
