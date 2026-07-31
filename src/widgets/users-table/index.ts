@@ -1,2 +1,2 @@
 export * from './ui/users-table';
-export * from './model/users-table-row';
+export * from './model/users-table-row-model';

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useCurrentUser, User, UserRole, useUsersList } from '@/entities/user';
+import { useCurrentUser, UserListItem, UserRole, useUsersList } from '@/entities/user';
 
 import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 
@@ -14,6 +14,15 @@ import { USERS_SORT_FIELDS, UsersSortField } from './sort';
 export function useUsersListPage() {
   const users = useUsersList();
   const currentUser = useCurrentUser();
+
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
+
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
+  const [deletingUserFullName, setDeletingUserFullName] = useState('');
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -38,8 +47,8 @@ export function useUsersListPage() {
       });
 
   const sortValueGetters = {
-    [USERS_SORT_FIELDS.department]: (user: User) => user.department_name ?? '',
-  } satisfies Record<UsersSortField, (user: User) => string>;
+    [USERS_SORT_FIELDS.department]: (user: UserListItem) => user.department_name ?? '',
+  } satisfies Record<UsersSortField, (user: UserListItem) => string>;
 
   const sortedUsers = [...filteredUsers];
 
@@ -54,9 +63,9 @@ export function useUsersListPage() {
   }
 
   const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
-    id: user.id,
     user,
-    canManage: currentUser.role === UserRole.Admin || currentUser.id === user.id,
+    canEdit: currentUser.role === UserRole.Admin || currentUser.id === user.id,
+    canDelete: currentUser.role === UserRole.Admin && currentUser.id !== user.id,
   }));
 
   return {
@@ -69,5 +78,20 @@ export function useUsersListPage() {
 
     sort,
     toggleSort,
+
+    isCreateOpen,
+    setIsCreateOpen,
+
+    isEditOpen,
+    setIsEditOpen,
+    editingUserId,
+    setEditingUserId,
+
+    isDeleteOpen,
+    setIsDeleteOpen,
+    deletingUserId,
+    setDeletingUserId,
+    deletingUserFullName,
+    setDeletingUserFullName,
   };
 }

@@ -1,34 +1,43 @@
 import Image from 'next/image';
-import { ChevronRight, EllipsisVertical } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import { TableCell, TableRow } from '@/shared/ui/table';
 
-import type { UsersTableRowModel } from '../model/users-table-row';
+import type { UsersTableRowModel } from '../model/users-table-row-model';
+import { UserActionsMenu } from './user-actions-menu';
 
 interface UsersTableRowProps {
   row: UsersTableRowModel;
+
+  onEdit(userId: string): void;
+  onDelete?(userId: string, userFullName: string): void;
 }
 
-export function UsersTableRow({ row }: UsersTableRowProps) {
-  const { user, canManage } = row;
+export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
+  const { user, canEdit } = row;
   const { profile } = user;
 
   const initials =
-    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` ||
-    user.email[0].toUpperCase();
+    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` || user.email[0].toUpperCase();
+
+  const userFullName =
+    profile.first_name && profile.last_name
+      ? `${profile.first_name} ${profile.last_name}`
+      : 'Anonymous';
 
   const cellClassName = 'px-4 text-[15px] text-primary';
 
   return (
     <TableRow className="h-15 border-border transition-colors hover:bg-accent/40">
       {/* Avatar */}
-      <TableCell className="w-18 pl-3">
+      <TableCell className="pl-3">
         {profile.avatar ? (
           <Image
             src={profile.avatar}
             alt={profile.full_name ?? user.email}
             width={40}
             height={40}
+            unoptimized
             className="h-9 w-9 rounded-full object-cover"
           />
         ) : (
@@ -54,10 +63,16 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
       <TableCell className={cellClassName}>{user.position_name ?? '—'}</TableCell>
 
       {/* Actions */}
-      <TableCell className="w-16 pr-4">
+      <TableCell className="pr-4">
         <div className="flex justify-end">
-          {canManage ? (
-            <EllipsisVertical className="h-5 w-5 text-foreground" />
+          {canEdit ? (
+            <UserActionsMenu
+              userId={user.id}
+              userFullName={userFullName}
+              canDelete={row.canDelete}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
           ) : (
             <ChevronRight className="h-5 w-5 text-muted-foreground" />
           )}

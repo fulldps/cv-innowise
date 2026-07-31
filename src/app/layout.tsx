@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
 import { ApolloProvider } from '@/shared/api/apollo/apollo-provider';
+import { Toaster } from '@/shared/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ApolloProvider>{children}</ApolloProvider>
+        <Toaster />
       </body>
     </html>
   );
