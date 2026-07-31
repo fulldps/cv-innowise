@@ -9,6 +9,7 @@ const CvsDocument = graphql(`
       id
       name
       description
+      education
       user {
         id
         email
