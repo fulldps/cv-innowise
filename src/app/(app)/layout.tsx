@@ -1,6 +1,8 @@
 import type { PropsWithChildren } from 'react';
 
-import { UserProvider, type UserRole, type CurrentUser } from '@/entities/user';
+import { getClient } from '@/shared/api/apollo/apollo-client';
+
+import { USER_QUERY, UserProvider } from '@/entities/user';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { Sidebar } from '@/widgets/sidebar';
 import { jwtDecode } from 'jwt-decode';
@@ -22,15 +24,23 @@ export default async function AppLayout({ children }: PropsWithChildren) {
   }
 
   const decoded = jwtDecode<JwtPayload>(tokenCookie.value);
-  const { sub, email, role } = decoded;
-  const user: CurrentUser = {
-    id: sub,
-    email,
-    role: role as UserRole,
-  };
+  const { sub } = decoded;
+
+  const client = getClient();
+
+  const { data } = await client.query({
+    query: USER_QUERY,
+    variables: {
+      userId: sub,
+    },
+  });
+
+  if (!data || !data.user) {
+    redirect('/login');
+  }
 
   return (
-    <UserProvider user={user}>
+    <UserProvider user={data.user}>
       <div className="flex min-h-screen">
         <Sidebar />
         <main className="flex min-w-0 flex-1 bg-primary-foreground">

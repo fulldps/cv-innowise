@@ -1,8 +1,8 @@
-import type { UpdateUserData } from '@/entities/user';
+import type { User } from '@/entities/user';
 
 import { UserFormValues } from '@/shared/model/user-form.types';
 
-export function getEditUserDefaultValues(user: UpdateUserData): UserFormValues {
+export function getEditUserDefaultValues(user: User): UserFormValues {
   return {
     firstName: user.profile.first_name ?? '',
 
