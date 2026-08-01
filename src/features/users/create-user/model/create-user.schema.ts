@@ -1,4 +1,4 @@
-import { UserRole } from '@/entities/user';
+import { USER_ROLES } from '@/entities/user';
 import { z } from 'zod';
 
 export const createUserSchema = z.object({
@@ -14,5 +14,5 @@ export const createUserSchema = z.object({
 
   positionId: z.string().min(1, 'Position is required'),
 
-  role: z.enum(UserRole),
+  role: z.enum(USER_ROLES),
 });

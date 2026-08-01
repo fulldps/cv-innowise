@@ -1,6 +1,7 @@
 'use client';
+
 import { createContext, useContext } from 'react';
-import { User } from '../model';
+import type { User } from '../model';
 
 const UserContext = createContext<User | null>(null);
 
@@ -10,6 +11,10 @@ export function UserProvider({ user, children }: { user: User; children: React.R
 
 export function useCurrentUser() {
   const user = useContext(UserContext);
-  if (!user) throw new Error('useCurrentUser must be used within UserProvider');
+
+  if (!user) {
+    throw new Error('useCurrentUser must be used within UserProvider');
+  }
+
   return user;
 }

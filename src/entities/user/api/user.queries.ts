@@ -38,6 +38,8 @@ export const USER_QUERY = graphql(`
         id
         first_name
         last_name
+        full_name
+        avatar
       }
     }
   }

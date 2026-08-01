@@ -1,4 +1,4 @@
-import type { CreateUserInput } from '@/shared/api/graphql/graphql';
+import type { CreateUserInput } from '@/entities/user';
 import { UserFormValues } from '@/shared/model/user-form.types';
 
 export function mapCreateUserInput(values: UserFormValues): CreateUserInput {

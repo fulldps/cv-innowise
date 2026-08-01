@@ -6,8 +6,8 @@ import { USERS_SORT_FIELDS, type UsersSort, type UsersSortField } from './sort';
 
 export function useUsersSort() {
   const [sort, setSort] = useState<UsersSort>({
-    field: USERS_SORT_FIELDS.department,
-    direction: 'asc',
+    field: USERS_SORT_FIELDS.firstName,
+    direction: 'desc',
   });
 
   const toggleSort = (field: UsersSortField) => {

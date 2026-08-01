@@ -12,17 +12,24 @@ import { DeleteUserDialog } from '@/features/users/delete-user';
 export function UsersList() {
   const {
     rows,
+    loading,
+    error,
+
     searchValue,
     setSearchValue,
-    showCreateButton,
+    
     sort,
     toggleSort,
+    
+    showCreateButton,
     isCreateOpen,
     setIsCreateOpen,
+
     isEditOpen,
     setIsEditOpen,
     editingUserId,
     setEditingUserId,
+
     isDeleteOpen,
     setIsDeleteOpen,
     deletingUserId,
@@ -43,6 +50,8 @@ export function UsersList() {
 
         <UsersTable
           rows={rows}
+          loading={loading}
+          error={error}
           sort={sort}
           onSortChange={toggleSort}
           onEdit={(userId) => {

@@ -2,11 +2,11 @@
 
 import { Controller, useFormState, type UseFormReturn } from 'react-hook-form';
 
-import { UserRole } from '@/entities/user';
 import { UserFormValues } from '../model/user-form.types';
 import { FloatingInput } from '@/shared/ui/floating-input';
 import { FloatingSelect } from './floating-select';
 import { FieldError } from './field-error';
+import { USER_ROLE_OPTIONS } from '@/entities/user';
 
 interface Option {
   id: string;
@@ -14,6 +14,7 @@ interface Option {
 }
 
 interface UserFormDisabled {
+  fields?: boolean;
   email?: boolean;
   password?: boolean;
   role?: boolean;
@@ -31,6 +32,7 @@ export function UserForm({
   departments,
   positions,
   disabled = {
+    fields: false,
     email: false,
     password: false,
     role: false,
@@ -39,17 +41,6 @@ export function UserForm({
   const { control } = form;
 
   const { errors } = useFormState({ control });
-
-  const roleOptions = [
-    {
-      id: UserRole.Employee,
-      name: 'Employee',
-    },
-    {
-      id: UserRole.Admin,
-      name: 'Admin',
-    },
-  ];
 
   return (
     <div className="grid grid-cols-2 gap-x-7 gap-y-1">
@@ -98,6 +89,7 @@ export function UserForm({
               autoFocus
               label="First Name"
               aria-invalid={!!errors.firstName}
+              disabled={disabled.fields}
             />
           )}
         />
@@ -110,7 +102,12 @@ export function UserForm({
           control={control}
           name="lastName"
           render={({ field }) => (
-            <FloatingInput {...field} label="Last Name" aria-invalid={!!errors.lastName} />
+            <FloatingInput
+              {...field}
+              label="Last Name"
+              aria-invalid={!!errors.lastName}
+              disabled={disabled.fields}
+            />
           )}
         />
 
@@ -128,6 +125,7 @@ export function UserForm({
               onValueChange={field.onChange}
               options={departments}
               aria-invalid={!!errors.departmentId}
+              disabled={disabled.fields}
             />
           )}
         />
@@ -146,6 +144,7 @@ export function UserForm({
               onValueChange={field.onChange}
               options={positions}
               aria-invalid={!!errors.positionId}
+              disabled={disabled.fields}
             />
           )}
         />
@@ -162,7 +161,7 @@ export function UserForm({
               label="Role"
               value={field.value}
               onValueChange={field.onChange}
-              options={roleOptions}
+              options={USER_ROLE_OPTIONS}
               disabled={disabled.role}
               aria-invalid={!!errors.role}
             />

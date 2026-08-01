@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useCurrentUser, UserListItem, UserRole, useUsersList } from '@/entities/user';
+import { USER_ROLE, useCurrentUser, UserListItem, useUsersList } from '@/entities/user';
 
 import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 
@@ -35,19 +35,21 @@ export function useUsersListPage() {
   const filteredUsers = !normalizedSearch
     ? users.data
     : users.data.filter((user) => {
-        const firstName = user.profile.first_name?.toLowerCase() ?? '';
-        const lastName = user.profile.last_name?.toLowerCase() ?? '';
-        const email = user.email.toLowerCase();
+        const fullName = user.profile.full_name?.toLowerCase() ?? '';
 
-        return (
-          firstName.includes(normalizedSearch) ||
-          lastName.includes(normalizedSearch) ||
-          email.includes(normalizedSearch)
-        );
+        return fullName.includes(normalizedSearch);
       });
 
   const sortValueGetters = {
+    [USERS_SORT_FIELDS.firstName]: (user: UserListItem) => user.profile.first_name ?? '',
+
+    [USERS_SORT_FIELDS.lastName]: (user: UserListItem) => user.profile.last_name ?? '',
+
+    [USERS_SORT_FIELDS.email]: (user: UserListItem) => user.email,
+
     [USERS_SORT_FIELDS.department]: (user: UserListItem) => user.department_name ?? '',
+
+    [USERS_SORT_FIELDS.position]: (user: UserListItem) => user.position_name ?? '',
   } satisfies Record<UsersSortField, (user: UserListItem) => string>;
 
   const sortedUsers = [...filteredUsers];
@@ -62,23 +64,33 @@ export function useUsersListPage() {
     });
   }
 
+  const currentUserIndex = sortedUsers.findIndex((user) => user.id === currentUser.id);
+
+  if (currentUserIndex > 0) {
+    const [user] = sortedUsers.splice(currentUserIndex, 1);
+
+    sortedUsers.unshift(user);
+  }
+
   const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
     user,
-    canEdit: currentUser.role === UserRole.Admin || currentUser.id === user.id,
-    canDelete: currentUser.role === UserRole.Admin && currentUser.id !== user.id,
+    canEdit: currentUser.role === USER_ROLE.Admin || currentUser.id === user.id,
+    canDelete: currentUser.role === USER_ROLE.Admin && currentUser.id !== user.id,
   }));
 
   return {
     rows,
 
+    loading: users.loading,
+    error: users.error,
+
     searchValue,
     setSearchValue,
-
-    showCreateButton: currentUser.role === UserRole.Admin,
 
     sort,
     toggleSort,
 
+    showCreateButton: currentUser.role === USER_ROLE.Admin,
     isCreateOpen,
     setIsCreateOpen,
 

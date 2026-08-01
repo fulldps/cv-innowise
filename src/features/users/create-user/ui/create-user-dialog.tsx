@@ -79,7 +79,17 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
           })}
           className="flex flex-col gap-2"
         >
-          <UserForm form={form} departments={departments} positions={positions} />
+          <UserForm
+            form={form}
+            departments={departments}
+            positions={positions}
+            disabled={{
+              fields: loading,
+              email: loading,
+              password: loading,
+              role: loading,
+            }}
+          />
 
           <DialogFooter className="flex justify-end gap-2">
             <Button
