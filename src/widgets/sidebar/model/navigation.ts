@@ -9,7 +9,7 @@ import {
   Users,
 } from 'lucide-react';
 
-import { UserRole } from '@/entities/user';
+import type { UserRole } from '@/entities/user';
 
 export interface NavigationItem {
   label: string;
@@ -81,6 +81,6 @@ export const adminNavigation: NavigationItem[] = [
 ];
 
 export const navigationByRole: Record<UserRole, NavigationItem[]> = {
-  [UserRole.Employee]: employeeNavigation,
-  [UserRole.Admin]: adminNavigation,
+  Employee: employeeNavigation,
+  Admin: adminNavigation,
 };

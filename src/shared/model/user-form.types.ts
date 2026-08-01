@@ -1,4 +1,4 @@
-import { UserRole } from "@/entities/user";
+import type { UserRole } from '@/entities/user';
 
 export interface UserFormValues {
   email: string;

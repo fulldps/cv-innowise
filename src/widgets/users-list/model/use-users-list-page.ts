@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useCurrentUser, UserListItem, UserRole, useUsersList } from '@/entities/user';
+import { USER_ROLE, useCurrentUser, UserListItem, useUsersList } from '@/entities/user';
 
 import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 
@@ -74,8 +74,8 @@ export function useUsersListPage() {
 
   const rows: UsersTableRowModel[] = sortedUsers.map((user) => ({
     user,
-    canEdit: currentUser.role === UserRole.Admin || currentUser.id === user.id,
-    canDelete: currentUser.role === UserRole.Admin && currentUser.id !== user.id,
+    canEdit: currentUser.role === USER_ROLE.Admin || currentUser.id === user.id,
+    canDelete: currentUser.role === USER_ROLE.Admin && currentUser.id !== user.id,
   }));
 
   return {
@@ -90,7 +90,7 @@ export function useUsersListPage() {
     sort,
     toggleSort,
 
-    showCreateButton: currentUser.role === UserRole.Admin,
+    showCreateButton: currentUser.role === USER_ROLE.Admin,
     isCreateOpen,
     setIsCreateOpen,
 

@@ -1,2 +1,2 @@
 export * from './types';
-export * from './user-list-item';
+export * from './user-role';

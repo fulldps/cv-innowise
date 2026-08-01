@@ -4,7 +4,7 @@ import { useForm, useFormState } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
-import { useCurrentUser, UserRole, useUser, useUserFormOptions } from '@/entities/user';
+import { useCurrentUser, useUser, useUserFormOptions } from '@/entities/user';
 
 import { Button } from '@/shared/ui/button';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/shared/ui/dialog';
@@ -41,7 +41,7 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
       lastName: '',
       departmentId: '',
       positionId: '',
-      role: UserRole.Employee,
+      role: 'Employee',
     },
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -77,7 +77,7 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
 
   const disabled = userLoading || updateLoading;
 
-  const canEditRole = currentUser.role === UserRole.Admin;
+  const canEditRole = currentUser.role === 'Admin';
 
   return (
     <Dialog

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import { UserProvider, UserRole, type User } from '@/entities/user';
+import { UserProvider, type UserRole, type CurrentUser } from '@/entities/user';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { Sidebar } from '@/widgets/sidebar';
 import { jwtDecode } from 'jwt-decode';
@@ -23,27 +23,10 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 
   const decoded = jwtDecode<JwtPayload>(tokenCookie.value);
   const { sub, email, role } = decoded;
-  const user: User = {
+  const user: CurrentUser = {
     id: sub,
     email,
     role: role as UserRole,
-    created_at: '',
-    is_verified: true,
-    profile: {
-      id: '',
-      created_at: '',
-      first_name: null,
-      last_name: null,
-      full_name: null,
-      avatar: null,
-      skills: [],
-      languages: [],
-    },
-    cvs: null,
-    department: null,
-    department_name: null,
-    position: null,
-    position_name: null,
   };
 
   return (

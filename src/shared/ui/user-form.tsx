@@ -2,11 +2,11 @@
 
 import { Controller, useFormState, type UseFormReturn } from 'react-hook-form';
 
-import { UserRole } from '@/entities/user';
 import { UserFormValues } from '../model/user-form.types';
 import { FloatingInput } from '@/shared/ui/floating-input';
 import { FloatingSelect } from './floating-select';
 import { FieldError } from './field-error';
+import { USER_ROLE_OPTIONS } from '@/entities/user';
 
 interface Option {
   id: string;
@@ -41,17 +41,6 @@ export function UserForm({
   const { control } = form;
 
   const { errors } = useFormState({ control });
-
-  const roleOptions = [
-    {
-      id: UserRole.Employee,
-      name: 'Employee',
-    },
-    {
-      id: UserRole.Admin,
-      name: 'Admin',
-    },
-  ];
 
   return (
     <div className="grid grid-cols-2 gap-x-7 gap-y-1">
@@ -172,7 +161,7 @@ export function UserForm({
               label="Role"
               value={field.value}
               onValueChange={field.onChange}
-              options={roleOptions}
+              options={USER_ROLE_OPTIONS}
               disabled={disabled.role}
               aria-invalid={!!errors.role}
             />

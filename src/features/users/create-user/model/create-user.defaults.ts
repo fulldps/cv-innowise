@@ -1,4 +1,3 @@
-import { UserRole } from '@/entities/user';
 import { UserFormValues } from '@/shared/model/user-form.types';
 
 export function getCreateUserDefaultValues(): UserFormValues {
@@ -9,6 +8,6 @@ export function getCreateUserDefaultValues(): UserFormValues {
     password: '',
     departmentId: '',
     positionId: '',
-    role: UserRole.Employee,
+    role: 'Employee',
   };
 }

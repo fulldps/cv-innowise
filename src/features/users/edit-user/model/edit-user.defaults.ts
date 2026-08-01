@@ -1,9 +1,6 @@
-import type { UserQuery } from '@/shared/api/graphql/graphql';
+import type { UpdateUserData } from '@/entities/user';
 
-import { UserRole } from '@/entities/user';
 import { UserFormValues } from '@/shared/model/user-form.types';
-
-type UpdateUserData = NonNullable<UserQuery['user']>;
 
 export function getEditUserDefaultValues(user: UpdateUserData): UserFormValues {
   return {
@@ -19,6 +16,6 @@ export function getEditUserDefaultValues(user: UpdateUserData): UserFormValues {
 
     positionId: user.position?.id ?? '',
 
-    role: user.role as UserRole,
+    role: user.role,
   };
 }

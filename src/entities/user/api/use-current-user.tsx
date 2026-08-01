@@ -1,10 +1,10 @@
 'use client';
 import { createContext, useContext } from 'react';
-import { User } from '../model';
+import type { CurrentUser } from '../model';
 
-const UserContext = createContext<User | null>(null);
+const UserContext = createContext<CurrentUser | null>(null);
 
-export function UserProvider({ user, children }: { user: User; children: React.ReactNode }) {
+export function UserProvider({ user, children }: { user: CurrentUser; children: React.ReactNode }) {
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 }
 
