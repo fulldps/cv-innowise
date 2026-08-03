@@ -18,7 +18,7 @@ const CvsDocument = graphql(`
   }
 `);
 
-export const useCvsList = () => {
+export function useCvsList() {
   const { loading, error, data } = useQuery(CvsDocument);
   return { cvs: data?.cvs ?? [], loading, error };
-};
+}

@@ -15,8 +15,10 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  */
 type Documents = {
     "\n  mutation CreateCv($cv: CreateCvInput!) {\n    createCv(cv: $cv) {\n      id\n      name\n      description\n    }\n  }\n": typeof types.CreateCvDocument,
+    "\n  query Cv($cvId: ID!) {\n    cv(cvId: $cvId) {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n      projects {\n        id\n        roles\n        responsibilities\n        project {\n          id\n          created_at\n          name\n          internal_name\n          domain\n          start_date\n          end_date\n          description\n          environment\n        }\n      }\n    }\n  }\n": typeof types.CvDocument,
     "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n    }\n  }\n": typeof types.CvsDocument,
     "\n  mutation DeleteCv($cv: DeleteCvInput!) {\n    deleteCv(cv: $cv) {\n      affected\n    }\n  }\n": typeof types.DeleteCvDocument,
+    "\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n": typeof types.UpdateCvDocument,
     "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n": typeof types.DepartmentsDocument,
     "\n  query Positions {\n    positions {\n      id\n      name\n    }\n  }\n": typeof types.PositionsDocument,
     "\n  mutation UpdateProfile($profile: UpdateProfileInput!) {\n    updateProfile(profile: $profile) {\n      id\n      first_name\n      last_name\n    }\n  }\n": typeof types.UpdateProfileDocument,
@@ -30,8 +32,10 @@ type Documents = {
 };
 const documents: Documents = {
     "\n  mutation CreateCv($cv: CreateCvInput!) {\n    createCv(cv: $cv) {\n      id\n      name\n      description\n    }\n  }\n": types.CreateCvDocument,
+    "\n  query Cv($cvId: ID!) {\n    cv(cvId: $cvId) {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n      projects {\n        id\n        roles\n        responsibilities\n        project {\n          id\n          created_at\n          name\n          internal_name\n          domain\n          start_date\n          end_date\n          description\n          environment\n        }\n      }\n    }\n  }\n": types.CvDocument,
     "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n    }\n  }\n": types.CvsDocument,
     "\n  mutation DeleteCv($cv: DeleteCvInput!) {\n    deleteCv(cv: $cv) {\n      affected\n    }\n  }\n": types.DeleteCvDocument,
+    "\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n": types.UpdateCvDocument,
     "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n": types.DepartmentsDocument,
     "\n  query Positions {\n    positions {\n      id\n      name\n    }\n  }\n": types.PositionsDocument,
     "\n  mutation UpdateProfile($profile: UpdateProfileInput!) {\n    updateProfile(profile: $profile) {\n      id\n      first_name\n      last_name\n    }\n  }\n": types.UpdateProfileDocument,
@@ -65,11 +69,19 @@ export function graphql(source: "\n  mutation CreateCv($cv: CreateCvInput!) {\n 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  query Cv($cvId: ID!) {\n    cv(cvId: $cvId) {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n      projects {\n        id\n        roles\n        responsibilities\n        project {\n          id\n          created_at\n          name\n          internal_name\n          domain\n          start_date\n          end_date\n          description\n          environment\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query Cv($cvId: ID!) {\n    cv(cvId: $cvId) {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n      projects {\n        id\n        roles\n        responsibilities\n        project {\n          id\n          created_at\n          name\n          internal_name\n          domain\n          start_date\n          end_date\n          description\n          environment\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n    }\n  }\n"): (typeof documents)["\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation DeleteCv($cv: DeleteCvInput!) {\n    deleteCv(cv: $cv) {\n      affected\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteCv($cv: DeleteCvInput!) {\n    deleteCv(cv: $cv) {\n      affected\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
