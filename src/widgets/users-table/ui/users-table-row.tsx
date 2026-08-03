@@ -1,28 +1,41 @@
 import Image from 'next/image';
-import { ChevronRight, EllipsisVertical } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 import { TableCell, TableRow } from '@/shared/ui/table';
 
-import type { UsersTableRowModel } from '../model/users-table-row';
+import type { UsersTableRowModel } from '../model/users-table-row-model';
+import { UserActionsMenu } from './user-actions-menu';
+import { getInitials } from '@/shared/lib/user/get-initials';
 
 interface UsersTableRowProps {
   row: UsersTableRowModel;
+  onOpenProfile(userId: string): void;
+  onEdit(userId: string): void;
+  onDelete?(userId: string, userFullName: string): void;
 }
 
-export function UsersTableRow({ row }: UsersTableRowProps) {
-  const { user, canManage } = row;
+export function UsersTableRow({ row, onOpenProfile, onEdit, onDelete }: UsersTableRowProps) {
+  const { user, canEdit } = row;
   const { profile } = user;
 
-  const initials =
-    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` ||
-    user.email[0].toUpperCase();
+  const initials = getInitials({
+    firstName: profile.first_name,
+    lastName: profile.last_name,
+    email: user.email,
+  });
+
+  const userFullName =
+    [profile.first_name, profile.last_name].filter(Boolean).join(' ') || 'Anonymous';
 
   const cellClassName = 'px-4 text-[15px] text-primary';
 
   return (
-    <TableRow className="h-15 border-border transition-colors hover:bg-accent/40">
+    <TableRow
+      onClick={() => onOpenProfile(user.id)}
+      className="h-15 cursor-pointer border-border transition-colors hover:bg-accent/40"
+    >
       {/* Avatar */}
-      <TableCell className="w-18 pl-3">
+      <TableCell className="pl-3">
         {profile.avatar ? (
           <Image
             src={profile.avatar}
@@ -54,10 +67,16 @@ export function UsersTableRow({ row }: UsersTableRowProps) {
       <TableCell className={cellClassName}>{user.position_name ?? '—'}</TableCell>
 
       {/* Actions */}
-      <TableCell className="w-16 pr-4">
-        <div className="flex justify-end">
-          {canManage ? (
-            <EllipsisVertical className="h-5 w-5 text-foreground" />
+      <TableCell className="pr-4">
+        <div onClick={(e) => e.stopPropagation()} className="flex justify-end">
+          {canEdit ? (
+            <UserActionsMenu
+              userId={user.id}
+              userFullName={userFullName}
+              canDelete={row.canDelete}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
           ) : (
             <ChevronRight className="h-5 w-5 text-muted-foreground" />
           )}

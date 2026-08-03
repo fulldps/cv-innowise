@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { EllipsisVertical } from 'lucide-react';
 
 import { useDeleteCv } from '@/entities/cv/api/use-delete-cv';
-import { useCurrentUser, UserRole } from '@/entities/user';
+import { useCurrentUser, USER_ROLE } from '@/entities/user';
 import { Button } from '@/shared/ui/button';
 import {
   Dialog,
@@ -32,7 +32,7 @@ export function DeleteCv({ cv }: DeleteCvProps) {
   const [deleteCv, { loading }] = useDeleteCv();
   const currentUser = useCurrentUser();
 
-  const canManage = cv.user?.id === currentUser.id || currentUser.role === UserRole.Admin;
+  const canManage = cv.user?.id === currentUser.id || currentUser.role === USER_ROLE.Admin;
 
   if (!canManage) return null;
 

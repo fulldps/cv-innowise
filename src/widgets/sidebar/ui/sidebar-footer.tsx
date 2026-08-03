@@ -1,6 +1,7 @@
 'use client';
 
 import { useCurrentUser } from '@/entities/user';
+import { getInitials } from '@/shared/lib/user/get-initials';
 import Image from 'next/image';
 
 interface SidebarFooterProps {
@@ -11,9 +12,11 @@ export function SidebarFooter({ collapsed }: SidebarFooterProps) {
   const currentUser = useCurrentUser();
   const { profile } = currentUser;
 
-  const initials =
-    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` ||
-    currentUser.email[0].toUpperCase();
+  const initials = getInitials({
+    firstName: profile.first_name,
+    lastName: profile.last_name,
+    email: currentUser.email,
+  });
 
   return (
     <div className="mt-auto pb-4 pl-2">
@@ -22,9 +25,9 @@ export function SidebarFooter({ collapsed }: SidebarFooterProps) {
           <Image
             src={profile.avatar}
             alt={profile.full_name ?? currentUser.email}
-            width={40}
-            height={40}
-            className="rounded-full object-cover"
+            width={36}
+            height={36}
+            className="size-9 shrink-0 rounded-full object-cover"
           />
         ) : (
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#bd2525] text-lg font-bold text-sidebar-primary-foreground">
