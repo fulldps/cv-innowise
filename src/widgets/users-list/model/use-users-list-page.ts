@@ -10,10 +10,17 @@ import type { UsersTableRowModel } from '@/widgets/users-table';
 
 import { useUsersSort } from './use-users-sort';
 import { USERS_SORT_FIELDS, UsersSortField } from './sort';
+import { useRouter } from 'next/navigation';
 
 export function useUsersListPage() {
   const users = useUsersList();
   const currentUser = useCurrentUser();
+
+  const router = useRouter();
+
+  const openProfile = (userId: string) => {
+    router.push(`/users/${userId}/profile`);
+  };
 
   const [isCreateOpen, setIsCreateOpen] = useState(false);
 
@@ -83,6 +90,8 @@ export function useUsersListPage() {
 
     loading: users.loading,
     error: users.error,
+
+    openProfile,
 
     searchValue,
     setSearchValue,

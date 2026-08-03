@@ -5,20 +5,24 @@ import { TableCell, TableRow } from '@/shared/ui/table';
 
 import type { UsersTableRowModel } from '../model/users-table-row-model';
 import { UserActionsMenu } from './user-actions-menu';
+import { getInitials } from '@/shared/lib/user/get-initials';
 
 interface UsersTableRowProps {
   row: UsersTableRowModel;
-
+  onOpenProfile(userId: string): void;
   onEdit(userId: string): void;
   onDelete?(userId: string, userFullName: string): void;
 }
 
-export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
+export function UsersTableRow({ row, onOpenProfile, onEdit, onDelete }: UsersTableRowProps) {
   const { user, canEdit } = row;
   const { profile } = user;
 
-  const initials =
-    `${profile.first_name?.[0] ?? profile.last_name?.[0] ?? ''}` || user.email[0].toUpperCase();
+  const initials = getInitials({
+    firstName: profile.first_name,
+    lastName: profile.last_name,
+    email: user.email,
+  });
 
   const userFullName =
     [profile.first_name, profile.last_name].filter(Boolean).join(' ') || 'Anonymous';
@@ -26,7 +30,10 @@ export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
   const cellClassName = 'px-4 text-[15px] text-primary';
 
   return (
-    <TableRow className="h-15 border-border transition-colors hover:bg-accent/40">
+    <TableRow
+      onClick={() => onOpenProfile(user.id)}
+      className="h-15 cursor-pointer border-border transition-colors hover:bg-accent/40"
+    >
       {/* Avatar */}
       <TableCell className="pl-3">
         {profile.avatar ? (
@@ -61,7 +68,7 @@ export function UsersTableRow({ row, onEdit, onDelete }: UsersTableRowProps) {
 
       {/* Actions */}
       <TableCell className="pr-4">
-        <div className="flex justify-end">
+        <div onClick={(e) => e.stopPropagation()} className="flex justify-end">
           {canEdit ? (
             <UserActionsMenu
               userId={user.id}

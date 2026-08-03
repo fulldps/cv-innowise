@@ -28,10 +28,12 @@ export const USER_QUERY = graphql(`
 
       department {
         id
+        name
       }
 
       position {
         id
+        name
       }
 
       profile {
@@ -40,6 +42,7 @@ export const USER_QUERY = graphql(`
         last_name
         full_name
         avatar
+        created_at
       }
     }
   }

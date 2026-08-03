@@ -1,0 +1,58 @@
+'use client';
+
+import { useState } from 'react';
+
+import { useCurrentUser, USER_ROLE, useUser } from '@/entities/user';
+
+import { ProfileAvatar } from './profile-avatar';
+import { ProfileInfo } from './profile-info';
+import { ProfileForm } from './profile-form';
+
+interface UserProfileProps {
+  userId: string;
+}
+
+export function UserProfile({ userId }: UserProfileProps) {
+  const { data, loading, error } = useUser(userId);
+
+  const [isBusy, setIsBusy] = useState(false);
+
+  const currentUser = useCurrentUser();
+
+  const isOwner = currentUser.id === userId;
+
+  const canEdit = isOwner || currentUser.role === USER_ROLE.Admin;
+
+  if (loading && !data?.user) return <div>Loading...</div>;
+
+  if (error) return <div>Error</div>;
+
+  if (!data?.user) {
+    if (loading) return <div>Loading...</div>;
+    return <div>User not found</div>;
+  }
+
+  return (
+    <section className="space-y-15">
+      <div className="flex flex-col items-center pt-10">
+        <ProfileAvatar
+          user={data.user}
+          canEdit={canEdit}
+          disabled={loading || isBusy}
+          setDisabled={setIsBusy}
+        />
+
+        <div className="mt-8">
+          <ProfileInfo user={data.user} />
+        </div>
+      </div>
+
+      <ProfileForm
+        user={data.user}
+        canEdit={canEdit}
+        disabled={loading || isBusy}
+        setDisabled={setIsBusy}
+      />
+    </section>
+  );
+}

@@ -16,6 +16,8 @@ interface UsersTableProps {
   sort: UsersSort;
   onSortChange(field: UsersSortField): void;
 
+  onOpenProfile(userId: string): void;
+
   onEdit(userId: string): void;
   onDelete?(userId: string, userFullName: string): void;
 }
@@ -26,6 +28,7 @@ export function UsersTable({
   error,
   sort,
   onSortChange,
+  onOpenProfile,
   onEdit,
   onDelete,
 }: UsersTableProps) {
@@ -65,7 +68,13 @@ export function UsersTable({
             </TableRow>
           ) : (
             rows.map((row) => (
-              <UsersTableRow key={row.user.id} row={row} onEdit={onEdit} onDelete={onDelete} />
+              <UsersTableRow
+                key={row.user.id}
+                row={row}
+                onOpenProfile={onOpenProfile}
+                onEdit={onEdit}
+                onDelete={onDelete}
+              />
             ))
           )}
         </TableBody>

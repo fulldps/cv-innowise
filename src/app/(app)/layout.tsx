@@ -5,6 +5,7 @@ import { getClient } from '@/shared/api/apollo/apollo-client';
 import { USER_QUERY, UserProvider } from '@/entities/user';
 import { Breadcrumbs } from '@/widgets/breadcrumbs';
 import { Sidebar } from '@/widgets/sidebar';
+
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -16,33 +17,30 @@ interface JwtPayload {
 }
 
 export default async function AppLayout({ children }: PropsWithChildren) {
-  const cookiesStore = await cookies();
-  const tokenCookie = cookiesStore.get('access_token');
+  const cookieStore = await cookies();
+  const tokenCookie = cookieStore.get('access_token');
 
   if (!tokenCookie?.value) {
-    redirect('/login');
+    redirect('/auth/login');
   }
 
-  const decoded = jwtDecode<JwtPayload>(tokenCookie.value);
-  const { sub } = decoded;
+  const { sub } = jwtDecode<JwtPayload>(tokenCookie.value);
 
   const client = getClient();
-
   const { data } = await client.query({
     query: USER_QUERY,
-    variables: {
-      userId: sub,
-    },
+    variables: { userId: sub },
   });
 
-  if (!data || !data.user) {
-    redirect('/login');
+  if (!data?.user) {
+    redirect('/auth/login');
   }
 
   return (
     <UserProvider user={data.user}>
       <div className="flex min-h-screen">
         <Sidebar />
+
         <main className="flex min-w-0 flex-1 bg-primary-foreground">
           <div className="flex w-full flex-col">
             <Breadcrumbs />

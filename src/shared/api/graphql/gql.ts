@@ -22,8 +22,10 @@ type Documents = {
     "\n  mutation CreateUser($user: CreateUserInput!) {\n    createUser(user: $user) {\n      id\n    }\n  }\n": typeof types.CreateUserDocument,
     "\n  mutation UpdateUser($user: UpdateUserInput!) {\n    updateUser(user: $user) {\n      id\n      department {\n        id\n      }\n      position {\n        id\n      }\n      role\n    }\n  }\n": typeof types.UpdateUserDocument,
     "\n  mutation DeleteUser($userId: ID!) {\n    deleteUser(userId: $userId) {\n      affected\n    }\n  }\n": typeof types.DeleteUserDocument,
+    "\n  mutation UploadAvatar($avatar: UploadAvatarInput!) {\n    uploadAvatar(avatar: $avatar)\n  }\n": typeof types.UploadAvatarDocument,
+    "\n  mutation DeleteAvatar($avatar: DeleteAvatarInput!) {\n    deleteAvatar(avatar: $avatar)\n  }\n": typeof types.DeleteAvatarDocument,
     "\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n": typeof types.UsersDocument,
-    "\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n      }\n\n      position {\n        id\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n": typeof types.UserDocument,
+    "\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n        name\n      }\n\n      position {\n        id\n        name\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n        created_at\n      }\n    }\n  }\n": typeof types.UserDocument,
 };
 const documents: Documents = {
     "\n  mutation CreateCv($cv: CreateCvInput!) {\n    createCv(cv: $cv) {\n      id\n      name\n      description\n    }\n  }\n": types.CreateCvDocument,
@@ -34,8 +36,10 @@ const documents: Documents = {
     "\n  mutation CreateUser($user: CreateUserInput!) {\n    createUser(user: $user) {\n      id\n    }\n  }\n": types.CreateUserDocument,
     "\n  mutation UpdateUser($user: UpdateUserInput!) {\n    updateUser(user: $user) {\n      id\n      department {\n        id\n      }\n      position {\n        id\n      }\n      role\n    }\n  }\n": types.UpdateUserDocument,
     "\n  mutation DeleteUser($userId: ID!) {\n    deleteUser(userId: $userId) {\n      affected\n    }\n  }\n": types.DeleteUserDocument,
+    "\n  mutation UploadAvatar($avatar: UploadAvatarInput!) {\n    uploadAvatar(avatar: $avatar)\n  }\n": types.UploadAvatarDocument,
+    "\n  mutation DeleteAvatar($avatar: DeleteAvatarInput!) {\n    deleteAvatar(avatar: $avatar)\n  }\n": types.DeleteAvatarDocument,
     "\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n": types.UsersDocument,
-    "\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n      }\n\n      position {\n        id\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n": types.UserDocument,
+    "\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n        name\n      }\n\n      position {\n        id\n        name\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n        created_at\n      }\n    }\n  }\n": types.UserDocument,
 };
 
 /**
@@ -87,11 +91,19 @@ export function graphql(source: "\n  mutation DeleteUser($userId: ID!) {\n    de
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  mutation UploadAvatar($avatar: UploadAvatarInput!) {\n    uploadAvatar(avatar: $avatar)\n  }\n"): (typeof documents)["\n  mutation UploadAvatar($avatar: UploadAvatarInput!) {\n    uploadAvatar(avatar: $avatar)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteAvatar($avatar: DeleteAvatarInput!) {\n    deleteAvatar(avatar: $avatar)\n  }\n"): (typeof documents)["\n  mutation DeleteAvatar($avatar: DeleteAvatarInput!) {\n    deleteAvatar(avatar: $avatar)\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      id\n      email\n      department_name\n      position_name\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n      }\n\n      position {\n        id\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n"): (typeof documents)["\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n      }\n\n      position {\n        id\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n        name\n      }\n\n      position {\n        id\n        name\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n        created_at\n      }\n    }\n  }\n"): (typeof documents)["\n  query User($userId: ID!) {\n    user(userId: $userId) {\n      id\n      email\n      role\n\n      department {\n        id\n        name\n      }\n\n      position {\n        id\n        name\n      }\n\n      profile {\n        id\n        first_name\n        last_name\n        full_name\n        avatar\n        created_at\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

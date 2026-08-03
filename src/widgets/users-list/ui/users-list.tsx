@@ -15,12 +15,14 @@ export function UsersList() {
     loading,
     error,
 
+    openProfile,
+
     searchValue,
     setSearchValue,
-    
+
     sort,
     toggleSort,
-    
+
     showCreateButton,
     isCreateOpen,
     setIsCreateOpen,
@@ -54,6 +56,7 @@ export function UsersList() {
           error={error}
           sort={sort}
           onSortChange={toggleSort}
+          onOpenProfile={openProfile}
           onEdit={(userId) => {
             setEditingUserId(userId);
             setIsEditOpen(true);
