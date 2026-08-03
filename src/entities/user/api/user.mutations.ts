@@ -30,3 +30,15 @@ export const DELETE_USER_MUTATION = graphql(`
     }
   }
 `);
+
+export const UPLOAD_AVATAR_MUTATION = graphql(`
+  mutation UploadAvatar($avatar: UploadAvatarInput!) {
+    uploadAvatar(avatar: $avatar)
+  }
+`);
+
+export const DELETE_AVATAR_MUTATION = graphql(`
+  mutation DeleteAvatar($avatar: DeleteAvatarInput!) {
+    deleteAvatar(avatar: $avatar)
+  }
+`);

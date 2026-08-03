@@ -46,7 +46,7 @@ export function FloatingInput({
       <label
         htmlFor={inputId}
         className={cn(
-          'pointer-events-none absolute left-1.5 rounded-none text-muted-foreground transition-all duration-200',
+          'pointer-events-none absolute left-1.5 rounded-none text-muted-foreground transition-all duration-200 peer-focus:text-destructive',
           floated
             ? '-top-2 z-10 bg-background px-1 text-[13px]'
             : 'top-1/2 -translate-y-1/2 px-1 text-base',

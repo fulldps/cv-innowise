@@ -1,6 +1,8 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
+import { AUTH_COOKIE_OPTIONS } from '@/shared/api/auth/cookie-options';
+
 export async function POST(req: Request) {
   const { email, password } = await req.json();
 
@@ -24,12 +26,8 @@ export async function POST(req: Request) {
   const { user, access_token, refresh_token } = body.data.login;
 
   const cookieStore = await cookies();
-  const options = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax' as const,
-    path: '/',
-  };
+  const options = AUTH_COOKIE_OPTIONS;
+
   cookieStore.set('access_token', access_token, options);
   cookieStore.set('refresh_token', refresh_token, options);
 

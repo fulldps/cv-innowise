@@ -51,7 +51,7 @@ export function FloatingSelect({
           onBlur={() => setFocused(false)}
           {...props}
         >
-          <SelectValue>{options.find((option) => option.id === value)?.name}</SelectValue>
+          <SelectValue>{options.find((option) => option.id === value)?.name ?? ''}</SelectValue>
         </SelectTrigger>
 
         <SelectContent>

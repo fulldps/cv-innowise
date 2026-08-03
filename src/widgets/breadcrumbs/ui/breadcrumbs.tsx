@@ -1,5 +1,11 @@
 'use client';
 
+import { Fragment } from 'react';
+import { User } from 'lucide-react';
+
+import { useBreadcrumbs } from '../model/use-breadcrumbs';
+import { useUser } from '@/entities/user';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,11 +15,10 @@ import {
   BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb';
 
-import { useBreadcrumbs } from '../model/use-breadcrumbs';
-import { Fragment } from 'react';
-
 export function Breadcrumbs() {
-  const breadcrumbs = useBreadcrumbs();
+  const { breadcrumbs, profileUserId } = useBreadcrumbs();
+
+  const { data } = useUser(profileUserId ?? undefined);
 
   if (breadcrumbs.length === 0) {
     return null;
@@ -27,6 +32,19 @@ export function Breadcrumbs() {
         {breadcrumbs.map((breadcrumb, index) => {
           const isLast = index === breadcrumbs.length - 1;
 
+          let label = breadcrumb.label;
+
+          if (profileUserId && isLast) {
+            const fullName = data?.user?.profile.full_name || data?.user?.email || '';
+
+            label = (
+              <span className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                {fullName}
+              </span>
+            );
+          }
+
           return (
             <Fragment key={breadcrumb.href}>
               <BreadcrumbItem>
@@ -34,11 +52,11 @@ export function Breadcrumbs() {
                   <BreadcrumbPage
                     className={hasNestedBreadcrumbs ? 'text-[#bd2525]' : 'text-muted-foreground'}
                   >
-                    {breadcrumb.label}
+                    {label}
                   </BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={breadcrumb.href!} className="text-foreground">
-                    {breadcrumb.label}
+                  <BreadcrumbLink href={breadcrumb.href} className="text-foreground">
+                    {label}
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
