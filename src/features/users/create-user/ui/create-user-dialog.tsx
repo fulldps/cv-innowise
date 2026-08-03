@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm, useFormState } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { useUserFormOptions } from '@/entities/user';
@@ -27,7 +27,7 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
   const { createUser, loading } = useCreateUser();
 
   const form = useForm<UserFormValues>({
-    resolver: zodResolver(createUserSchema),
+    resolver: standardSchemaResolver(createUserSchema),
 
     defaultValues: getCreateUserDefaultValues(),
 

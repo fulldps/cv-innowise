@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { Controller, useForm, useFormState } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { useUserFormOptions, type User } from '@/entities/user';
@@ -29,7 +29,7 @@ export function ProfileForm({ user, canEdit, disabled, setDisabled }: ProfileFor
   const { updateProfile, loading } = useUpdateProfile();
 
   const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+    resolver: standardSchemaResolver(profileFormSchema),
     defaultValues: getProfileDefaultValues(user),
     mode: 'onBlur',
     reValidateMode: 'onChange',
