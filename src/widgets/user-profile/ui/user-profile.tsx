@@ -7,6 +7,7 @@ import { useCurrentUser, USER_ROLE, useUser } from '@/entities/user';
 import { ProfileAvatar } from './profile-avatar';
 import { ProfileInfo } from './profile-info';
 import { ProfileForm } from './profile-form';
+import { UserProfileTabs } from '@/widgets/user-profile-tabs';
 
 interface UserProfileProps {
   userId: string;
@@ -33,8 +34,9 @@ export function UserProfile({ userId }: UserProfileProps) {
   }
 
   return (
-    <section className="space-y-15">
-      <div className="flex flex-col items-center pt-10">
+    <section className="space-y-5">
+      <UserProfileTabs userId={userId} />
+      <div className="flex flex-col items-center">
         <ProfileAvatar
           user={data.user}
           canEdit={canEdit}
@@ -47,12 +49,14 @@ export function UserProfile({ userId }: UserProfileProps) {
         </div>
       </div>
 
-      <ProfileForm
-        user={data.user}
-        canEdit={canEdit}
-        disabled={loading || isBusy}
-        setDisabled={setIsBusy}
-      />
+      <div className="mt-15">
+        <ProfileForm
+          user={data.user}
+          canEdit={canEdit}
+          disabled={loading || isBusy}
+          setDisabled={setIsBusy}
+        />
+      </div>
     </section>
   );
 }

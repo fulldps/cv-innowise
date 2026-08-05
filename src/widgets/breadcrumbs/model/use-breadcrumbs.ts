@@ -17,7 +17,11 @@ export function useBreadcrumbs() {
     };
   }
 
-  if (segments.length === 3 && segments[0] === 'users' && segments[2] === 'profile') {
+  const profilePages = ['profile', 'skills', 'languages'];
+
+  if (segments.length === 3 && segments[0] === 'users' && profilePages.includes(segments[2])) {
+    const currentPage = segments[2];
+
     return {
       breadcrumbs: [
         {
@@ -26,8 +30,16 @@ export function useBreadcrumbs() {
         },
         {
           label: null,
-          href: pathname,
+          href: `/users/${segments[1]}/profile`,
         },
+        ...(currentPage !== 'profile'
+          ? [
+              {
+                label: breadcrumbMap[currentPage],
+                href: pathname,
+              },
+            ]
+          : []),
       ],
       profileUserId: segments[1],
     };

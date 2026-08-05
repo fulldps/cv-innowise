@@ -33,8 +33,9 @@ export function Breadcrumbs() {
           const isLast = index === breadcrumbs.length - 1;
 
           let label = breadcrumb.label;
+          const isProfileBreadcrumb = profileUserId && breadcrumb.label === null;
 
-          if (profileUserId && isLast) {
+          if (isProfileBreadcrumb) {
             const fullName = data?.user?.profile.full_name || data?.user?.email || '';
 
             label = (
@@ -50,7 +51,7 @@ export function Breadcrumbs() {
               <BreadcrumbItem>
                 {isLast ? (
                   <BreadcrumbPage
-                    className={hasNestedBreadcrumbs ? 'text-[#bd2525]' : 'text-muted-foreground'}
+                    className={hasNestedBreadcrumbs ? 'text-destructive' : 'text-muted-foreground'}
                   >
                     {label}
                   </BreadcrumbPage>
