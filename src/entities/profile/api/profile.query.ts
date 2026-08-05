@@ -9,6 +9,10 @@ export const PROFILE_QUERY = graphql(`
         name
         mastery
       }
+      languages {
+        name
+        proficiency
+      }
     }
   }
 `);
