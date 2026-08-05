@@ -3,6 +3,7 @@
 import { useCurrentUser } from '@/entities/user';
 import { getInitials } from '@/shared/lib/user/get-initials';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface SidebarFooterProps {
   collapsed: boolean;
@@ -10,7 +11,7 @@ interface SidebarFooterProps {
 
 export function SidebarFooter({ collapsed }: SidebarFooterProps) {
   const currentUser = useCurrentUser();
-  const { profile } = currentUser;
+  const { profile, id } = currentUser;
 
   const initials = getInitials({
     firstName: profile.first_name,
@@ -18,22 +19,29 @@ export function SidebarFooter({ collapsed }: SidebarFooterProps) {
     email: currentUser.email,
   });
 
+  const profileUrl = `/users/${id}/profile`;
+
   return (
     <div className="mt-auto pb-4 pl-2">
       <div className="flex items-center gap-2">
-        {profile.avatar ? (
-          <Image
-            src={profile.avatar}
-            alt={profile.full_name ?? currentUser.email}
-            width={36}
-            height={36}
-            className="size-9 shrink-0 rounded-full object-cover"
-          />
-        ) : (
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#bd2525] text-lg font-bold text-sidebar-primary-foreground">
-            {initials}
-          </div>
-        )}
+        <Link
+          href={profileUrl}
+          className="block cursor-pointer transition-opacity hover:opacity-80"
+        >
+          {profile.avatar ? (
+            <Image
+              src={profile.avatar}
+              alt={profile.full_name ?? currentUser.email}
+              width={36}
+              height={36}
+              className="size-9 shrink-0 rounded-full object-cover"
+            />
+          ) : (
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#bd2525] text-lg font-bold text-sidebar-primary-foreground">
+              {initials}
+            </div>
+          )}
+        </Link>
 
         {!collapsed && (
           <div className="min-w-0">

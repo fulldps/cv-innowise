@@ -16,6 +16,9 @@ function makeClient() {
             skills: {
               merge: false,
             },
+            languages: {
+              merge: false,
+            },
           },
         },
       },

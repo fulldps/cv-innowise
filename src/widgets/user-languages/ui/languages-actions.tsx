@@ -5,29 +5,29 @@ import { Plus, Trash2 } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 
-interface SkillsActionsProps {
+interface LanguagesActionsProps {
   canManage: boolean;
 
   deleteMode: boolean;
 
   selectedCount: number;
 
-  onAddSkill: () => void;
+  onAddLanguage: () => void;
 
   onEnterDeleteMode: () => void;
   onCancelDeleteMode: () => void;
   onDelete: () => void;
 }
 
-export function SkillsActions({
+export function LanguagesActions({
   canManage,
   deleteMode,
   selectedCount,
-  onAddSkill,
+  onAddLanguage,
   onEnterDeleteMode,
   onCancelDeleteMode,
   onDelete,
-}: SkillsActionsProps) {
+}: LanguagesActionsProps) {
   if (!canManage) return null;
 
   return (
@@ -36,7 +36,7 @@ export function SkillsActions({
         <Button
           type="button"
           variant={deleteMode ? 'outline' : 'ghost'}
-          onClick={deleteMode ? onCancelDeleteMode : onAddSkill}
+          onClick={deleteMode ? onCancelDeleteMode : onAddLanguage}
           className={cn(
             'h-12 w-52 rounded-full uppercase tracking-wide',
             !deleteMode &&
@@ -45,7 +45,7 @@ export function SkillsActions({
         >
           {!deleteMode && <Plus className="size-5" />}
 
-          {deleteMode ? 'Cancel' : 'Add Skill'}
+          {deleteMode ? 'Cancel' : 'Add Language'}
         </Button>
 
         <Button
@@ -81,7 +81,7 @@ export function SkillsActions({
           ) : (
             <>
               <Trash2 className="size-5" />
-              <span>Remove Skills</span>
+              <span>Remove Languages</span>
             </>
           )}
         </Button>

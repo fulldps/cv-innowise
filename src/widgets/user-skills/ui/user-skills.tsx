@@ -58,7 +58,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
     closeAddDialog,
   } = useUserSkills();
 
-  const { deleteSkills, loading: deleteLoading } = useDeleteSkill(userId);
+  const { deleteSkills } = useDeleteSkill(userId);
 
   const groupedSkills =
     profileData?.profile && skillsData?.skills && categoriesData?.skillCategories
