@@ -1,17 +1,12 @@
 'use client';
 
-import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { Controller, useForm } from 'react-hook-form';
-import z from 'zod';
+import { Controller, type UseFormReturn } from 'react-hook-form';
 
-import { Button } from '@/shared/ui/button';
 import { FloatingSelect } from '@/shared/ui/floating-select';
 import { Input } from '@/shared/ui/input';
 import { Textarea } from '@/shared/ui/textarea';
 
-import { projectSchema } from '../model/schema';
-
-type ProjectFormValues = z.infer<typeof projectSchema>;
+import type { ProjectFormValues } from '../model/schema';
 
 interface ProjectOption {
   id: string;
@@ -19,31 +14,19 @@ interface ProjectOption {
 }
 
 interface ProjectFormProps {
-  defaultValues: ProjectFormValues;
-  submitLabel: string;
-  submitting?: boolean;
+  form: UseFormReturn<ProjectFormValues>;
   projects: ProjectOption[];
-  onSubmit: (values: ProjectFormValues) => void | Promise<void>;
+  disabled?: boolean;
 }
 
-export function ProjectForm({
-  defaultValues,
-  submitLabel,
-  submitting,
-  projects,
-  onSubmit,
-}: ProjectFormProps) {
+export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
   const {
     control,
-    handleSubmit,
     formState: { errors },
-  } = useForm<ProjectFormValues>({
-    resolver: standardSchemaResolver(projectSchema),
-    defaultValues,
-  });
+  } = form;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <Controller
           control={control}
@@ -54,6 +37,7 @@ export function ProjectForm({
               value={field.value}
               onValueChange={field.onChange}
               options={projects}
+              disabled={disabled}
               aria-invalid={!!errors.projectId}
             />
           )}
@@ -66,7 +50,7 @@ export function ProjectForm({
           <Controller
             control={control}
             name="start_date"
-            render={({ field }) => <Input {...field} type="date" />}
+            render={({ field }) => <Input {...field} type="date" disabled={disabled} />}
           />
           {errors.start_date && (
             <p className="text-sm text-[#c72f31]">{errors.start_date.message}</p>
@@ -76,7 +60,7 @@ export function ProjectForm({
           <Controller
             control={control}
             name="end_date"
-            render={({ field }) => <Input {...field} type="date" />}
+            render={({ field }) => <Input {...field} type="date" disabled={disabled} />}
           />
         </div>
       </div>
@@ -84,18 +68,18 @@ export function ProjectForm({
       <Controller
         control={control}
         name="responsibilities"
-        render={({ field }) => <Textarea {...field} placeholder="Responsibilities (one per line)" />}
+        render={({ field }) => (
+          <Textarea {...field} disabled={disabled} placeholder="Responsibilities (one per line)" />
+        )}
       />
 
       <Controller
         control={control}
         name="roles"
-        render={({ field }) => <Textarea {...field} placeholder="Roles (one per line)" />}
+        render={({ field }) => (
+          <Textarea {...field} disabled={disabled} placeholder="Roles (one per line)" />
+        )}
       />
-
-      <Button type="submit" disabled={submitting} className="bg-[#c72f31]">
-        {submitLabel}
-      </Button>
-    </form>
+    </div>
   );
 }

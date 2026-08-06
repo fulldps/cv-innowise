@@ -3,19 +3,12 @@
 import { useState } from 'react';
 
 import { EllipsisVertical } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { useDeleteCv } from '@/entities/cv/api/use-delete-cv';
-import { useCurrentUser, USER_ROLE } from '@/entities/user';
+import { USER_ROLE, useCurrentUser } from '@/entities/user';
 import { Button } from '@/shared/ui/button';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/shared/ui/dialog';
+import { ConfirmDeleteDialog } from '@/shared/ui/confirm-delete-dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,8 +30,14 @@ export function DeleteCv({ cv }: DeleteCvProps) {
   if (!canManage) return null;
 
   const handleDelete = async () => {
-    await deleteCv({ variables: { cv: { cvId: cv.id } } });
-    setConfirmOpen(false);
+    try {
+      await deleteCv({ variables: { cv: { cvId: cv.id } } });
+      toast.success('CV deleted successfully');
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to delete CV');
+      throw error;
+    }
   };
 
   return (
@@ -56,23 +55,14 @@ export function DeleteCv({ cv }: DeleteCvProps) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
-          <DialogHeader>
-            <DialogTitle>Delete CV</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete CV <b>{cv.name}</b>?
-            </DialogDescription>
-          </DialogHeader>
-
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline">Cancel</Button>} />
-            <Button variant="destructive" disabled={loading} onClick={handleDelete}>
-              Confirm
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmDeleteDialog
+        entityLabel="CV"
+        entityName={cv.name}
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        onDelete={handleDelete}
+        loading={loading}
+      />
     </>
   );
 }

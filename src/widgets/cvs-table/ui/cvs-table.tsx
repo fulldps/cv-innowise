@@ -2,116 +2,101 @@
 
 import { Fragment, useMemo, useState } from 'react';
 
-import { ArrowUp } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { useCvsList } from '@/entities/cv/api/use-cvs-list';
 import { CreateCv } from '@/features/cv/create-cv';
 import { DeleteCv } from '@/features/cv/delete-cv';
-import { Input } from '@/shared/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/ui/table';
-import { useRouter } from 'next/navigation';
+import { useDebounce } from '@/shared/lib/hooks/use-debounce';
+import { useSort } from '@/shared/lib/hooks/use-sort';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
+import type { DataTableColumn } from '@/shared/ui/data-table/types';
+import { TableCell, TableRow } from '@/shared/ui/table';
+import { TableToolbar } from '@/shared/ui/table-toolbar';
 
-type SortKey = 'name' | 'user';
+type CvsSortField = 'name' | 'user';
+
+const columns: readonly DataTableColumn<CvsSortField>[] = [
+  { key: 'name', label: 'Name', sortable: 'name', className: 'w-[30%] max-lg:w-[48%]' },
+  { key: 'education', label: 'Education', className: 'w-[25%] max-lg:hidden' },
+  { key: 'user', label: 'Employee', sortable: 'user', className: 'w-[35%] max-lg:w-[42%]' },
+  { key: 'actions', label: '', className: 'w-16' },
+];
 
 export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] }) {
-  const [search, setSearch] = useState('');
-  const [sort, setSort] = useState<{ key: SortKey; dir: 'asc' | 'desc' }>({
-    key: 'name',
-    dir: 'asc',
-  });
-
   const router = useRouter();
 
+  const [search, setSearch] = useState('');
+  const [createOpen, setCreateOpen] = useState(false);
+
+  const { sort, toggleSort } = useSort<CvsSortField>('name');
+
+  const normalizedSearch = useDebounce(search, 600).trim().toLowerCase();
+
   const sorted = useMemo(() => {
-    const s = search.toLowerCase();
     const filtered = cvs.filter(
-      (cv) => cv.name.toLowerCase().includes(s) || cv.description.toLowerCase().includes(s),
+      (cv) =>
+        cv.name.toLowerCase().includes(normalizedSearch) ||
+        cv.description.toLowerCase().includes(normalizedSearch),
     );
+
     return [...filtered].sort((a, b) => {
-      const av = sort.key === 'name' ? a.name : (a.user?.email ?? '');
-      const bv = sort.key === 'name' ? b.name : (b.user?.email ?? '');
-      return sort.dir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+      const av = sort.field === 'name' ? a.name : (a.user?.email ?? '');
+      const bv = sort.field === 'name' ? b.name : (b.user?.email ?? '');
+      const result = av.localeCompare(bv);
+
+      return sort.direction === 'asc' ? result : -result;
     });
-  }, [cvs, sort, search]);
-
-  const handleSort = (key: SortKey) => {
-    setSort((prev) => ({
-      key,
-      dir: prev.key === key && prev.dir === 'asc' ? 'desc' : 'asc',
-    }));
-  };
-
-  const renderSortableHead = (key: SortKey, label: string) => (
-    <button
-      type="button"
-      onClick={() => handleSort(key)}
-      className="flex items-center gap-1 font-medium"
-    >
-      {label}
-      {sort.key === key && (
-        <ArrowUp
-          size={14}
-          className={
-            sort.dir === 'desc' ? 'rotate-180 transition-transform' : 'transition-transform'
-          }
-        />
-      )}
-    </button>
-  );
+  }, [cvs, sort, normalizedSearch]);
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <div className="flex items-center justify-between gap-4">
-        <Input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search"
-          className="max-w-sm"
-        />
-        <CreateCv />
-      </div>
+    <div className="flex flex-col gap-2">
+      <TableToolbar
+        searchValue={search}
+        onSearchChange={setSearch}
+        showAction
+        actionText="CREATE CV"
+        onActionClick={() => setCreateOpen(true)}
+      />
 
-      <Table className="table-fixed">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[30%] max-lg:w-[48%]">
-              {renderSortableHead('name', 'Name')}
-            </TableHead>
-            <TableHead className="w-[25%] max-lg:hidden">Education</TableHead>
-            <TableHead className="w-[35%] max-lg:w-[42%]">
-              {renderSortableHead('user', 'Employee')}
-            </TableHead>
-            <TableHead className="w-16" />
-          </TableRow>
-        </TableHeader>
+      <DataTable>
+        <DataTableHeader columns={columns} sort={sort} onSortChange={toggleSort} />
 
-        <TableBody>
+        <DataTableState
+          loading={false}
+          error={null}
+          isEmpty={sorted.length === 0}
+          columnsCount={columns.length}
+          emptyText="No CVs found."
+        >
           {sorted.map((cv) => (
             <Fragment key={cv.id}>
-              <TableRow className="border-b-0" onClick={() => router.push(`/cvs/${cv.id}/details`)}>
-                <TableCell className="truncate font-medium">{cv.name}</TableCell>
-                <TableCell className="truncate max-lg:hidden">{cv.education ?? '—'}</TableCell>
-                <TableCell className="truncate">{cv.user?.email ?? '—'}</TableCell>
-                <TableCell
-                  className="text-right"
-                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                >
+              <TableRow
+                className="cursor-pointer border-b-0"
+                onClick={() => router.push(`/cvs/${cv.id}/details`)}
+              >
+                <TableCell className="truncate px-4 font-medium">{cv.name}</TableCell>
+                <TableCell className="truncate px-4 max-lg:hidden">{cv.education ?? '—'}</TableCell>
+                <TableCell className="truncate px-4">{cv.user?.email ?? '—'}</TableCell>
+                <TableCell className="px-4 text-right" onClick={(e) => e.stopPropagation()}>
                   <DeleteCv cv={cv} />
                 </TableCell>
               </TableRow>
 
               <TableRow>
                 <TableCell
-                  colSpan={4}
-                  className="whitespace-normal pt-0 text-sm text-muted-foreground"
+                  colSpan={columns.length}
+                  className="px-4 pt-0 text-sm whitespace-normal text-muted-foreground"
                 >
                   {cv.description}
                 </TableCell>
               </TableRow>
             </Fragment>
           ))}
-        </TableBody>
-      </Table>
+        </DataTableState>
+      </DataTable>
+
+      <CreateCv open={createOpen} onOpenChange={setCreateOpen} />
     </div>
   );
 }

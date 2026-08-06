@@ -1,54 +1,63 @@
 'use client';
 
-import { useState } from 'react';
-
-import { Plus } from 'lucide-react';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { useForm, useFormState } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { useCreateCv } from '@/entities/cv/api/use-create-cv';
+import { cvSchema, type CvFormValues } from '@/entities/cv/model/schema';
 import { CvForm } from '@/entities/cv/ui/cv-form';
 import { useCurrentUser } from '@/entities/user';
-import { Button } from '@/shared/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/shared/ui/dialog';
+import { EntityDialog } from '@/shared/ui/entity-dialog';
 
-export function CreateCv() {
-  const [open, setOpen] = useState(false);
+const defaultValues: CvFormValues = { name: '', description: '', education: '' };
+
+interface CreateCvProps {
+  open: boolean;
+  onOpenChange(open: boolean): void;
+}
+
+export function CreateCv({ open, onOpenChange }: CreateCvProps) {
   const currentUser = useCurrentUser();
   const [createCv, { loading }] = useCreateCv();
 
+  const form = useForm<CvFormValues>({
+    resolver: standardSchemaResolver(cvSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
+
+  const { isValid } = useFormState({ control: form.control });
+
+  const handleClose = () => {
+    form.reset(defaultValues);
+    onOpenChange(false);
+  };
+
+  const onSubmit = async (values: CvFormValues) => {
+    try {
+      await createCv({ variables: { cv: { ...values, userId: currentUser.id } } });
+      toast.success('CV created successfully');
+      handleClose();
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to create CV');
+    }
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
-        render={
-          <Button className="bg-[#c72f31] max-lg:size-10 max-lg:rounded-full max-lg:bg-[#c72f31]/10 max-lg:p-0 max-lg:text-[#c72f31]">
-            <Plus className="size-4 lg:hidden" />
-            <span className="max-lg:hidden">Create CV</span>
-          </Button>
-        }
-      />
-      <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
-        <DialogHeader>
-          <DialogTitle>Create CV</DialogTitle>
-        </DialogHeader>
-        <CvForm
-          defaultValues={{ name: '', description: '', education: '' }}
-          submitLabel="Create"
-          submitting={loading}
-          onSubmit={async (values) => {
-            try {
-              await createCv({ variables: { cv: { ...values, userId: currentUser.id } } });
-              setOpen(false);
-            } catch (e) {
-              console.error(e);
-            }
-          }}
-        />
-      </DialogContent>
-    </Dialog>
+    <EntityDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Create CV"
+      submitText="Create"
+      loadingText="Creating..."
+      loading={loading}
+      submitDisabled={!isValid}
+      onSubmit={form.handleSubmit(onSubmit)}
+      onCancel={handleClose}
+    >
+      <CvForm form={form} disabled={loading} />
+    </EntityDialog>
   );
 }
