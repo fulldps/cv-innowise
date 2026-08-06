@@ -3,7 +3,7 @@
 import { CreateUserDialog } from '@/features/users/create-user';
 
 import { UsersTable } from '@/widgets/users-table';
-import { UsersToolbar } from '@/widgets/users-toolbar';
+import { TableToolbar } from '@/shared/ui/table-toolbar';
 
 import { useUsersListPage } from '../model/use-users-list-page';
 import { EditUserDialog } from '@/features/users/edit-user';
@@ -43,11 +43,12 @@ export function UsersList() {
   return (
     <>
       <div className="flex flex-col gap-2 bg-primary-foreground">
-        <UsersToolbar
+        <TableToolbar
           searchValue={searchValue}
           onSearchChange={setSearchValue}
-          canCreateUser={showCreateButton}
-          onCreateUser={() => setIsCreateOpen(true)}
+          showAction={showCreateButton}
+          actionText="CREATE USER"
+          onActionClick={() => setIsCreateOpen(true)}
         />
 
         <UsersTable

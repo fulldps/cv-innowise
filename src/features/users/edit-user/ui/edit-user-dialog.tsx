@@ -1,25 +1,30 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useForm, useFormState } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { useCurrentUser, useUser, useUserFormOptions } from '@/entities/user';
 
-import { Button } from '@/shared/ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/shared/ui/dialog';
+import { EntityDialog } from '@/shared/ui/entity-dialog';
 
 import { UserForm } from '@/shared/ui/user-form';
 
 import { useEditUser } from '../api/use-edit-user';
+
 import { editUserSchema } from '../model/edit-user.schema';
+
 import { getEditUserDefaultValues } from '../model/edit-user.defaults';
-import { UserFormValues } from '@/shared/model/user-form.types';
-import { useEffect } from 'react';
+
+import type { UserFormValues } from '@/shared/model/user-form.types';
 
 interface EditUserDialogProps {
   userId: string | null;
+
   open: boolean;
+
   onOpenChange(open: boolean): void;
 }
 
@@ -34,26 +39,32 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
 
   const form = useForm<UserFormValues>({
     resolver: standardSchemaResolver(editUserSchema),
+
     defaultValues: {
-      email: '',
-      password: '',
       firstName: '',
       lastName: '',
+      email: '',
+      password: '',
       departmentId: '',
       positionId: '',
       role: 'Employee',
     },
+
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });
 
   useEffect(() => {
-    if (!data?.user) return;
-
-    form.reset(getEditUserDefaultValues(data.user));
+    if (data?.user) {
+      form.reset(getEditUserDefaultValues(data.user));
+    }
   }, [data?.user, form]);
 
-  const { isDirty } = useFormState({ control: form.control });
+  const { isDirty } = useFormState({
+    control: form.control,
+  });
+
+  const disabled = userLoading || updateLoading;
 
   const handleClose = () => {
     onOpenChange(false);
@@ -75,66 +86,43 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
     }
   };
 
-  const disabled = userLoading || updateLoading;
-
   const canEditRole = currentUser.role === 'Admin';
 
   return (
-    <Dialog
+    <EntityDialog
       open={open}
-      onOpenChange={(nextOpen) => {
-        if (!nextOpen) {
-          handleClose();
-          return;
-        }
+      onOpenChange={onOpenChange}
 
-        onOpenChange(true);
-      }}
+      title="Update user"
+
+      submitText="Update"
+      loadingText="Updating..."
+
+      loading={disabled}
+      submitDisabled={!isDirty}
+
+      onSubmit={form.handleSubmit(onSubmit)}
+
+      onCancel={handleClose}
+
+      maxWidth="max-w-4xl"
     >
-      <DialogContent className="max-w-4xl rounded-sm px-6 pb-2 pt-4">
-        <DialogHeader className="mb-3">
-          <DialogTitle className="text-[20px] font-semibold">Update user</DialogTitle>
-        </DialogHeader>
+      <UserForm
+        form={form}
 
-        <form
-          onSubmit={form.handleSubmit(onSubmit, async () => {
-            await form.trigger();
-          })}
-          className="flex flex-col gap-2"
-        >
-          <UserForm
-            form={form}
-            departments={departments}
-            positions={positions}
-            disabled={{
-              fields: disabled,
-              email: true,
-              password: true,
-              role: disabled || !canEditRole,
-            }}
-          />
+        departments={departments}
+        positions={positions}
 
-          <DialogFooter className="flex justify-end gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              disabled={disabled}
-              onClick={handleClose}
-              className="h-12 w-52 rounded-full uppercase tracking-wide"
-            >
-              Cancel
-            </Button>
+        disabled={{
+          fields: disabled,
 
-            <Button
-              type="submit"
-              disabled={disabled || !isDirty}
-              className="h-12 w-52 rounded-full uppercase tracking-wide"
-            >
-              {updateLoading ? 'Updating...' : 'Update'}
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+          email: true,
+
+          password: true,
+
+          role: disabled || !canEditRole,
+        }}
+      />
+    </EntityDialog>
   );
 }

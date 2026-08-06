@@ -17,6 +17,8 @@ interface SkillsActionsProps {
   onEnterDeleteMode: () => void;
   onCancelDeleteMode: () => void;
   onDelete: () => void;
+
+  disabled?: boolean;
 }
 
 export function SkillsActions({
@@ -27,6 +29,7 @@ export function SkillsActions({
   onEnterDeleteMode,
   onCancelDeleteMode,
   onDelete,
+  disabled = false,
 }: SkillsActionsProps) {
   if (!canManage) return null;
 
@@ -37,6 +40,7 @@ export function SkillsActions({
           type="button"
           variant={deleteMode ? 'outline' : 'ghost'}
           onClick={deleteMode ? onCancelDeleteMode : onAddSkill}
+          disabled={deleteMode ? disabled : false}
           className={cn(
             'h-12 w-52 rounded-full uppercase tracking-wide',
             !deleteMode &&
@@ -47,11 +51,10 @@ export function SkillsActions({
 
           {deleteMode ? 'Cancel' : 'Add Skill'}
         </Button>
-
         <Button
           type="button"
           variant={deleteMode ? 'default' : 'ghost'}
-          disabled={deleteMode && selectedCount === 0}
+          disabled={(deleteMode && selectedCount === 0) || disabled}
           onClick={deleteMode ? onDelete : onEnterDeleteMode}
           className={cn(
             'h-12 w-52 rounded-full uppercase tracking-wide',

@@ -35,3 +35,43 @@ export const DELETE_PROFILE_SKILL_MUTATION = graphql(`
     }
   }
 `);
+
+export const CREATE_SKILL_MUTATION = graphql(`
+  mutation CreateSkill($skill: CreateSkillInput!) {
+    createSkill(skill: $skill) {
+      id
+      created_at
+      name
+
+      category {
+        id
+        name
+        order
+      }
+    }
+  }
+`);
+
+export const UPDATE_SKILL_MUTATION = graphql(`
+  mutation UpdateSkill($skill: UpdateSkillInput!) {
+    updateSkill(skill: $skill) {
+      id
+      created_at
+      name
+
+      category {
+        id
+        name
+        order
+      }
+    }
+  }
+`);
+
+export const DELETE_SKILL_MUTATION = graphql(`
+  mutation DeleteSkill($skill: DeleteSkillInput!) {
+    deleteSkill(skill: $skill) {
+      affected
+    }
+  }
+`);

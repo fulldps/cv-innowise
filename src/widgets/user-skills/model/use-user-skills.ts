@@ -2,27 +2,27 @@
 
 import { useState } from 'react';
 
-import type { EditingSkill } from '@/features/users/edit-skill';
+import type { EditingUserSkill } from '@/features/users/edit-user-skill';
 
 export function useUserSkills() {
   const [deleteMode, setDeleteMode] = useState(false);
 
   const [selectedSkills, setSelectedSkills] = useState<Set<string>>(new Set());
 
-  const [editingSkill, setEditingSkill] = useState<EditingSkill | null>(null);
+  const [editingUserSkill, setEditingUserSkill] = useState<EditingUserSkill | null>(null);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const [addDialogOpen, setAddDialogOpen] = useState(false);
 
-  const openEditDialog = (skill: EditingSkill) => {
-    setEditingSkill(skill);
+  const openEditDialog = (skill: EditingUserSkill) => {
+    setEditingUserSkill(skill);
     setEditDialogOpen(true);
   };
 
   const closeEditDialog = () => {
     setEditDialogOpen(false);
-    setEditingSkill(null);
+    setEditingUserSkill(null);
   };
 
   const openAddDialog = () => {
@@ -65,7 +65,7 @@ export function useUserSkills() {
 
     toggleSkillSelection,
 
-    editingSkill,
+    editingUserSkill,
     editDialogOpen,
     openEditDialog,
     closeEditDialog,

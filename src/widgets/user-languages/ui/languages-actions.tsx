@@ -17,6 +17,8 @@ interface LanguagesActionsProps {
   onEnterDeleteMode: () => void;
   onCancelDeleteMode: () => void;
   onDelete: () => void;
+
+  disabled?: boolean;
 }
 
 export function LanguagesActions({
@@ -27,6 +29,7 @@ export function LanguagesActions({
   onEnterDeleteMode,
   onCancelDeleteMode,
   onDelete,
+  disabled = false,
 }: LanguagesActionsProps) {
   if (!canManage) return null;
 
@@ -37,6 +40,7 @@ export function LanguagesActions({
           type="button"
           variant={deleteMode ? 'outline' : 'ghost'}
           onClick={deleteMode ? onCancelDeleteMode : onAddLanguage}
+          disabled={deleteMode ? disabled : false}
           className={cn(
             'h-12 w-52 rounded-full uppercase tracking-wide',
             !deleteMode &&
@@ -51,7 +55,7 @@ export function LanguagesActions({
         <Button
           type="button"
           variant={deleteMode ? 'default' : 'ghost'}
-          disabled={deleteMode && selectedCount === 0}
+          disabled={(deleteMode && selectedCount === 0) || disabled}
           onClick={deleteMode ? onDelete : onEnterDeleteMode}
           className={cn(
             'h-12 w-52 rounded-full uppercase tracking-wide',
