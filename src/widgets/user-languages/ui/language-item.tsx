@@ -1,10 +1,10 @@
 import { cn } from '@/shared/lib/utils';
 
-import { EditingLanguage } from '@/features/users/edit-language';
+import { EditingUserLanguage } from '@/features/users/edit-user-language';
 import { PROFICIENCY_CONFIG } from '../model/proficiency-config';
 
 interface LanguageItemProps {
-  language: EditingLanguage;
+  language: EditingUserLanguage;
 
   selectable?: boolean;
   selected?: boolean;

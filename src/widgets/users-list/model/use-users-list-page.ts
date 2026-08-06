@@ -8,8 +8,8 @@ import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 
 import type { UsersTableRowModel } from '@/widgets/users-table';
 
-import { useUsersSort } from './use-users-sort';
-import { USERS_SORT_FIELDS, UsersSortField } from './sort';
+import { useSort } from '@/shared/lib/hooks/use-sort';
+import { USERS_SORT_FIELDS, UsersSortField } from './users-sort-fields';
 import { useRouter } from 'next/navigation';
 
 export function useUsersListPage() {
@@ -37,7 +37,7 @@ export function useUsersListPage() {
 
   const normalizedSearch = debouncedSearch.trim().toLowerCase();
 
-  const { sort, toggleSort } = useUsersSort();
+  const { sort, toggleSort } = useSort(USERS_SORT_FIELDS.firstName, 'desc');
 
   const filteredUsers = !normalizedSearch
     ? users.data

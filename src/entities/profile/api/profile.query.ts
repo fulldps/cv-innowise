@@ -7,6 +7,7 @@ export const PROFILE_QUERY = graphql(`
 
       skills {
         name
+        categoryId
         mastery
       }
       languages {

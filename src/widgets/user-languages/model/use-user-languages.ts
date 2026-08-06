@@ -2,27 +2,27 @@
 
 import { useState } from 'react';
 
-import type { EditingLanguage } from '@/features/users/edit-language';
+import type { EditingUserLanguage } from '@/features/users/edit-user-language';
 
 export function useUserLanguages() {
   const [deleteMode, setDeleteMode] = useState(false);
 
   const [selectedLanguages, setSelectedLanguages] = useState<Set<string>>(new Set());
 
-  const [editingLanguage, setEditingLanguage] = useState<EditingLanguage | null>(null);
+  const [editingUserLanguage, setEditingUserLanguage] = useState<EditingUserLanguage | null>(null);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const [addDialogOpen, setAddDialogOpen] = useState(false);
 
-  const openEditDialog = (language: EditingLanguage) => {
-    setEditingLanguage(language);
+  const openEditDialog = (language: EditingUserLanguage) => {
+    setEditingUserLanguage(language);
     setEditDialogOpen(true);
   };
 
   const closeEditDialog = () => {
     setEditDialogOpen(false);
-    setEditingLanguage(null);
+    setEditingUserLanguage(null);
   };
 
   const openAddDialog = () => {
@@ -65,7 +65,7 @@ export function useUserLanguages() {
 
     toggleLanguageSelection,
 
-    editingLanguage,
+    editingUserLanguage,
     editDialogOpen,
     openEditDialog,
     closeEditDialog,

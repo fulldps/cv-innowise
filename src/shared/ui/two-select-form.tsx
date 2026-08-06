@@ -28,6 +28,8 @@ interface SelectFieldsFormProps<T extends FieldValues> {
   secondLabel: string;
   secondOptions: Option[];
   secondDisabled?: boolean;
+
+  disabled?: boolean;
 }
 
 export function SelectFieldsForm<T extends FieldValues>({
@@ -42,6 +44,8 @@ export function SelectFieldsForm<T extends FieldValues>({
   secondLabel,
   secondOptions,
   secondDisabled = false,
+
+  disabled = false,
 }: SelectFieldsFormProps<T>) {
   const { control } = form;
 
@@ -61,7 +65,7 @@ export function SelectFieldsForm<T extends FieldValues>({
               value={field.value}
               onValueChange={field.onChange}
               options={firstOptions}
-              disabled={firstDisabled}
+              disabled={firstDisabled || disabled}
               aria-invalid={!!errors[firstField]}
             />
           )}
@@ -80,7 +84,7 @@ export function SelectFieldsForm<T extends FieldValues>({
               value={field.value}
               onValueChange={field.onChange}
               options={secondOptions}
-              disabled={secondDisabled}
+              disabled={secondDisabled || disabled}
               aria-invalid={!!errors[secondField]}
             />
           )}

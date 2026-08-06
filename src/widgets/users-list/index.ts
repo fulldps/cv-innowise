@@ -1,2 +1,2 @@
 export { UsersList } from './ui/users-list';
-export * from './model/sort';
+export { USERS_SORT_FIELDS, type UsersSortField } from './model/users-sort-fields';
