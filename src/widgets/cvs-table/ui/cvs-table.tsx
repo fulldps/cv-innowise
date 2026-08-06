@@ -9,6 +9,7 @@ import { CreateCv } from '@/features/cv/create-cv';
 import { DeleteCv } from '@/features/cv/delete-cv';
 import { Input } from '@/shared/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/ui/table';
+import { useRouter } from 'next/navigation';
 
 type SortKey = 'name' | 'user';
 
@@ -18,6 +19,8 @@ export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] })
     key: 'name',
     dir: 'asc',
   });
+
+  const router = useRouter();
 
   const sorted = useMemo(() => {
     const s = search.toLowerCase();
@@ -48,7 +51,9 @@ export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] })
       {sort.key === key && (
         <ArrowUp
           size={14}
-          className={sort.dir === 'desc' ? 'rotate-180 transition-transform' : 'transition-transform'}
+          className={
+            sort.dir === 'desc' ? 'rotate-180 transition-transform' : 'transition-transform'
+          }
         />
       )}
     </button>
@@ -79,11 +84,14 @@ export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] })
         <TableBody>
           {sorted.map((cv) => (
             <Fragment key={cv.id}>
-              <TableRow className="border-b-0">
+              <TableRow className="border-b-0" onClick={() => router.push(`/cvs/${cv.id}/details`)}>
                 <TableCell className="truncate font-medium">{cv.name}</TableCell>
                 <TableCell className="truncate">{cv.education ?? '—'}</TableCell>
                 <TableCell className="truncate">{cv.user?.email ?? '—'}</TableCell>
-                <TableCell className="text-right">
+                <TableCell
+                  className="text-right"
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                >
                   <DeleteCv cv={cv} />
                 </TableCell>
               </TableRow>
