@@ -13,6 +13,10 @@ const Cv = graphql(`
       user {
         id
         email
+        position_name
+        profile {
+          full_name
+        }
       }
       projects {
         id
@@ -28,6 +32,15 @@ const Cv = graphql(`
         project {
           id
         }
+      }
+      languages {
+        name
+        proficiency
+      }
+      skills {
+        name
+        categoryId
+        mastery
       }
     }
   }
