@@ -17,7 +17,7 @@ export default function CvsLayout({ children }: Readonly<{ children: React.React
 
   return (
     <div className="flex flex-col gap-8">
-      <nav className="flex gap-4">
+      <nav className="flex gap-4 border-b">
         {tabs.map((tab) => {
           const href = `/cvs/${id}/${tab.segment}`;
           const isActive = pathname.startsWith(href);
@@ -25,7 +25,10 @@ export default function CvsLayout({ children }: Readonly<{ children: React.React
             <Link
               key={tab.segment}
               href={href}
-              className={cn('py-3', 'px-11', isActive && 'text-[#c72f31]')}
+              className={cn(
+                '-mb-px border-b-2 border-transparent px-11 py-3 max-lg:px-4',
+                isActive && 'border-[#c72f31] text-[#c72f31]',
+              )}
             >
               {tab.label}
             </Link>

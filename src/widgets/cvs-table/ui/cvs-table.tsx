@@ -74,9 +74,13 @@ export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] })
       <Table className="table-fixed">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[30%]">{renderSortableHead('name', 'Name')}</TableHead>
-            <TableHead className="w-[25%]">Education</TableHead>
-            <TableHead className="w-[35%]">{renderSortableHead('user', 'Employee')}</TableHead>
+            <TableHead className="w-[30%] max-lg:w-[48%]">
+              {renderSortableHead('name', 'Name')}
+            </TableHead>
+            <TableHead className="w-[25%] max-lg:hidden">Education</TableHead>
+            <TableHead className="w-[35%] max-lg:w-[42%]">
+              {renderSortableHead('user', 'Employee')}
+            </TableHead>
             <TableHead className="w-16" />
           </TableRow>
         </TableHeader>
@@ -86,7 +90,7 @@ export function CvsTable({ cvs }: { cvs: ReturnType<typeof useCvsList>['cvs'] })
             <Fragment key={cv.id}>
               <TableRow className="border-b-0" onClick={() => router.push(`/cvs/${cv.id}/details`)}>
                 <TableCell className="truncate font-medium">{cv.name}</TableCell>
-                <TableCell className="truncate">{cv.education ?? '—'}</TableCell>
+                <TableCell className="truncate max-lg:hidden">{cv.education ?? '—'}</TableCell>
                 <TableCell className="truncate">{cv.user?.email ?? '—'}</TableCell>
                 <TableCell
                   className="text-right"

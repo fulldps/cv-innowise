@@ -55,7 +55,7 @@ export default function Page() {
       <Table className="table-fixed">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[30%]">
+            <TableHead className="w-[30%] max-lg:w-[52%]">
               <button
                 type="button"
                 onClick={() => setSortDir((dir) => (dir === 'asc' ? 'desc' : 'asc'))}
@@ -68,9 +68,9 @@ export default function Page() {
                 />
               </button>
             </TableHead>
-            <TableHead className="w-[22%]">Domain</TableHead>
-            <TableHead className="w-[18%]">Start Date</TableHead>
-            <TableHead className="w-[18%]">End Date</TableHead>
+            <TableHead className="w-[22%] max-lg:w-[38%]">Domain</TableHead>
+            <TableHead className="w-[18%] max-lg:hidden">Start Date</TableHead>
+            <TableHead className="w-[18%] max-lg:hidden">End Date</TableHead>
             <TableHead className="w-12" />
           </TableRow>
         </TableHeader>
@@ -81,8 +81,10 @@ export default function Page() {
               <TableRow className="border-b-0">
                 <TableCell className="truncate font-medium">{project.name}</TableCell>
                 <TableCell className="truncate">{project.domain}</TableCell>
-                <TableCell className="truncate">{project.start_date}</TableCell>
-                <TableCell className="truncate">{project.end_date ?? 'Till now'}</TableCell>
+                <TableCell className="truncate max-lg:hidden">{project.start_date}</TableCell>
+                <TableCell className="truncate max-lg:hidden">
+                  {project.end_date ?? 'Till now'}
+                </TableCell>
                 <TableCell className="text-right">
                   <RemoveProject
                     cvId={id}

@@ -57,7 +57,7 @@ export function RemoveProject({ cvId, projectId, name }: RemoveProjectProps) {
       </DropdownMenu>
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
           <DialogHeader>
             <DialogTitle>Remove project</DialogTitle>
             <DialogDescription>
