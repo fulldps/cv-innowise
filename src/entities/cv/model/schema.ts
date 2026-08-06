@@ -5,3 +5,5 @@ export const cvSchema = z.object({
   description: z.string().min(1, 'Description is required'),
   education: z.string().optional(),
 });
+
+export type CvFormValues = z.infer<typeof cvSchema>;

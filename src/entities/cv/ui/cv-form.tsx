@@ -1,33 +1,25 @@
 'use client';
 
-import { Button } from '@/shared/ui/button';
+import { Controller, type UseFormReturn } from 'react-hook-form';
+
 import { Input } from '@/shared/ui/input';
 import { Textarea } from '@/shared/ui/textarea';
-import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { Controller, useForm } from 'react-hook-form';
-import z from 'zod';
-import { cvSchema } from '../model/schema';
 
-type CvFormValues = z.infer<typeof cvSchema>;
+import type { CvFormValues } from '../model/schema';
 
 interface CvFormProps {
-  defaultValues: CvFormValues;
-  submitLabel: string;
-  submitting?: boolean;
-  onSubmit: (values: CvFormValues) => void | Promise<void>;
+  form: UseFormReturn<CvFormValues>;
+  disabled?: boolean;
 }
-export function CvForm({ onSubmit, submitLabel, submitting, defaultValues }: CvFormProps) {
+
+export function CvForm({ form, disabled }: CvFormProps) {
   const {
     control,
-    handleSubmit,
     formState: { errors },
-  } = useForm<CvFormValues>({
-    resolver: standardSchemaResolver(cvSchema),
-    defaultValues: defaultValues,
-  });
+  } = form;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col">
         <label htmlFor="name" className="text-xs">
           Name
@@ -35,20 +27,28 @@ export function CvForm({ onSubmit, submitLabel, submitting, defaultValues }: CvF
         <Controller
           control={control}
           name="name"
-          render={({ field }) => <Input className="h-12" id="name" {...field} placeholder="Name" />}
+          render={({ field }) => (
+            <Input className="h-12" id="name" disabled={disabled} {...field} placeholder="Name" />
+          )}
         />
         {errors.name && <p className="text-sm text-[#c72f31]">{errors.name.message}</p>}
       </div>
 
       <div className="flex flex-col">
-        <label htmlFor="Education" className="text-xs">
+        <label htmlFor="education" className="text-xs">
           Education
         </label>
         <Controller
           control={control}
           name="education"
           render={({ field }) => (
-            <Input className="h-12" id="education" {...field} placeholder="Education" />
+            <Input
+              className="h-12"
+              id="education"
+              disabled={disabled}
+              {...field}
+              placeholder="Education"
+            />
           )}
         />
       </div>
@@ -63,6 +63,7 @@ export function CvForm({ onSubmit, submitLabel, submitting, defaultValues }: CvF
           render={({ field }) => (
             <Textarea
               id="description"
+              disabled={disabled}
               {...field}
               className="h-40 pb-28"
               placeholder="Description"
@@ -73,16 +74,6 @@ export function CvForm({ onSubmit, submitLabel, submitting, defaultValues }: CvF
           <p className="text-sm text-[#c72f31]">{errors.description.message}</p>
         )}
       </div>
-
-      {errors.root && <p className="text-sm text-[#c72f31]">{errors.root.message}</p>}
-
-      <Button
-        type="submit"
-        disabled={submitting}
-        className="w-100 h-12 rounded-4xl self-end  bg-[#c72f31]"
-      >
-        {submitLabel}
-      </Button>
-    </form>
+    </div>
   );
 }

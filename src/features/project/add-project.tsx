@@ -1,20 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-
-import { Plus } from 'lucide-react';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { useForm, useFormState } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { useAddCvProject } from '@/entities/project/api/use-add-cv-project';
 import { useProjectsList } from '@/entities/project/api/use-projects-list';
+import { projectSchema, type ProjectFormValues } from '@/entities/project/model/schema';
 import { ProjectForm } from '@/entities/project/ui/project-form';
-import { Button } from '@/shared/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/shared/ui/dialog';
+import { EntityDialog } from '@/shared/ui/entity-dialog';
+
+const defaultValues: ProjectFormValues = {
+  projectId: '',
+  start_date: '',
+  end_date: '',
+  roles: '',
+  responsibilities: '',
+};
 
 const toLines = (value?: string) =>
   value
@@ -24,60 +26,64 @@ const toLines = (value?: string) =>
         .filter(Boolean)
     : [];
 
-export function AddProject({ cvId }: { cvId: string }) {
-  const [open, setOpen] = useState(false);
+interface AddProjectProps {
+  cvId: string;
+  open: boolean;
+  onOpenChange(open: boolean): void;
+}
+
+export function AddProject({ cvId, open, onOpenChange }: AddProjectProps) {
   const { projects } = useProjectsList();
   const [addCvProject, { loading }] = useAddCvProject();
 
+  const form = useForm<ProjectFormValues>({
+    resolver: standardSchemaResolver(projectSchema),
+    defaultValues,
+    mode: 'onChange',
+  });
+
+  const { isValid } = useFormState({ control: form.control });
+
+  const handleClose = () => {
+    form.reset(defaultValues);
+    onOpenChange(false);
+  };
+
+  const onSubmit = async (values: ProjectFormValues) => {
+    try {
+      await addCvProject({
+        variables: {
+          project: {
+            cvId,
+            projectId: values.projectId,
+            start_date: values.start_date,
+            end_date: values.end_date || null,
+            roles: toLines(values.roles),
+            responsibilities: toLines(values.responsibilities),
+          },
+        },
+      });
+      toast.success('Project added successfully');
+      handleClose();
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to add project');
+    }
+  };
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
-        render={
-          <Button
-            variant="ghost"
-            className="gap-1.5 text-[#c72f31] hover:text-[#c72f31] max-lg:size-10 max-lg:rounded-full max-lg:bg-[#c72f31]/10 max-lg:p-0"
-          >
-            <Plus className="size-4" />
-            <span className="max-lg:hidden">ADD PROJECT</span>
-          </Button>
-        }
-      />
-      <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
-        <DialogHeader>
-          <DialogTitle>Add project</DialogTitle>
-        </DialogHeader>
-        <ProjectForm
-          projects={projects}
-          defaultValues={{
-            projectId: '',
-            start_date: '',
-            end_date: '',
-            roles: '',
-            responsibilities: '',
-          }}
-          submitLabel="Add"
-          submitting={loading}
-          onSubmit={async (values) => {
-            try {
-              await addCvProject({
-                variables: {
-                  project: {
-                    cvId,
-                    projectId: values.projectId,
-                    start_date: values.start_date,
-                    end_date: values.end_date || null,
-                    roles: toLines(values.roles),
-                    responsibilities: toLines(values.responsibilities),
-                  },
-                },
-              });
-              setOpen(false);
-            } catch (e) {
-              console.error(e);
-            }
-          }}
-        />
-      </DialogContent>
-    </Dialog>
+    <EntityDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Add project"
+      submitText="Add"
+      loadingText="Adding..."
+      loading={loading}
+      submitDisabled={!isValid}
+      onSubmit={form.handleSubmit(onSubmit)}
+      onCancel={handleClose}
+    >
+      <ProjectForm form={form} projects={projects} disabled={loading} />
+    </EntityDialog>
   );
 }

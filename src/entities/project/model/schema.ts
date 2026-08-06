@@ -7,3 +7,5 @@ export const projectSchema = z.object({
   roles: z.string().optional(),
   responsibilities: z.string().optional(),
 });
+
+export type ProjectFormValues = z.infer<typeof projectSchema>;

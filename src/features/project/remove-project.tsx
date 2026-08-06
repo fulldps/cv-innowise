@@ -3,18 +3,11 @@
 import { useState } from 'react';
 
 import { EllipsisVertical } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { useRemoveCvProject } from '@/entities/project/api/use-remove-cv-project';
 import { Button } from '@/shared/ui/button';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/shared/ui/dialog';
+import { ConfirmDeleteDialog } from '@/shared/ui/confirm-delete-dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,9 +28,11 @@ export function RemoveProject({ cvId, projectId, name }: RemoveProjectProps) {
   const handleRemove = async () => {
     try {
       await removeCvProject({ variables: { project: { cvId, projectId } } });
-      setConfirmOpen(false);
-    } catch (e) {
-      console.error(e);
+      toast.success('Project removed successfully');
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to remove project');
+      throw error;
     }
   };
 
@@ -56,23 +51,14 @@ export function RemoveProject({ cvId, projectId, name }: RemoveProjectProps) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
-          <DialogHeader>
-            <DialogTitle>Remove project</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to remove project <b>{name}</b>?
-            </DialogDescription>
-          </DialogHeader>
-
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline">Cancel</Button>} />
-            <Button variant="destructive" disabled={loading} onClick={handleRemove}>
-              Confirm
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <ConfirmDeleteDialog
+        entityLabel="project"
+        entityName={name}
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        onDelete={handleRemove}
+        loading={loading}
+      />
     </>
   );
 }
