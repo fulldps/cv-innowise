@@ -16,7 +16,7 @@ export function SidebarCollapseButton({ collapsed, onToggle }: SidebarCollapseBu
         type="button"
         aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         onClick={onToggle}
-        className="flex h-8 w-8 items-center justify-center rounded-md text-sidebar-foreground transition-colors hover:bg-sidebar-accent"
+        className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-sidebar-foreground transition-colors hover:bg-sidebar-accent"
       >
         <ChevronLeft
           strokeWidth={2.3}

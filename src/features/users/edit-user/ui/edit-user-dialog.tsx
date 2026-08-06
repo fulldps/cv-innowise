@@ -1,7 +1,7 @@
 'use client';
 
 import { useForm, useFormState } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { useCurrentUser, useUser, useUserFormOptions } from '@/entities/user';
@@ -33,7 +33,7 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
   const currentUser = useCurrentUser();
 
   const form = useForm<UserFormValues>({
-    resolver: zodResolver(editUserSchema),
+    resolver: standardSchemaResolver(editUserSchema),
     defaultValues: {
       email: '',
       password: '',

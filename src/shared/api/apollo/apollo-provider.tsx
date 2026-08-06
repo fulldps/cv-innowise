@@ -9,7 +9,20 @@ import {
 
 function makeClient() {
   return new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Profile: {
+          fields: {
+            skills: {
+              merge: false,
+            },
+            languages: {
+              merge: false,
+            },
+          },
+        },
+      },
+    }),
     link: new HttpLink({ uri: '/api/graphql' }),
   });
 }

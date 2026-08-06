@@ -1,6 +1,7 @@
 import { useApolloClient, useMutation } from '@apollo/client/react';
 
-import { UPDATE_USER_MUTATION, UPDATE_PROFILE_MUTATION, USERS_QUERY } from '@/entities/user';
+import { UPDATE_USER_MUTATION, USERS_QUERY } from '@/entities/user';
+import { UPDATE_PROFILE_MUTATION } from '@/entities/profile';
 
 import { mapUpdateUserInput } from '../model/edit-user.mapper';
 import { mapUpdateProfileInput } from '../model/edit-profile.mapper';
