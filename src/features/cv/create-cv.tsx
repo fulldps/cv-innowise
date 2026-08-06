@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { Plus } from 'lucide-react';
+
 import { useCreateCv } from '@/entities/cv/api/use-create-cv';
 import { CvForm } from '@/entities/cv/ui/cv-form';
 import { useCurrentUser } from '@/entities/user';
@@ -21,8 +23,15 @@ export function CreateCv() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button className="bg-[#c72f31]">Create CV</Button>} />
-      <DialogContent>
+      <DialogTrigger
+        render={
+          <Button className="bg-[#c72f31] max-lg:size-10 max-lg:rounded-full max-lg:bg-[#c72f31]/10 max-lg:p-0 max-lg:text-[#c72f31]">
+            <Plus className="size-4 lg:hidden" />
+            <span className="max-lg:hidden">Create CV</span>
+          </Button>
+        }
+      />
+      <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
         <DialogHeader>
           <DialogTitle>Create CV</DialogTitle>
         </DialogHeader>

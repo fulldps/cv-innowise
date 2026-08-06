@@ -33,13 +33,16 @@ export function AddProject({ cvId }: { cvId: string }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
-          <Button variant="ghost" className="gap-1.5 text-[#c72f31] hover:text-[#c72f31]">
+          <Button
+            variant="ghost"
+            className="gap-1.5 text-[#c72f31] hover:text-[#c72f31] max-lg:size-10 max-lg:rounded-full max-lg:bg-[#c72f31]/10 max-lg:p-0"
+          >
             <Plus className="size-4" />
-            ADD PROJECT
+            <span className="max-lg:hidden">ADD PROJECT</span>
           </Button>
         }
       />
-      <DialogContent>
+      <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
         <DialogHeader>
           <DialogTitle>Add project</DialogTitle>
         </DialogHeader>

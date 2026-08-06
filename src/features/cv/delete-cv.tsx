@@ -57,7 +57,7 @@ export function DeleteCv({ cv }: DeleteCvProps) {
       </DropdownMenu>
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-xl rounded-sm px-6 pt-4 pb-2">
           <DialogHeader>
             <DialogTitle>Delete CV</DialogTitle>
             <DialogDescription>

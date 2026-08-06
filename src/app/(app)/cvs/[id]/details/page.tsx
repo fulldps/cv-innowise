@@ -14,7 +14,7 @@ export default function Page() {
   if (!cv) return null;
 
   return (
-    <div className="flex flex-col px-40 justify-center">
+    <div className="flex flex-col justify-center px-40 max-lg:px-4">
       <UpdateCv cv={cv} />
     </div>
   );
