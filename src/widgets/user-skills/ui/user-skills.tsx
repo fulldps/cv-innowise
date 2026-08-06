@@ -14,9 +14,9 @@ import { UserProfileTabs } from '@/widgets/user-profile-tabs';
 import { SkillsCategorySection } from './skills-category-section';
 import { SkillItem } from './skill-item';
 import { SkillsActions } from './skills-actions';
-import { AddSkillDialog } from '@/features/users/add-skill';
-import { EditingSkill, EditSkillDialog } from '@/features/users/edit-skill';
-import { useDeleteSkill } from '@/features/users/delete-skill';
+import { AddUserSkillDialog } from '@/features/users/add-user-skill';
+import { EditingUserSkill, EditUserSkillDialog } from '@/features/users/edit-user-skill';
+import { useDeleteUserSkill } from '@/features/users/delete-user-skill';
 
 interface UserSkillsProps {
   userId: string;
@@ -48,7 +48,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
 
     toggleSkillSelection,
 
-    editingSkill,
+    editingUserSkill,
     editDialogOpen,
     openEditDialog,
     closeEditDialog,
@@ -58,7 +58,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
     closeAddDialog,
   } = useUserSkills();
 
-  const { deleteSkills } = useDeleteSkill(userId);
+  const { deleteUserSkills, loading: deleteUserSkillsLoading } = useDeleteUserSkill(userId);
 
   const groupedSkills =
     profileData?.profile && skillsData?.skills && categoriesData?.skillCategories
@@ -83,7 +83,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
     if (selectedSkillNames.length === 0) return;
 
     try {
-      await deleteSkills(selectedSkillNames);
+      await deleteUserSkills(selectedSkillNames);
 
       cancelDeleteMode();
 
@@ -95,7 +95,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
     }
   };
 
-  const handleSkillClick = (skill: EditingSkill) => {
+  const handleSkillClick = (skill: EditingUserSkill) => {
     if (deleteMode) {
       toggleSkillSelection(skill.id);
       return;
@@ -142,10 +142,11 @@ export function UserSkills({ userId }: UserSkillsProps) {
           onEnterDeleteMode={enterDeleteMode}
           onCancelDeleteMode={cancelDeleteMode}
           onDelete={handleDelete}
+          disabled={deleteUserSkillsLoading}
         />
       </div>
 
-      <AddSkillDialog
+      <AddUserSkillDialog
         open={addDialogOpen}
         onOpenChange={(open) => {
           if (open) {
@@ -157,7 +158,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
         userId={userId}
         availableSkills={availableSkills}
       />
-      <EditSkillDialog
+      <EditUserSkillDialog
         open={editDialogOpen}
         onOpenChange={(open) => {
           if (open) return;
@@ -165,7 +166,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
           closeEditDialog();
         }}
         userId={userId}
-        editingSkill={editingSkill}
+        editingUserSkill={editingUserSkill}
       />
     </section>
   );

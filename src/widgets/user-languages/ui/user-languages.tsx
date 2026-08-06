@@ -12,9 +12,9 @@ import { UserProfileTabs } from '@/widgets/user-profile-tabs';
 import { LanguageItem } from './language-item';
 import { LanguagesActions } from './languages-actions';
 
-import { AddLanguageDialog } from '@/features/users/add-language';
-import { EditLanguageDialog, EditingLanguage } from '@/features/users/edit-language';
-import { useDeleteLanguage } from '@/features/users/delete-language';
+import { AddUserLanguageDialog } from '@/features/users/add-user-language';
+import { EditUserLanguageDialog, EditingUserLanguage } from '@/features/users/edit-user-language';
+import { useDeleteUserLanguage } from '@/features/users/delete-user-language';
 
 interface UserLanguagesProps {
   userId: string;
@@ -40,7 +40,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
 
     toggleLanguageSelection,
 
-    editingLanguage,
+    editingUserLanguage,
     editDialogOpen,
     openEditDialog,
     closeEditDialog,
@@ -50,7 +50,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
     closeAddDialog,
   } = useUserLanguages();
 
-  const { deleteLanguages } = useDeleteLanguage(userId);
+  const { deleteUserLanguages, loading: deleteUserLanguagesLoading } = useDeleteUserLanguage(userId);
 
   if (profileLoading || languagesLoading) {
     return <div>Loading...</div>;
@@ -81,7 +81,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
     if (selectedLanguageNames.length === 0) return;
 
     try {
-      await deleteLanguages(selectedLanguageNames);
+      await deleteUserLanguages(selectedLanguageNames);
 
       cancelDeleteMode();
 
@@ -93,7 +93,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
     }
   };
 
-  const handleLanguageClick = (language: EditingLanguage) => {
+  const handleLanguageClick = (language: EditingUserLanguage) => {
     if (deleteMode) {
       toggleLanguageSelection(language.name);
       return;
@@ -127,10 +127,11 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
           onEnterDeleteMode={enterDeleteMode}
           onCancelDeleteMode={cancelDeleteMode}
           onDelete={handleDelete}
+          disabled={deleteUserLanguagesLoading}
         />
       </div>
 
-      <AddLanguageDialog
+      <AddUserLanguageDialog
         open={addDialogOpen}
         onOpenChange={(open) => {
           if (open) {
@@ -143,7 +144,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
         availableLanguages={availableLanguages}
       />
 
-      <EditLanguageDialog
+      <EditUserLanguageDialog
         open={editDialogOpen}
         onOpenChange={(open) => {
           if (open) return;
@@ -151,7 +152,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
           closeEditDialog();
         }}
         userId={userId}
-        editingLanguage={editingLanguage}
+        editingUserLanguage={editingUserLanguage}
       />
     </section>
   );

@@ -12,6 +12,8 @@ export const SKILLS_QUERY = graphql(`
         name
         order
       }
+
+      category_parent_name
     }
   }
 `);

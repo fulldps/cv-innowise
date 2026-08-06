@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 
-import { TableCell, TableRow } from '@/shared/ui/table';
-
 import type { UsersTableRowModel } from '../model/users-table-row-model';
-import { UserActionsMenu } from './user-actions-menu';
+
+import { TableCell, TableRow } from '@/shared/ui/table';
+import { ActionsMenu } from '@/shared/ui/data-table/actions-menu';
 import { getInitials } from '@/shared/lib/user/get-initials';
 
 interface UsersTableRowProps {
@@ -70,12 +70,10 @@ export function UsersTableRow({ row, onOpenProfile, onEdit, onDelete }: UsersTab
       <TableCell className="pr-4">
         <div onClick={(e) => e.stopPropagation()} className="flex justify-end">
           {canEdit ? (
-            <UserActionsMenu
-              userId={user.id}
-              userFullName={userFullName}
+            <ActionsMenu
               canDelete={row.canDelete}
-              onEdit={onEdit}
-              onDelete={onDelete}
+              onEdit={() => onEdit(user.id)}
+              onDelete={() => onDelete?.(user.id, userFullName)}
             />
           ) : (
             <ChevronRight className="h-5 w-5 text-muted-foreground" />
