@@ -103,7 +103,7 @@ export function EditUserSkillDialog({
         firstDisabled
         firstOptions={[
           {
-            id: editingUserSkill?.id ?? '',
+            id: editingUserSkill?.name ?? '',
             name: editingUserSkill?.name ?? '',
           },
         ]}

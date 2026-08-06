@@ -64,7 +64,6 @@ export function UserSkills({ userId }: UserSkillsProps) {
     profileData?.profile && skillsData?.skills && categoriesData?.skillCategories
       ? buildGroupedSkills({
           profile: profileData.profile,
-          skills: skillsData.skills,
           categories: categoriesData.skillCategories,
         })
       : [];
@@ -76,7 +75,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
 
   const selectedSkillNames = groupedSkills
     .flatMap((category) => category.skills)
-    .filter((skill) => selectedSkills.has(skill.id))
+    .filter((skill) => selectedSkills.has(skill.name))
     .map((skill) => skill.name);
 
   const handleDelete = async () => {
@@ -97,7 +96,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
 
   const handleSkillClick = (skill: EditingUserSkill) => {
     if (deleteMode) {
-      toggleSkillSelection(skill.id);
+      toggleSkillSelection(skill.name);
       return;
     }
 
@@ -125,10 +124,10 @@ export function UserSkills({ userId }: UserSkillsProps) {
           <SkillsCategorySection key={category.id} title={category.name}>
             {category.skills.map((skill) => (
               <SkillItem
-                key={skill.id}
+                key={skill.name}
                 skill={skill}
                 selectable={deleteMode}
-                selected={selectedSkills.has(skill.id)}
+                selected={selectedSkills.has(skill.name)}
                 onClick={canManage ? () => handleSkillClick(skill) : undefined}
               />
             ))}

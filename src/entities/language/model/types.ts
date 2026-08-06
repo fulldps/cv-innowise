@@ -5,4 +5,7 @@ export type {
   AddProfileLanguageInput,
   UpdateProfileLanguageInput,
   DeleteProfileLanguageInput,
+  CreateLanguageInput,
+  UpdateLanguageInput,
+  DeleteLanguageInput,
 } from '@/shared/api/graphql/graphql';
