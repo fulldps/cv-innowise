@@ -5,6 +5,8 @@ export const LANGUAGES_QUERY = graphql(`
     languages {
       id
       name
+      native_name
+      iso2
     }
   }
 `);

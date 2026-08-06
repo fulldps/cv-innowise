@@ -1,5 +1,7 @@
-import type { Mastery, Skill } from '@/entities/skill';
+import type { Mastery } from '@/entities/skill';
 
-export interface EditingUserSkill extends Skill {
+export interface EditingUserSkill {
+  name: string;
+  categoryId: string | null;
   mastery: Mastery;
 }

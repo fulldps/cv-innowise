@@ -6,6 +6,7 @@ export const ADD_PROFILE_SKILL_MUTATION = graphql(`
       id
       skills {
         name
+        categoryId
         mastery
       }
     }
@@ -18,6 +19,7 @@ export const UPDATE_PROFILE_SKILL_MUTATION = graphql(`
       id
       skills {
         name
+        categoryId
         mastery
       }
     }
@@ -30,6 +32,7 @@ export const DELETE_PROFILE_SKILL_MUTATION = graphql(`
       id
       skills {
         name
+        categoryId
         mastery
       }
     }

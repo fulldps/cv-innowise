@@ -11,7 +11,7 @@ export function mapUpdateUserSkillInput(
   return {
     userId,
     name: editingUserSkill.name,
-    categoryId: editingUserSkill.category?.id ?? null,
+    categoryId: editingUserSkill.categoryId,
     mastery: values.mastery,
   };
 }

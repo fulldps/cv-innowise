@@ -6,7 +6,6 @@ import { MASTERY_CONFIG } from '../model/mastery-config';
 
 interface SkillItemProps {
   skill: {
-    id: string;
     name: string;
     mastery: Mastery;
   };
