@@ -21,7 +21,7 @@ const AddCvProject = graphql(`
 
 export function useAddCvProject() {
   const addedProject = useMutation(AddCvProject, {
-    refetchQueries: ['Cvs'],
+    refetchQueries: ['Cv'],
     awaitRefetchQueries: true,
   });
   return addedProject;

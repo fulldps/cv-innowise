@@ -1,44 +1,76 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 
-import { ArrowDown, EllipsisVertical, Plus, Search } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
-import { useProjectsList } from '@/entities/project/api/use-projects-list';
-import { Button } from '@/shared/ui/button';
+import { useCv } from '@/entities/cv/api/use-cv';
+import { AddProject } from '@/features/project/add-project';
+import { RemoveProject } from '@/features/project/remove-project';
 import { Input } from '@/shared/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/ui/table';
 
 export default function Page() {
-  const { loading, error, projects } = useProjectsList();
+  const { id } = useParams<{ id: string }>();
+  const { cv, loading, error } = useCv(id);
+
+  const [search, setSearch] = useState('');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
+
+  const projects = useMemo(() => {
+    const list = cv?.projects ?? [];
+    const query = search.trim().toLowerCase();
+
+    const filtered = list.filter(
+      (project) =>
+        project.name.toLowerCase().includes(query) ||
+        project.internal_name.toLowerCase().includes(query),
+    );
+
+    return [...filtered].sort((a, b) =>
+      sortDir === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+    );
+  }, [cv?.projects, search, sortDir]);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Something went wrong...</div>;
+  if (!cv) return null;
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex items-center justify-between gap-4">
         <div className="relative w-full max-w-md">
-          <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search" className="rounded-full pl-8" />
+          <Input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search"
+            className="rounded-full"
+          />
         </div>
 
-        <Button variant="ghost" className="gap-1.5 text-[#c72f31] hover:text-[#c72f31]">
-          <Plus className="size-4" />
-          ADD PROJECT
-        </Button>
+        <AddProject cvId={id} />
       </div>
 
       <Table className="table-fixed">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[30%]">Name</TableHead>
-            <TableHead className="w-[25%]">Domain</TableHead>
-            <TableHead className="w-[18%]">Start Date</TableHead>
-            <TableHead className="w-[17%]">
-              <span className="inline-flex items-center gap-1">
-                End Date
-                <ArrowDown className="size-3.5" />
-              </span>
+            <TableHead className="w-[30%]">
+              <button
+                type="button"
+                onClick={() => setSortDir((dir) => (dir === 'asc' ? 'desc' : 'asc'))}
+                className="flex items-center gap-1 font-medium"
+              >
+                Name
+                <ArrowUp
+                  size={14}
+                  className={sortDir === 'desc' ? 'rotate-180 transition-transform' : 'transition-transform'}
+                />
+              </button>
             </TableHead>
+            <TableHead className="w-[22%]">Domain</TableHead>
+            <TableHead className="w-[18%]">Start Date</TableHead>
+            <TableHead className="w-[18%]">End Date</TableHead>
             <TableHead className="w-12" />
           </TableRow>
         </TableHeader>
@@ -50,11 +82,13 @@ export default function Page() {
                 <TableCell className="truncate font-medium">{project.name}</TableCell>
                 <TableCell className="truncate">{project.domain}</TableCell>
                 <TableCell className="truncate">{project.start_date}</TableCell>
-                <TableCell className="truncate">{project.end_date}</TableCell>
+                <TableCell className="truncate">{project.end_date ?? 'Till now'}</TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="icon">
-                    <EllipsisVertical />
-                  </Button>
+                  <RemoveProject
+                    cvId={id}
+                    projectId={project.project.id}
+                    name={project.name}
+                  />
                 </TableCell>
               </TableRow>
 
@@ -62,7 +96,7 @@ export default function Page() {
                 <TableCell colSpan={5} className="space-y-3 whitespace-normal pt-0 pb-5">
                   <p className="text-sm text-muted-foreground">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
-                    {project.environment.map((tag) => (
+                    {(project.environment ?? []).map((tag) => (
                       <span
                         key={tag}
                         className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"

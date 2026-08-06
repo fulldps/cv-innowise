@@ -16,18 +16,17 @@ const Cv = graphql(`
       }
       projects {
         id
+        name
+        internal_name
+        domain
+        start_date
+        end_date
+        description
+        environment
         roles
         responsibilities
         project {
           id
-          created_at
-          name
-          internal_name
-          domain
-          start_date
-          end_date
-          description
-          environment
         }
       }
     }
