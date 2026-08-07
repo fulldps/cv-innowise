@@ -1,9 +1,8 @@
 'use client';
 
-import { useCurrentUser } from '@/entities/user';
 import { cn } from '@/shared/lib/utils';
 import { Fragment } from 'react';
-import { navigationByRole } from '../model/navigation';
+import { navigation } from '../model/navigation';
 import { NavigationItem } from './navigation-item';
 
 interface SidebarNavigationProps {
@@ -11,9 +10,6 @@ interface SidebarNavigationProps {
 }
 
 export function SidebarNavigation({ collapsed }: SidebarNavigationProps) {
-  const { role } = useCurrentUser();
-  const navigation = navigationByRole[role];
-
   return (
     <nav className="flex flex-col gap-2 pt-9">
       {navigation.map((item) => (

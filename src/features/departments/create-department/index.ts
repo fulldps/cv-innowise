@@ -1,0 +1,1 @@
+export { CreateDepartmentDialog } from './ui/create-department-dialog';

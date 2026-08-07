@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client/react';
 
-import { DEPARTMENTS_QUERY } from './department.queries';
+import { DEPARTMENTS_QUERY } from '@/entities/department/api/departments.query';
 import { POSITIONS_QUERY } from './position.queries';
 
 export function useUserFormOptions() {
