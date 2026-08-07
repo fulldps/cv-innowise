@@ -22,6 +22,10 @@ type Documents = {
     "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n    }\n  }\n": typeof types.CvsDocument,
     "\n  mutation DeleteCv($cv: DeleteCvInput!) {\n    deleteCv(cv: $cv) {\n      affected\n    }\n  }\n": typeof types.DeleteCvDocument,
     "\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n": typeof types.UpdateCvDocument,
+    "\n  mutation CreateDepartment($department: CreateDepartmentInput!) {\n    createDepartment(department: $department) {\n      id\n      name\n    }\n  }\n": typeof types.CreateDepartmentDocument,
+    "\n  mutation UpdateDepartment($department: UpdateDepartmentInput!) {\n    updateDepartment(department: $department) {\n      id\n      name\n    }\n  }\n": typeof types.UpdateDepartmentDocument,
+    "\n  mutation DeleteDepartment($department: DeleteDepartmentInput!) {\n    deleteDepartment(department: $department) {\n      affected\n    }\n  }\n": typeof types.DeleteDepartmentDocument,
+    "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n": typeof types.DepartmentsDocument,
     "\n  mutation AddProfileLanguage($language: AddProfileLanguageInput!) {\n    addProfileLanguage(language: $language) {\n      id\n      languages {\n        name\n        proficiency\n      }\n    }\n  }\n": typeof types.AddProfileLanguageDocument,
     "\n  mutation UpdateProfileLanguage($language: UpdateProfileLanguageInput!) {\n    updateProfileLanguage(language: $language) {\n      id\n      languages {\n        name\n        proficiency\n      }\n    }\n  }\n": typeof types.UpdateProfileLanguageDocument,
     "\n  mutation DeleteProfileLanguage($language: DeleteProfileLanguageInput!) {\n    deleteProfileLanguage(language: $language) {\n      id\n      languages {\n        name\n        proficiency\n      }\n    }\n  }\n": typeof types.DeleteProfileLanguageDocument,
@@ -43,7 +47,6 @@ type Documents = {
     "\n  mutation UpdateSkill($skill: UpdateSkillInput!) {\n    updateSkill(skill: $skill) {\n      id\n      created_at\n      name\n\n      category {\n        id\n        name\n        order\n      }\n    }\n  }\n": typeof types.UpdateSkillDocument,
     "\n  mutation DeleteSkill($skill: DeleteSkillInput!) {\n    deleteSkill(skill: $skill) {\n      affected\n    }\n  }\n": typeof types.DeleteSkillDocument,
     "\n  query Skills {\n    skills {\n      id\n      created_at\n      name\n\n      category {\n        id\n        name\n        order\n      }\n\n      category_parent_name\n    }\n  }\n": typeof types.SkillsDocument,
-    "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n": typeof types.DepartmentsDocument,
     "\n  query Positions {\n    positions {\n      id\n      name\n    }\n  }\n": typeof types.PositionsDocument,
     "\n  mutation CreateUser($user: CreateUserInput!) {\n    createUser(user: $user) {\n      id\n    }\n  }\n": typeof types.CreateUserDocument,
     "\n  mutation UpdateUser($user: UpdateUserInput!) {\n    updateUser(user: $user) {\n      id\n      department {\n        id\n      }\n      position {\n        id\n      }\n      role\n    }\n  }\n": typeof types.UpdateUserDocument,
@@ -62,6 +65,10 @@ const documents: Documents = {
     "\n  query Cvs {\n    cvs {\n      id\n      name\n      description\n      education\n      user {\n        id\n        email\n      }\n    }\n  }\n": types.CvsDocument,
     "\n  mutation DeleteCv($cv: DeleteCvInput!) {\n    deleteCv(cv: $cv) {\n      affected\n    }\n  }\n": types.DeleteCvDocument,
     "\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n": types.UpdateCvDocument,
+    "\n  mutation CreateDepartment($department: CreateDepartmentInput!) {\n    createDepartment(department: $department) {\n      id\n      name\n    }\n  }\n": types.CreateDepartmentDocument,
+    "\n  mutation UpdateDepartment($department: UpdateDepartmentInput!) {\n    updateDepartment(department: $department) {\n      id\n      name\n    }\n  }\n": types.UpdateDepartmentDocument,
+    "\n  mutation DeleteDepartment($department: DeleteDepartmentInput!) {\n    deleteDepartment(department: $department) {\n      affected\n    }\n  }\n": types.DeleteDepartmentDocument,
+    "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n": types.DepartmentsDocument,
     "\n  mutation AddProfileLanguage($language: AddProfileLanguageInput!) {\n    addProfileLanguage(language: $language) {\n      id\n      languages {\n        name\n        proficiency\n      }\n    }\n  }\n": types.AddProfileLanguageDocument,
     "\n  mutation UpdateProfileLanguage($language: UpdateProfileLanguageInput!) {\n    updateProfileLanguage(language: $language) {\n      id\n      languages {\n        name\n        proficiency\n      }\n    }\n  }\n": types.UpdateProfileLanguageDocument,
     "\n  mutation DeleteProfileLanguage($language: DeleteProfileLanguageInput!) {\n    deleteProfileLanguage(language: $language) {\n      id\n      languages {\n        name\n        proficiency\n      }\n    }\n  }\n": types.DeleteProfileLanguageDocument,
@@ -83,7 +90,6 @@ const documents: Documents = {
     "\n  mutation UpdateSkill($skill: UpdateSkillInput!) {\n    updateSkill(skill: $skill) {\n      id\n      created_at\n      name\n\n      category {\n        id\n        name\n        order\n      }\n    }\n  }\n": types.UpdateSkillDocument,
     "\n  mutation DeleteSkill($skill: DeleteSkillInput!) {\n    deleteSkill(skill: $skill) {\n      affected\n    }\n  }\n": types.DeleteSkillDocument,
     "\n  query Skills {\n    skills {\n      id\n      created_at\n      name\n\n      category {\n        id\n        name\n        order\n      }\n\n      category_parent_name\n    }\n  }\n": types.SkillsDocument,
-    "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n": types.DepartmentsDocument,
     "\n  query Positions {\n    positions {\n      id\n      name\n    }\n  }\n": types.PositionsDocument,
     "\n  mutation CreateUser($user: CreateUserInput!) {\n    createUser(user: $user) {\n      id\n    }\n  }\n": types.CreateUserDocument,
     "\n  mutation UpdateUser($user: UpdateUserInput!) {\n    updateUser(user: $user) {\n      id\n      department {\n        id\n      }\n      position {\n        id\n      }\n      role\n    }\n  }\n": types.UpdateUserDocument,
@@ -140,6 +146,22 @@ export function graphql(source: "\n  mutation DeleteCv($cv: DeleteCvInput!) {\n 
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateCv($cv: UpdateCvInput!) {\n    updateCv(cv: $cv) {\n      id\n      name\n      education\n      description\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateDepartment($department: CreateDepartmentInput!) {\n    createDepartment(department: $department) {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  mutation CreateDepartment($department: CreateDepartmentInput!) {\n    createDepartment(department: $department) {\n      id\n      name\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation UpdateDepartment($department: UpdateDepartmentInput!) {\n    updateDepartment(department: $department) {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateDepartment($department: UpdateDepartmentInput!) {\n    updateDepartment(department: $department) {\n      id\n      name\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation DeleteDepartment($department: DeleteDepartmentInput!) {\n    deleteDepartment(department: $department) {\n      affected\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteDepartment($department: DeleteDepartmentInput!) {\n    deleteDepartment(department: $department) {\n      affected\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -224,10 +246,6 @@ export function graphql(source: "\n  mutation DeleteSkill($skill: DeleteSkillInp
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Skills {\n    skills {\n      id\n      created_at\n      name\n\n      category {\n        id\n        name\n        order\n      }\n\n      category_parent_name\n    }\n  }\n"): (typeof documents)["\n  query Skills {\n    skills {\n      id\n      created_at\n      name\n\n      category {\n        id\n        name\n        order\n      }\n\n      category_parent_name\n    }\n  }\n"];
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query Departments {\n    departments {\n      id\n      name\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

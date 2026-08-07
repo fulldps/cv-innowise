@@ -9,8 +9,6 @@ import {
   Users,
 } from 'lucide-react';
 
-import type { UserRole } from '@/entities/user';
-
 export interface NavigationItem {
   label: string;
   href: string;
@@ -18,30 +16,7 @@ export interface NavigationItem {
   dividerAfter?: boolean;
 }
 
-export const employeeNavigation: NavigationItem[] = [
-  {
-    label: 'Employees',
-    href: '/users',
-    icon: Users,
-  },
-  {
-    label: 'Skills',
-    href: '/skills',
-    icon: TrendingUp,
-  },
-  {
-    label: 'Languages',
-    href: '/languages',
-    icon: Languages,
-  },
-  {
-    label: 'CVs',
-    href: '/cvs',
-    icon: FileUser,
-  },
-];
-
-export const adminNavigation: NavigationItem[] = [
+export const navigation: NavigationItem[] = [
   {
     label: 'Employees',
     href: '/users',
@@ -79,8 +54,3 @@ export const adminNavigation: NavigationItem[] = [
     icon: Languages,
   },
 ];
-
-export const navigationByRole: Record<UserRole, NavigationItem[]> = {
-  Employee: employeeNavigation,
-  Admin: adminNavigation,
-};
