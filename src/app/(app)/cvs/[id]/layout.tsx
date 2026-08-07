@@ -27,7 +27,7 @@ export default function CvsLayout({ children }: Readonly<{ children: React.React
               href={href}
               className={cn(
                 '-mb-px border-b-2 border-transparent px-11 py-3 max-lg:px-4',
-                isActive && 'border-[#c72f31] text-[#c72f31]',
+                isActive && 'border-destructive text-destructive',
               )}
             >
               {tab.label}

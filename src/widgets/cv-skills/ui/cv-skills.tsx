@@ -30,7 +30,7 @@ export function CvSkills({ groups }: CvSkillsProps) {
           ADD SKILL
         </Button>
 
-        <Button variant="ghost" className="gap-2 text-[#c72f31] hover:text-[#c72f31]">
+        <Button variant="ghost" className="gap-2 text-destructive hover:text-destructive">
           <Trash2 className="size-4" />
           REMOVE SKILLS
         </Button>

@@ -19,7 +19,7 @@ export function CvPreview({ cv }: CvPreviewProps) {
 
         <Button
           variant="outline"
-          className="rounded-full border-[#c72f31] px-6 text-xs tracking-wide text-[#c72f31] hover:text-[#c72f31]"
+          className="rounded-full border-destructive px-6 text-xs tracking-wide text-destructive hover:text-destructive"
         >
           EXPORT PDF
         </Button>
@@ -72,7 +72,7 @@ export function CvPreview({ cv }: CvPreviewProps) {
             className="grid grid-cols-[220px_1fr] gap-8 max-lg:grid-cols-[160px_1fr] max-lg:gap-5"
           >
             <div>
-              <h3 className="font-semibold tracking-wide text-[#c72f31] uppercase">
+              <h3 className="font-semibold tracking-wide text-destructive uppercase">
                 {project.name}
               </h3>
               <p className="mt-2 leading-relaxed text-muted-foreground">{project.description}</p>
@@ -120,7 +120,7 @@ export function CvPreview({ cv }: CvPreviewProps) {
         <tbody>
           {cv.professionalSkills.map((row) => (
             <tr key={row.category} className="border-b align-top">
-              <td className="py-3 font-medium text-[#c72f31]">{row.category}</td>
+              <td className="py-3 font-medium text-destructive">{row.category}</td>
               <td className="py-3">
                 {row.skills.map((skill) => (
                   <p key={skill}>{skill}</p>

@@ -50,7 +50,7 @@ export function UpdateCv({ cv }: UpdateCvProps) {
       <Button
         type="submit"
         disabled={loading}
-        className="h-12 w-100 self-end rounded-4xl bg-[#c72f31]"
+        className="h-12 w-100 self-end rounded-4xl bg-destructive text-white"
       >
         Update
       </Button>
