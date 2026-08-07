@@ -10,7 +10,7 @@ const tabs = [
     label: 'LOG IN',
   },
   {
-    href: '/auth/sighnup',
+    href: '/auth/signup',
     label: 'SIGN UP',
   },
 ];
@@ -28,8 +28,8 @@ export function AuthTabs() {
             className={cn(
               'flex h-12 w-42 items-center justify-center border-b-2',
               isActive
-                ? 'border-[#c72f31] text-[#c72f31]'
-                : 'border-transparent hover:border-[#c72f31]',
+                ? 'border-destructive text-destructive'
+                : 'border-transparent hover:border-destructive',
             )}
           >
             {tab.label}

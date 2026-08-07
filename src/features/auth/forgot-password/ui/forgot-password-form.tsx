@@ -1,45 +1,47 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
-import { signupSchema, type SignupValues } from '@/features/auth/signup/model/schema';
+import {
+  forgotPasswordSchema,
+  type ForgotPasswordValues,
+} from '@/features/auth/forgot-password/model/schema';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { PasswordInput } from '@/shared/ui/PasswordInput';
 
-export function SignupForm() {
+export function ForgotPasswordForm() {
   const {
     control,
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<SignupValues>({
-    resolver: standardSchemaResolver(signupSchema),
-    defaultValues: { email: '', password: '' },
+  } = useForm<ForgotPasswordValues>({
+    resolver: standardSchemaResolver(forgotPasswordSchema),
+    defaultValues: { email: '' },
   });
 
-  const router = useRouter();
-
-  const onSubmit = async (values: SignupValues) => {
-    const res = await fetch('/api/auth/signup', {
+  const onSubmit = async (values: ForgotPasswordValues) => {
+    const res = await fetch('/api/auth/forgot', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values),
     });
+
     if (!res.ok) {
       const { error } = await res.json();
       setError('root', { message: error });
       return;
     }
-    router.push('/');
-    router.refresh();
+
+    toast.success('Check your email for reset instructions');
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-4 mb-15">
+      <div className="mb-15 flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <Controller
             control={control}
@@ -47,7 +49,7 @@ export function SignupForm() {
             render={({ field }) => (
               <Input
                 {...field}
-                className="w-140 h-12"
+                className="h-12 w-140"
                 placeholder="Email"
                 type="email"
                 autoComplete="email"
@@ -56,23 +58,21 @@ export function SignupForm() {
           />
           {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
         </div>
-        <div className="flex flex-col gap-1">
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => <PasswordInput {...field} autoComplete="new-password" />}
-          />
-          {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
-        </div>
       </div>
+
       <div className="flex flex-col items-center gap-4">
         {errors.root && <p className="text-sm text-destructive">{errors.root.message}</p>}
+
         <Button
-          className="bg-destructive text-white w-55 h-12 rounded-4xl shadow-xs shadow-black"
+          className="h-12 w-55 rounded-4xl bg-destructive text-white shadow-xs shadow-black"
           type="submit"
         >
-          SIGN UP
+          RESET PASSWORD
         </Button>
+
+        <Link className="h-12 w-55 text-center text-sm text-muted-foreground" href="/auth/login">
+          CANCEL
+        </Link>
       </div>
     </form>
   );
