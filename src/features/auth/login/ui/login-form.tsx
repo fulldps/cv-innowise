@@ -55,7 +55,7 @@ export function LoginForm() {
               />
             )}
           />
-          {errors.email && <p className="text-sm text-[#c72f31]">{errors.email.message}</p>}
+          {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
         </div>
         <div className="flex flex-col gap-1">
           <Controller
@@ -63,15 +63,21 @@ export function LoginForm() {
             name="password"
             render={({ field }) => <PasswordInput {...field} autoComplete="current-password" />}
           />
-          {errors.password && <p className="text-sm text-[#c72f31]">{errors.password.message}</p>}
+          {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
         </div>
       </div>
       <div className="flex flex-col items-center gap-4">
-        {errors.root && <p className="text-sm text-[#c72f31]">{errors.root.message}</p>}
-        <Button className="bg-[#c72f31] w-55 h-12 rounded-4xl shadow-xs shadow-black" type="submit">
+        {errors.root && <p className="text-sm text-destructive">{errors.root.message}</p>}
+        <Button
+          className="bg-destructive text-white w-55 h-12 rounded-4xl shadow-xs shadow-black"
+          type="submit"
+        >
           LOG IN
         </Button>
-        <Link className="w-55 h-12 text-center text-sm text-[#767676]" href="/auth/forgot-password">
+        <Link
+          className="w-55 h-12 text-center text-sm text-muted-foreground"
+          href="/auth/forgot-password"
+        >
           FORGOT PASSWORD
         </Link>
       </div>
