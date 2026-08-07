@@ -42,7 +42,7 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
             />
           )}
         />
-        {errors.projectId && <p className="text-sm text-[#c72f31]">{errors.projectId.message}</p>}
+        {errors.projectId && <p className="text-sm text-destructive">{errors.projectId.message}</p>}
       </div>
 
       <div className="flex gap-4">
@@ -53,7 +53,7 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
             render={({ field }) => <Input {...field} type="date" disabled={disabled} />}
           />
           {errors.start_date && (
-            <p className="text-sm text-[#c72f31]">{errors.start_date.message}</p>
+            <p className="text-sm text-destructive">{errors.start_date.message}</p>
           )}
         </div>
         <div className="flex flex-1 flex-col gap-1">

@@ -31,7 +31,7 @@ export function CvForm({ form, disabled }: CvFormProps) {
             <Input className="h-12" id="name" disabled={disabled} {...field} placeholder="Name" />
           )}
         />
-        {errors.name && <p className="text-sm text-[#c72f31]">{errors.name.message}</p>}
+        {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
       </div>
 
       <div className="flex flex-col">
@@ -71,7 +71,7 @@ export function CvForm({ form, disabled }: CvFormProps) {
           )}
         />
         {errors.description && (
-          <p className="text-sm text-[#c72f31]">{errors.description.message}</p>
+          <p className="text-sm text-destructive">{errors.description.message}</p>
         )}
       </div>
     </div>
