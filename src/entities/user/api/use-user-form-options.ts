@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client/react';
 
-import { DEPARTMENTS_QUERY } from '@/entities/department/api/departments.query';
-import { POSITIONS_QUERY } from './position.queries';
+import { DEPARTMENTS_QUERY } from '@/entities/department';
+import { POSITIONS_QUERY } from '@/entities/position';
 
 export function useUserFormOptions() {
   const departmentsQuery = useQuery(DEPARTMENTS_QUERY);
