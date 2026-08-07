@@ -14,7 +14,7 @@ interface LanguagesTableRowProps {
 export function LanguagesTableRow({ row, onEdit, onDelete }: LanguagesTableRowProps) {
   const { language } = row;
 
-  const cellClassName = 'px-4 text-[15px] text-primary';
+  const cellClassName = 'px-4 text-[15px] text-primary whitespace-normal break-words';
 
   return (
     <TableRow className="h-15 border-border hover:bg-accent/40">

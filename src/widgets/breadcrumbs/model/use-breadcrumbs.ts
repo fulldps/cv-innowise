@@ -17,7 +17,7 @@ export function useBreadcrumbs() {
     };
   }
 
-  const profilePages = ['profile', 'skills', 'languages'];
+  const profilePages = ['profile', 'skills', 'languages', 'cvs'];
 
   if (segments.length === 3 && segments[0] === 'users' && profilePages.includes(segments[2])) {
     const currentPage = segments[2];

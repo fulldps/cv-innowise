@@ -68,23 +68,23 @@ export function ProfileForm({ user, canEdit, disabled, setDisabled }: ProfileFor
   const isDisabled = disabled || loading || !canEdit;
 
   return (
-    <form
-      className="max-w-200 mx-auto grid grid-cols-2 gap-x-6 gap-y-2"
-      onSubmit={form.handleSubmit(onSubmit)}
-    >
-      <div className="space-y-1">
-        <Controller
-          control={control}
-          name="firstName"
-          render={({ field }) => (
-            <FloatingInput
-              {...field}
-              label="First Name"
-              disabled={isDisabled}
-              aria-invalid={!!errors.firstName}
-            />
-          )}
-        />
+      <form
+        className="max-w-200 mx-auto grid grid-cols-2 gap-x-6 gap-y-2"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <div className="space-y-1">
+          <Controller
+            control={control}
+            name="firstName"
+            render={({ field }) => (
+              <FloatingInput
+                {...field}
+                label="First Name"
+                disabled={isDisabled}
+                aria-invalid={!!errors.firstName}
+              />
+            )}
+          />
 
         <FieldError message={errors.firstName?.message} />
       </div>

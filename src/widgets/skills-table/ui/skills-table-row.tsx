@@ -14,7 +14,7 @@ interface SkillsTableRowProps {
 export function SkillsTableRow({ row, onEdit, onDelete }: SkillsTableRowProps) {
   const { skill } = row;
 
-  const cellClassName = 'px-4 text-[15px] text-primary';
+  const cellClassName = 'px-4 text-[15px] text-primary whitespace-normal break-words';
 
   return (
     <TableRow className="h-15 border-border hover:bg-accent/40">

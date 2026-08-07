@@ -15,17 +15,17 @@ export function UserProfileTabs({ userId }: UserProfileTabsProps) {
   const tabs = getUserProfileTabs(userId);
 
   return (
-    <nav>
-      <ul className="flex items-center">
+    <nav className="w-140">
+      <ul className="flex w-full items-center">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
 
           return (
-            <li key={tab.href}>
+            <li key={tab.href} className="flex-1">
               <Link
                 href={tab.href}
                 className={cn(
-                  'inline-flex border-b-2 py-3 px-9 text-[13px] font-semibold transition-colors',
+                  'flex w-full justify-center border-b-2 py-3 text-[13px] font-semibold transition-colors',
                   isActive
                     ? 'border-destructive text-destructive'
                     : 'border-transparent text-primary hover:text-destructive',

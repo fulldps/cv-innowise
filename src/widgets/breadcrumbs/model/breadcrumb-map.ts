@@ -6,4 +6,6 @@ export const breadcrumbMap: Record<string, string> = {
   departments: 'Departments',
   positions: 'Positions',
   projects: 'Projects',
+  details: 'Details',
+  preview: 'Preview',
 };

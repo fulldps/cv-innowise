@@ -27,7 +27,7 @@ export function UsersTableRow({ row, onOpenProfile, onEdit, onDelete }: UsersTab
   const userFullName =
     [profile.first_name, profile.last_name].filter(Boolean).join(' ') || 'Anonymous';
 
-  const cellClassName = 'px-4 text-[15px] text-primary';
+  const cellClassName = 'px-4 text-[15px] text-primary whitespace-normal break-words';
 
   return (
     <TableRow
