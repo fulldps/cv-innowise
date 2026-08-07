@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
+import Link from 'next/link';
 import { User } from 'lucide-react';
 
 import { useBreadcrumbs } from '../model/use-breadcrumbs';
@@ -56,7 +57,10 @@ export function Breadcrumbs() {
                     {label}
                   </BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={breadcrumb.href} className="text-foreground">
+                  <BreadcrumbLink
+                    render={<Link href={breadcrumb.href} />}
+                    className="text-foreground"
+                  >
                     {label}
                   </BreadcrumbLink>
                 )}

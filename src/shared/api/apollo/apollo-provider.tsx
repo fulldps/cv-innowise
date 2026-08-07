@@ -24,6 +24,11 @@ function makeClient() {
       },
     }),
     link: new HttpLink({ uri: '/api/graphql' }),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'cache-and-network',
+      },
+    },
   });
 }
 
