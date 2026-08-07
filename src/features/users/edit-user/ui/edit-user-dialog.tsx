@@ -88,6 +88,8 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
 
   const canEditRole = currentUser.role === 'Admin';
 
+  const isSelf = data?.user?.id === currentUser.id;
+
   return (
     <EntityDialog
       open={open}
@@ -120,7 +122,7 @@ export function EditUserDialog({ userId, open, onOpenChange }: EditUserDialogPro
 
           password: true,
 
-          role: disabled || !canEditRole,
+          role: disabled || !canEditRole || isSelf,
         }}
       />
     </EntityDialog>
