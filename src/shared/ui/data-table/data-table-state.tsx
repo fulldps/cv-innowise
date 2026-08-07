@@ -1,3 +1,4 @@
+import { EmptyState, ErrorState } from '@/shared/ui/states';
 import { TableBody, TableCell, TableRow } from '@/shared/ui/table';
 
 interface DataTableStateProps {
@@ -22,27 +23,29 @@ export function DataTableState({
   columnsCount,
   children,
   loadingText = 'Loading...',
-  emptyText = 'No data found.',
-  errorText = 'Failed to load data.',
+  emptyText = 'No data found',
+  errorText = 'Failed to load data',
 }: DataTableStateProps) {
   return (
     <TableBody>
       {loading ? (
-        <TableRow>
-          <TableCell colSpan={columnsCount} className="h-40 text-center text-muted-foreground">
-            {loadingText}
+        <TableRow className="hover:bg-transparent">
+          <TableCell colSpan={columnsCount} className="p-0">
+            <div className="flex min-h-105 items-center justify-center text-muted-foreground">
+              {loadingText}
+            </div>
           </TableCell>
         </TableRow>
-      ) : error ? (
-        <TableRow>
-          <TableCell colSpan={columnsCount} className="h-40 text-center text-destructive">
-            {errorText}
+      ) : !error ? (
+        <TableRow className="hover:bg-transparent">
+          <TableCell colSpan={columnsCount} className="p-0">
+            <ErrorState title={errorText} />
           </TableCell>
         </TableRow>
       ) : isEmpty ? (
-        <TableRow>
-          <TableCell colSpan={columnsCount} className="h-40 text-center text-muted-foreground">
-            {emptyText}
+        <TableRow className="hover:bg-transparent">
+          <TableCell colSpan={columnsCount} className="p-0">
+            <EmptyState title={emptyText} />
           </TableCell>
         </TableRow>
       ) : (

@@ -55,8 +55,8 @@ export function UsersTable({
           isEmpty={rows.length === 0}
           columnsCount={userTableColumns.length}
           loadingText="Loading..."
-          emptyText="No users found."
-          errorText="Failed to load users."
+          emptyText="No users found"
+          errorText="Failed to load users"
         >
           {rows.map((row) => (
             <UsersTableRow
