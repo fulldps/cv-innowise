@@ -62,8 +62,9 @@ export function ConfirmDeleteDialog({
           <DialogTitle className="text-[20px] font-semibold">Delete {entityLabel}</DialogTitle>
         </DialogHeader>
 
-        <p className="text-base text-foreground">
-          Are you sure you want to delete <span className="font-semibold">{entityName}</span>?
+        <p className="min-w-0 text-base text-foreground">
+          Are you sure you want to delete{' '}
+          <span className="wrap-anywhere font-semibold">{entityName}</span>?
         </p>
 
         <DialogFooter className="flex justify-end gap-2">

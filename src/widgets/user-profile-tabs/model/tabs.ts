@@ -12,5 +12,9 @@ export function getUserProfileTabs(userId: string) {
       label: 'LANGUAGES',
       href: `/users/${userId}/languages`,
     },
+    {
+      label: 'CVS',
+      href: `/users/${userId}/cvs`,
+    },
   ];
 }
