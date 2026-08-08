@@ -5,7 +5,7 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { PositionForm } from '@/shared/ui/position-form';
+import { PositionForm } from '@/features/positions/ui/position-form';
 
 import { useCreatePosition } from '../api/use-create-position';
 import {

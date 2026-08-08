@@ -1,10 +1,7 @@
 import type { UpdateProfileInput } from '@/entities/user';
-import { UserFormValues } from '@/shared/model/user-form.types';
+import { UserFormValues } from '@/features/users/model/user-form.types';
 
-export function mapUpdateProfileInput(
-  userId: string,
-  values: UserFormValues,
-): UpdateProfileInput {
+export function mapUpdateProfileInput(userId: string, values: UserFormValues): UpdateProfileInput {
   return {
     userId,
 

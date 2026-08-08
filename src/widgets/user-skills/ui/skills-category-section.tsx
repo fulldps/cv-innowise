@@ -8,7 +8,9 @@ export function SkillsCategorySection({ title, children }: SkillsCategorySection
     <section>
       <h2 className="text-base text-primary mt-4">{title}</h2>
 
-      <div className="grid grid-cols-1 gap-x-37 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
+      <div className="grid grid-cols-1 gap-x-8 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-37">
+        {children}
+      </div>
     </section>
   );
 }

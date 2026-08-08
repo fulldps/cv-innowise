@@ -9,6 +9,8 @@ import { ProfileInfo } from './profile-info';
 import { ProfileForm } from './profile-form';
 import { UserProfileTabs } from '@/widgets/user-profile-tabs';
 
+import { ErrorState } from '@/shared/ui/states';
+
 interface UserProfileProps {
   userId: string;
 }
@@ -24,14 +26,9 @@ export function UserProfile({ userId }: UserProfileProps) {
 
   const canEdit = isOwner || currentUser.role === USER_ROLE.Admin;
 
-  if (loading && !data?.user) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
 
-  if (error) return <div>Error</div>;
-
-  if (!data?.user) {
-    if (loading) return <div>Loading...</div>;
-    return <div>User not found</div>;
-  }
+  if (error || !data?.user) return <ErrorState title="Failed to load profile" />;
 
   return (
     <section className="space-y-5">

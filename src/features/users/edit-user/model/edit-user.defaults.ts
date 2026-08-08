@@ -1,6 +1,6 @@
 import type { User } from '@/entities/user';
 
-import { UserFormValues } from '@/shared/model/user-form.types';
+import { UserFormValues } from '@/features/users/model/user-form.types';
 
 export function getEditUserDefaultValues(user: User): UserFormValues {
   return {

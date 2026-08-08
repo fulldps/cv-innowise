@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import type { Position } from '@/entities/position';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { PositionForm } from '@/shared/ui/position-form';
+import { PositionForm } from '@/features/positions/ui/position-form';
 
 import { useEditPosition } from '../api/use-edit-position';
 import { editPositionSchema, type EditPositionFormValues } from '../model/edit-position.schema';

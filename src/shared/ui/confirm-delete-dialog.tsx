@@ -73,7 +73,7 @@ export function ConfirmDeleteDialog({
             variant="outline"
             disabled={loading}
             onClick={handleClose}
-            className="h-12 w-52 rounded-full uppercase tracking-wide"
+            className="h-12 w-full sm:w-52 rounded-full uppercase tracking-wide"
           >
             Cancel
           </Button>
@@ -82,7 +82,7 @@ export function ConfirmDeleteDialog({
             type="button"
             disabled={loading}
             onClick={handleDelete}
-            className="h-12 w-52 rounded-full uppercase tracking-wide"
+            className="h-12 w-full sm:w-52 rounded-full uppercase tracking-wide"
           >
             {loading ? 'Deleting...' : 'Confirm'}
           </Button>

@@ -5,12 +5,20 @@ import { Fragment, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useCvsList } from '@/entities/cv/api/use-cvs-list';
+
 import { CreateCv } from '@/features/cv/create-cv';
 import { DeleteCv } from '@/features/cv/delete-cv';
+
 import { useDebounce } from '@/shared/lib/hooks/use-debounce';
 import { useSort } from '@/shared/lib/hooks/use-sort';
-import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
-import type { DataTableColumn } from '@/shared/ui/data-table/types';
+
+import {
+  DataTable,
+  DataTableHeader,
+  DataTableState,
+  type DataTableColumn,
+} from '@/shared/ui/data-table';
+
 import { TableCell, TableRow } from '@/shared/ui/table';
 import { TableToolbar } from '@/shared/ui/table-toolbar';
 

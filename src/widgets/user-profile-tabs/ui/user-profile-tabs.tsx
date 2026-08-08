@@ -15,7 +15,7 @@ export function UserProfileTabs({ userId }: UserProfileTabsProps) {
   const tabs = getUserProfileTabs(userId);
 
   return (
-    <nav className="w-140">
+    <nav className="lg:w-140">
       <ul className="flex w-full items-center">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;

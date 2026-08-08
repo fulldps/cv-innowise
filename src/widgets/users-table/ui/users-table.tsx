@@ -1,12 +1,13 @@
-import type { SortState } from '@/shared/model/sort';
-import { UsersSortField } from '@/widgets/users-list';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
+
+import { UsersTableRow } from './users-table-row';
+
+import { userTableColumns } from '../model/columns';
 
 import type { UsersTableRowModel } from '../model/users-table-row-model';
 
-import { UsersTableRow } from './users-table-row';
-import { userTableColumns } from '../model/columns';
-
-import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
+import type { SortState } from '@/shared/model/sort';
+import { UsersSortField } from '@/widgets/users-list';
 
 interface UsersTableProps {
   rows: UsersTableRowModel[];
@@ -33,42 +34,41 @@ export function UsersTable({
   onDelete,
 }: UsersTableProps) {
   return (
-    <section className="overflow-hidden pr-5">
-      <DataTable
-        colGroup={
-          <colgroup>
-            <col className="w-17" />
-            <col className="w-45" />
-            <col className="w-45" />
-            <col className="w-90" />
-            <col className="w-40" />
-            <col />
-            <col className="w-12" />
-          </colgroup>
-        }
-      >
-        <DataTableHeader columns={userTableColumns} sort={sort} onSortChange={onSortChange} />
+    <DataTable
+      className="min-w-225 xl:min-w-0"
+      colGroup={
+        <colgroup>
+          <col className="w-17" />
+          <col className="w-45" />
+          <col className="w-45" />
+          <col className="w-90" />
+          <col className="w-40" />
+          <col className="w-60" />
+          <col className="w-12" />
+        </colgroup>
+      }
+    >
+      <DataTableHeader columns={userTableColumns} sort={sort} onSortChange={onSortChange} />
 
-        <DataTableState
-          loading={loading}
-          error={error}
-          isEmpty={rows.length === 0}
-          columnsCount={userTableColumns.length}
-          loadingText="Loading..."
-          emptyText="No users found"
-          errorText="Failed to load users"
-        >
-          {rows.map((row) => (
-            <UsersTableRow
-              key={row.user.id}
-              row={row}
-              onOpenProfile={onOpenProfile}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-          ))}
-        </DataTableState>
-      </DataTable>
-    </section>
+      <DataTableState
+        loading={loading}
+        error={error}
+        isEmpty={rows.length === 0}
+        columnsCount={userTableColumns.length}
+        loadingText="Loading..."
+        emptyText="No users found"
+        errorText="Failed to load users"
+      >
+        {rows.map((row) => (
+          <UsersTableRow
+            key={row.user.id}
+            row={row}
+            onOpenProfile={onOpenProfile}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ))}
+      </DataTableState>
+    </DataTable>
   );
 }

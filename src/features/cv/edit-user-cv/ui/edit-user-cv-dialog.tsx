@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { useUpdateCv } from '@/entities/cv/api/use-update-cv';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { UserCvForm } from '@/shared/ui/user-cv-form';
+import { UserCvForm } from '@/features/cv/ui/user-cv-form';
 
 import { editUserCvSchema, type EditUserCvFormValues } from '../model/edit-user-cv.schema';
 import { getEditUserCvDefaultValues } from '../model/edit-user-cv.defaults';

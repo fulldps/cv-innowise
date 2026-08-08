@@ -1,31 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { DesktopSidebar } from './desktop-sidebar';
+import { MobileSidebar } from './mobile-sidebar';
 
-import { SidebarCollapseButton } from './sidebar-collapse-button';
-import { SidebarFooter } from './sidebar-footer';
-import { SidebarNavigation } from './sidebar-navigation';
+interface SidebarProps {
+  mobileOpen: boolean;
+  onMobileOpenChange(open: boolean): void;
+}
 
-import { cn } from '@/shared/lib/utils';
-
-export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const handleToggle = () => {
-    setCollapsed((prev) => !prev);
-  };
-
+export function Sidebar({ mobileOpen, onMobileOpenChange }: SidebarProps) {
   return (
-    <aside
-      className={cn('sticky top-0 flex h-screen flex-col bg-sidebar', collapsed ? 'w-16' : 'w-50')}
-    >
-      <div className="flex-1">
-        <SidebarNavigation collapsed={collapsed} />
+    <>
+      <div className="hidden lg:block">
+        <DesktopSidebar />
       </div>
 
-      <SidebarFooter collapsed={collapsed} />
-
-      <SidebarCollapseButton collapsed={collapsed} onToggle={handleToggle} />
-    </aside>
+      <div className="lg:hidden">
+        <MobileSidebar open={mobileOpen} onOpenChange={onMobileOpenChange} />
+      </div>
+    </>
   );
 }

@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import type { Language } from '@/entities/language';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { LanguageForm } from '@/shared/ui/language-form';
+import { LanguageForm } from '@/features/languages/ui/language-form';
 
 import { useEditLanguage } from '../api/use-edit-language';
 import { editLanguageSchema, type EditLanguageFormValues } from '../model/edit-language.schema';

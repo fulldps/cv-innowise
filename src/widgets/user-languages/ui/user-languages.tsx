@@ -16,6 +16,8 @@ import { AddUserLanguageDialog } from '@/features/users/add-user-language';
 import { EditUserLanguageDialog, EditingUserLanguage } from '@/features/users/edit-user-language';
 import { useDeleteUserLanguage } from '@/features/users/delete-user-language';
 
+import { EmptyState, ErrorState } from '@/shared/ui/states';
+
 interface UserLanguagesProps {
   userId: string;
 }
@@ -50,18 +52,15 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
     closeAddDialog,
   } = useUserLanguages();
 
-  const { deleteUserLanguages, loading: deleteUserLanguagesLoading } = useDeleteUserLanguage(userId);
+  const { deleteUserLanguages, loading: deleteUserLanguagesLoading } =
+    useDeleteUserLanguage(userId);
 
   if (profileLoading || languagesLoading) {
     return <div>Loading...</div>;
   }
 
-  if (profileError || languagesError) {
-    return <div>Error</div>;
-  }
-
-  if (!profileData?.profile || !languagesData?.languages) {
-    return <div>Data not found</div>;
+  if (profileError || languagesError || !profileData?.profile || !languagesData?.languages) {
+    return <ErrorState title="Failed to load languages" />;
   }
 
   const assignedLanguageNames = new Set(
@@ -106,18 +105,22 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
     <section className="mb-15">
       <UserProfileTabs userId={userId} />
 
-      <div className="mt-2 flex flex-col px-42">
-        <div className="grid grid-cols-3 gap-x-70 gap-y-2">
-          {profileData.profile.languages.map((language) => (
-            <LanguageItem
-              key={language.name}
-              language={language}
-              selectable={deleteMode}
-              selected={selectedLanguages.has(language.name)}
-              onClick={canManage ? () => handleLanguageClick(language) : undefined}
-            />
-          ))}
-        </div>
+      <div className="mt-2 flex flex-col px-4 sm:px-20 xl:px-42">
+        {profileData.profile.languages.length > 0 ? (
+          <div className="grid grid-cols-1 gap-y-2 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-70">
+            {profileData.profile.languages.map((language) => (
+              <LanguageItem
+                key={language.name}
+                language={language}
+                selectable={deleteMode}
+                selected={selectedLanguages.has(language.name)}
+                onClick={canManage ? () => handleLanguageClick(language) : undefined}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyState title="No languages yet" message="" />
+        )}
 
         <LanguagesActions
           canManage={canManage}

@@ -1,6 +1,4 @@
-import { DataTable } from '@/shared/ui/data-table';
-import { DataTableHeader } from '@/shared/ui/data-table/data-table-header';
-import { DataTableState } from '@/shared/ui/data-table/data-table-state';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
 
 import { skillsTableColumns } from '../model/columns';
 import type { SkillsTableRowModel } from '../model/skills-table-row-model';
@@ -37,9 +35,9 @@ export function SkillsTable({
     <DataTable
       colGroup={
         <colgroup>
-          <col className="w-100" />
-          <col className="w-80" />
-          <col />
+          <col className="xl:w-100" />
+          <col className="xl:w-80" />
+          <col className="xl:w-55" />
           <col className="w-12" />
         </colgroup>
       }
@@ -52,8 +50,8 @@ export function SkillsTable({
         isEmpty={rows.length === 0}
         columnsCount={skillsTableColumns.length}
         loadingText="Loading..."
-        emptyText="No skills found."
-        errorText="Failed to load skills."
+        emptyText="No skills found"
+        errorText="Failed to load skills"
       >
         {rows.map((row) => (
           <SkillsTableRow key={row.skill.id} row={row} onEdit={onEdit} onDelete={onDelete} />

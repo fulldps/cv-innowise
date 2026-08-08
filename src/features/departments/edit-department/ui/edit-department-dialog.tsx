@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import type { Department } from '@/entities/department';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { DepartmentForm } from '@/shared/ui/department-form';
+import { DepartmentForm } from '@/features/departments/ui/department-form';
 
 import { useEditDepartment } from '../api/use-edit-department';
 import {

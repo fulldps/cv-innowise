@@ -8,8 +8,8 @@ import {
   type UseFormReturn,
 } from 'react-hook-form';
 
-import { FloatingSelect } from '@/shared/ui/floating-select';
 import { FieldError } from '@/shared/ui/field-error';
+import { FloatingSelect } from '@/shared/ui/floating-select';
 
 interface Option {
   id: string;

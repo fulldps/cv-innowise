@@ -10,7 +10,7 @@ import { useCurrentUser, useUser, useUserFormOptions } from '@/entities/user';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
 
-import { UserForm } from '@/shared/ui/user-form';
+import { UserForm } from '@/features/users/ui/user-form';
 
 import { useEditUser } from '../api/use-edit-user';
 
@@ -18,7 +18,7 @@ import { editUserSchema } from '../model/edit-user.schema';
 
 import { getEditUserDefaultValues } from '../model/edit-user.defaults';
 
-import type { UserFormValues } from '@/shared/model/user-form.types';
+import type { UserFormValues } from '@/features/users/model/user-form.types';
 
 interface EditUserDialogProps {
   userId: string | null;

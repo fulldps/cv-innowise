@@ -5,7 +5,7 @@ import { UPDATE_PROFILE_MUTATION } from '@/entities/profile';
 
 import { mapUpdateUserInput } from '../model/edit-user.mapper';
 import { mapUpdateProfileInput } from '../model/edit-profile.mapper';
-import { UserFormValues } from '@/shared/model/user-form.types';
+import { UserFormValues } from '@/features/users/model/user-form.types';
 
 export function useEditUser() {
   const [updateUserMutation, updateUserState] = useMutation(UPDATE_USER_MUTATION);

@@ -1,10 +1,10 @@
 import { ArrowUp } from 'lucide-react';
 
-import { cn } from '@/shared/lib/utils';
-import { TableHead, TableHeader, TableRow } from '@/shared/ui/table';
+import type { DataTableColumn } from '../model/types';
 
-import type { DataTableColumn } from './types';
+import { cn } from '@/shared/lib/utils';
 import { SortState } from '@/shared/model/sort';
+import { TableHead, TableHeader, TableRow } from '@/shared/ui/table';
 
 interface DataTableHeaderProps<TSort extends string> {
   columns: readonly DataTableColumn<TSort>[];

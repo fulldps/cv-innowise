@@ -3,8 +3,7 @@ import type { PropsWithChildren } from 'react';
 import { getClient } from '@/shared/api/apollo/apollo-client';
 
 import { USER_QUERY, UserProvider } from '@/entities/user';
-import { Breadcrumbs } from '@/widgets/breadcrumbs';
-import { Sidebar } from '@/widgets/sidebar';
+import { AppShell } from '@/widgets/app-shell';
 
 import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
@@ -38,16 +37,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
 
   return (
     <UserProvider user={data.user}>
-      <div className="flex min-h-screen">
-        <Sidebar />
-
-        <main className="flex min-w-0 flex-1 bg-primary-foreground">
-          <div className="flex w-full flex-col">
-            <Breadcrumbs />
-            {children}
-          </div>
-        </main>
-      </div>
+      <AppShell>{children}</AppShell>
     </UserProvider>
   );
 }

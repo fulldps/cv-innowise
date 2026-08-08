@@ -4,7 +4,7 @@ import { ChevronRight } from 'lucide-react';
 import type { UsersTableRowModel } from '../model/users-table-row-model';
 
 import { TableCell, TableRow } from '@/shared/ui/table';
-import { ActionsMenu } from '@/shared/ui/data-table/actions-menu';
+import { ActionsMenu } from '@/shared/ui/data-table/ui/actions-menu';
 import { getInitials } from '@/shared/lib/user/get-initials';
 
 interface UsersTableRowProps {

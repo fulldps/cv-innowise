@@ -80,7 +80,7 @@ export function EntityDialog({
               variant="outline"
               disabled={loading}
               onClick={onCancel}
-              className="h-12 w-52 rounded-full uppercase tracking-wide"
+              className="h-12 w-full sm:w-52 rounded-full uppercase tracking-wide"
             >
               Cancel
             </Button>
@@ -88,7 +88,7 @@ export function EntityDialog({
             <Button
               type="submit"
               disabled={loading || submitDisabled}
-              className="h-12 w-52 rounded-full uppercase tracking-wide"
+              className="h-12 w-full sm:w-52 rounded-full uppercase tracking-wide"
             >
               {loading ? loadingText : submitText}
             </Button>

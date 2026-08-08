@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from '@/shared/ui/table';
-import { ActionsMenu } from '@/shared/ui/data-table/actions-menu';
+import { ActionsMenu } from '@/shared/ui/data-table/ui/actions-menu';
 
 import type { Department } from '@/entities/department';
 import type { DepartmentsTableRowModel } from '../model/departments-table-row-model';

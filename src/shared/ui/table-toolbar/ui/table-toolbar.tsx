@@ -21,7 +21,7 @@ export function TableToolbar({
   onActionClick,
 }: TableToolbarProps) {
   return (
-    <section className="flex items-center justify-between gap-2 pl-3 pr-20 pt-2">
+    <section className="flex items-center justify-between pl-3 pr-3 pt-2 lg:gap-2 lg:pr-20">
       <SearchInput value={searchValue} onValueChange={onSearchChange} />
 
       {showAction && onActionClick && (

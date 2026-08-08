@@ -3,25 +3,17 @@
 import { Controller, useFormState, type UseFormReturn } from 'react-hook-form';
 
 import { FloatingInput } from '@/shared/ui/floating-input';
-import { FloatingSelect } from '@/shared/ui/floating-select';
 import { FieldError } from '@/shared/ui/field-error';
 
-import type { SkillFormValues } from '@/shared/model/skill-form.types';
+import type { LanguageFormValues } from '../model/language-form.types';
 
-interface Option {
-  id: string;
-  name: string;
-}
-
-interface SkillFormProps {
-  form: UseFormReturn<SkillFormValues>;
-
-  categories: Option[];
+interface LanguageFormProps {
+  form: UseFormReturn<LanguageFormValues>;
 
   disabled?: boolean;
 }
 
-export function SkillForm({ form, categories, disabled = false }: SkillFormProps) {
+export function LanguageForm({ form, disabled = false }: LanguageFormProps) {
   const { control } = form;
 
   const { errors } = useFormState({
@@ -35,7 +27,7 @@ export function SkillForm({ form, categories, disabled = false }: SkillFormProps
           control={control}
           name="name"
           render={({ field }) => (
-            <FloatingInput {...field} autoFocus label="Skill name" disabled={disabled} />
+            <FloatingInput {...field} autoFocus label="Language name" disabled={disabled} />
           )}
         />
 
@@ -45,19 +37,28 @@ export function SkillForm({ form, categories, disabled = false }: SkillFormProps
       <div className="space-y-1">
         <Controller
           control={control}
-          name="categoryId"
+          name="nativeName"
           render={({ field }) => (
-            <FloatingSelect
-              label="Category"
-              value={field.value}
-              onValueChange={field.onChange}
-              options={categories}
+            <FloatingInput
+              {...field}
+              value={field.value ?? ''}
+              label="Native name"
               disabled={disabled}
             />
           )}
         />
 
-        <FieldError message={errors.categoryId?.message} />
+        <FieldError message={errors.nativeName?.message} />
+      </div>
+
+      <div className="space-y-1">
+        <Controller
+          control={control}
+          name="iso2"
+          render={({ field }) => <FloatingInput {...field} label="ISO2" disabled={disabled} />}
+        />
+
+        <FieldError message={errors.iso2?.message} />
       </div>
     </div>
   );
