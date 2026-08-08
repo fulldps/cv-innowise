@@ -1,9 +1,10 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
+
 import { useCurrentUser } from '@/entities/user';
 import { getInitials } from '@/shared/lib/user/get-initials';
-import Image from 'next/image';
-import Link from 'next/link';
 
 interface SidebarFooterProps {
   collapsed: boolean;

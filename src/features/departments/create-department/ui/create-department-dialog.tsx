@@ -5,7 +5,7 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { DepartmentForm } from '@/shared/ui/department-form';
+import { DepartmentForm } from '@/features/departments/ui/department-form';
 
 import { useCreateDepartment } from '../api/use-create-department';
 import {

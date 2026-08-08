@@ -35,14 +35,14 @@ export function LanguagesActions({
 
   return (
     <div className="mt-7 flex justify-end">
-      <div className="flex gap-3">
+      <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
         <Button
           type="button"
           variant={deleteMode ? 'outline' : 'ghost'}
           onClick={deleteMode ? onCancelDeleteMode : onAddLanguage}
           disabled={deleteMode ? disabled : false}
           className={cn(
-            'h-12 w-52 rounded-full uppercase tracking-wide',
+            'h-12 w-full rounded-full uppercase tracking-wide sm:w-52',
             !deleteMode &&
               'gap-3 text-[13px] font-semibold text-muted-foreground hover:bg-transparent hover:text-muted-foreground/70',
           )}
@@ -58,7 +58,7 @@ export function LanguagesActions({
           disabled={(deleteMode && selectedCount === 0) || disabled}
           onClick={deleteMode ? onDelete : onEnterDeleteMode}
           className={cn(
-            'h-12 w-52 rounded-full uppercase tracking-wide',
+            'h-12 w-full rounded-full uppercase tracking-wide sm:w-52',
             deleteMode && 'gap-5',
             !deleteMode &&
               'gap-3 text-[13px] font-semibold text-destructive hover:bg-transparent hover:text-destructive/70',

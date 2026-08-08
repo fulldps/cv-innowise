@@ -3,18 +3,25 @@
 import { Controller, useFormState, type UseFormReturn } from 'react-hook-form';
 
 import { FloatingInput } from '@/shared/ui/floating-input';
-import { FloatingTextarea } from '@/shared/ui/floating-textarea';
+import { FloatingSelect } from '@/shared/ui/floating-select';
 import { FieldError } from '@/shared/ui/field-error';
 
-import type { UserCvFormValues } from '@/shared/model/user-cv-form.types';
+import type { SkillFormValues } from '../model/skill-form.types';
 
-interface UserCvFormProps {
-  form: UseFormReturn<UserCvFormValues>;
+interface Option {
+  id: string;
+  name: string;
+}
+
+interface SkillFormProps {
+  form: UseFormReturn<SkillFormValues>;
+
+  categories: Option[];
 
   disabled?: boolean;
 }
 
-export function UserCvForm({ form, disabled = false }: UserCvFormProps) {
+export function SkillForm({ form, categories, disabled = false }: SkillFormProps) {
   const { control } = form;
 
   const { errors } = useFormState({
@@ -22,13 +29,13 @@ export function UserCvForm({ form, disabled = false }: UserCvFormProps) {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="flex flex-col gap-2">
       <div className="space-y-1">
         <Controller
           control={control}
           name="name"
           render={({ field }) => (
-            <FloatingInput {...field} autoFocus label="CV name" disabled={disabled} />
+            <FloatingInput {...field} autoFocus label="Skill name" disabled={disabled} />
           )}
         />
 
@@ -38,17 +45,19 @@ export function UserCvForm({ form, disabled = false }: UserCvFormProps) {
       <div className="space-y-1">
         <Controller
           control={control}
-          name="description"
+          name="categoryId"
           render={({ field }) => (
-            <FloatingTextarea
-              {...field}
-              label="Description"
+            <FloatingSelect
+              label="Category"
+              value={field.value}
+              onValueChange={field.onChange}
+              options={categories}
               disabled={disabled}
             />
           )}
         />
 
-        <FieldError message={errors.description?.message} />
+        <FieldError message={errors.categoryId?.message} />
       </div>
     </div>
   );

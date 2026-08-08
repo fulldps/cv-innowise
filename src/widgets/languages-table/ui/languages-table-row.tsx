@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from '@/shared/ui/table';
-import { ActionsMenu } from '@/shared/ui/data-table/actions-menu';
+import { ActionsMenu } from '@/shared/ui/data-table/ui/actions-menu';
 
 import type { Language } from '@/entities/language';
 import type { LanguagesTableRowModel } from '../model/languages-table-row-model';

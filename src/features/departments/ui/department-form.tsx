@@ -5,15 +5,15 @@ import { Controller, useFormState, type UseFormReturn } from 'react-hook-form';
 import { FloatingInput } from '@/shared/ui/floating-input';
 import { FieldError } from '@/shared/ui/field-error';
 
-import type { PositionFormValues } from '@/shared/model/position-form.types';
+import type { DepartmentFormValues } from '../model/department-form.types';
 
-interface PositionFormProps {
-  form: UseFormReturn<PositionFormValues>;
+interface DepartmentFormProps {
+  form: UseFormReturn<DepartmentFormValues>;
 
   disabled?: boolean;
 }
 
-export function PositionForm({ form, disabled = false }: PositionFormProps) {
+export function DepartmentForm({ form, disabled = false }: DepartmentFormProps) {
   const { control } = form;
 
   const { errors } = useFormState({
@@ -26,7 +26,7 @@ export function PositionForm({ form, disabled = false }: PositionFormProps) {
         control={control}
         name="name"
         render={({ field }) => (
-          <FloatingInput {...field} autoFocus label="Position name" disabled={disabled} />
+          <FloatingInput {...field} autoFocus label="Department name" disabled={disabled} />
         )}
       />
 

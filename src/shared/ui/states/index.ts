@@ -1,2 +1,2 @@
-export { EmptyState } from './empty-state';
-export { ErrorState } from './error-state';
+export { EmptyState } from './ui/empty-state';
+export { ErrorState } from './ui/error-state';

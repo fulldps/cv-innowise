@@ -1,6 +1,4 @@
-import { DataTable } from '@/shared/ui/data-table';
-import { DataTableHeader } from '@/shared/ui/data-table/data-table-header';
-import { DataTableState } from '@/shared/ui/data-table/data-table-state';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
 
 import { UserCvsTableRow } from './user-cvs-table-row';
 
@@ -38,8 +36,8 @@ export function UserCvsTable({
     <DataTable
       colGroup={
         <colgroup>
-          <col className="w-120" />
-          <col />
+          <col className="xl:w-120" />
+          <col className="xl:w-180" />
           <col className="w-12" />
         </colgroup>
       }
@@ -52,8 +50,8 @@ export function UserCvsTable({
         isEmpty={rows.length === 0}
         columnsCount={userCvsTableColumns.length}
         loadingText="Loading..."
-        emptyText="No CVs found."
-        errorText="Failed to load CVs."
+        emptyText="No CVs found"
+        errorText="Failed to load CVs"
       >
         {rows.map((row) => (
           <UserCvsTableRow key={row.cv.id} row={row} onEdit={onEdit} onDelete={onDelete} />

@@ -1,4 +1,4 @@
-import { UserFormValues } from '@/shared/model/user-form.types';
+import { UserFormValues } from '@/features/users/model/user-form.types';
 
 export function getCreateUserDefaultValues(): UserFormValues {
   return {

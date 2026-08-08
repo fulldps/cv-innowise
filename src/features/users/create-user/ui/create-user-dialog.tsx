@@ -8,13 +8,13 @@ import { useUserFormOptions } from '@/entities/user';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
 
-import { UserForm } from '@/shared/ui/user-form';
+import { UserForm } from '@/features/users/ui/user-form';
 
 import { useCreateUser } from '../api/use-create-user';
 import { createUserSchema } from '../model/create-user.schema';
 import { getCreateUserDefaultValues } from '../model/create-user.defaults';
 
-import type { UserFormValues } from '@/shared/model/user-form.types';
+import type { UserFormValues } from '@/features/users/model/user-form.types';
 
 interface CreateUserDialogProps {
   open: boolean;
@@ -46,7 +46,6 @@ export function CreateUserDialog({ open, onOpenChange }: CreateUserDialogProps) 
   };
 
   const onSubmit = async (values: UserFormValues) => {
-
     try {
       await createUser(values);
 

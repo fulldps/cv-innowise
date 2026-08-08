@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { useSkillCategories } from '@/entities/skill-category';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { SkillForm } from '@/shared/ui/skill-form';
+import { SkillForm } from '@/features/skills/ui/skill-form';
 
 import { useCreateSkill } from '../api/use-create-skill';
 import { createSkillSchema, type CreateSkillFormValues } from '../model/create-skill.schema';

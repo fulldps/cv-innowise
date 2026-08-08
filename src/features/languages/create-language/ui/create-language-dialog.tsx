@@ -5,7 +5,7 @@ import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { toast } from 'sonner';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { LanguageForm } from '@/shared/ui/language-form';
+import { LanguageForm } from '@/features/languages/ui/language-form';
 
 import { useCreateLanguage } from '../api/use-create-language';
 import {

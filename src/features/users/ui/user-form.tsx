@@ -2,11 +2,12 @@
 
 import { Controller, useFormState, type UseFormReturn } from 'react-hook-form';
 
-import { UserFormValues } from '../model/user-form.types';
-import { FloatingInput } from '@/shared/ui/floating-input';
-import { FloatingSelect } from './floating-select';
-import { FieldError } from './field-error';
 import { USER_ROLE_OPTIONS } from '@/entities/user';
+import { UserFormValues } from '../model/user-form.types';
+
+import { FloatingInput } from '@/shared/ui/floating-input';
+import { FloatingSelect } from '@/shared/ui/floating-select';
+import { FieldError } from '@/shared/ui/field-error';
 
 interface Option {
   id: string;

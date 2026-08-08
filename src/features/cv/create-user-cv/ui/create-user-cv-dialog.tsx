@@ -8,7 +8,7 @@ import { useCurrentUser } from '@/entities/user';
 import { useCreateCv } from '@/entities/cv/api/use-create-cv';
 
 import { EntityDialog } from '@/shared/ui/entity-dialog';
-import { UserCvForm } from '@/shared/ui/user-cv-form';
+import { UserCvForm } from '@/features/cv/ui/user-cv-form';
 
 import { createUserCvSchema, type CreateUserCvFormValues } from '../model/create-user-cv.schema';
 import { getCreateUserCvDefaultValues } from '../model/create-user-cv.defaults';

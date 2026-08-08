@@ -8,7 +8,7 @@ interface SearchInputProps {
 
 export function SearchInput({ value, onValueChange }: SearchInputProps) {
   return (
-    <div className="relative w-full max-w-75">
+    <div className="relative w-50 lg:w-full lg:max-w-75">
       <Search className="absolute left-2.5 z-10 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground" />
 
       <Input

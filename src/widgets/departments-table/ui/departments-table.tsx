@@ -1,6 +1,4 @@
-import { DataTable } from '@/shared/ui/data-table';
-import { DataTableHeader } from '@/shared/ui/data-table/data-table-header';
-import { DataTableState } from '@/shared/ui/data-table/data-table-state';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
 
 import { DepartmentsTableRow } from './departments-table-row';
 
@@ -52,8 +50,8 @@ export function DepartmentsTable({
         isEmpty={rows.length === 0}
         columnsCount={departmentsTableColumns.length}
         loadingText="Loading..."
-        emptyText="No departments found."
-        errorText="Failed to load departments."
+        emptyText="No departments found"
+        errorText="Failed to load departments"
       >
         {rows.map((row) => (
           <DepartmentsTableRow

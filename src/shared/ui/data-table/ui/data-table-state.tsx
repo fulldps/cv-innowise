@@ -1,5 +1,5 @@
-import { EmptyState, ErrorState } from '@/shared/ui/states';
 import { TableBody, TableCell, TableRow } from '@/shared/ui/table';
+import { EmptyState, ErrorState } from '@/shared/ui/states';
 
 interface DataTableStateProps {
   loading: boolean;
@@ -36,7 +36,7 @@ export function DataTableState({
             </div>
           </TableCell>
         </TableRow>
-      ) : !error ? (
+      ) : error ? (
         <TableRow className="hover:bg-transparent">
           <TableCell colSpan={columnsCount} className="p-0">
             <ErrorState title={errorText} />

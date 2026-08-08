@@ -1,10 +1,5 @@
-import { LogoutButton } from '@/features/auth/logout/ui/logout-button';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
-  return (
-    <div>
-      Home
-      <LogoutButton />
-    </div>
-  );
+export default function HomePage() {
+  redirect('/users');
 }

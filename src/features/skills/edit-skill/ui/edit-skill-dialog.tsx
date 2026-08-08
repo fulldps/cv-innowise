@@ -13,7 +13,7 @@ import { EntityDialog } from '@/shared/ui/entity-dialog';
 import { useEditSkill } from '../api/use-edit-skill';
 import { editSkillSchema, type EditSkillFormValues } from '../model/edit-skill.schema';
 import { getEditSkillDefaultValues } from '../model/edit-skill.defaults';
-import { SkillForm } from '@/shared/ui/skill-form';
+import { SkillForm } from '@/features/skills/ui/skill-form';
 
 interface EditSkillDialogProps {
   skill: Skill | null;

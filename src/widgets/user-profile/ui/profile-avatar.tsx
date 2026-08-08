@@ -46,7 +46,7 @@ export function ProfileAvatar({ user, canEdit, disabled, setDisabled }: ProfileA
   const isDisabled = disabled || loading || !canEdit;
 
   return (
-    <div className="flex items-center gap-16">
+    <div className="flex items-center flex-col gap-4 sm:gap-16 sm:flex-row">
       <div
         onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}

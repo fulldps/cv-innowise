@@ -1,6 +1,4 @@
-import { DataTable } from '@/shared/ui/data-table';
-import { DataTableHeader } from '@/shared/ui/data-table/data-table-header';
-import { DataTableState } from '@/shared/ui/data-table/data-table-state';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
 
 import { PositionsTableRow } from './positions-table-row';
 
@@ -52,8 +50,8 @@ export function PositionsTable({
         isEmpty={rows.length === 0}
         columnsCount={positionsTableColumns.length}
         loadingText="Loading..."
-        emptyText="No positions found."
-        errorText="Failed to load positions."
+        emptyText="No positions found"
+        errorText="Failed to load positions"
       >
         {rows.map((row) => (
           <PositionsTableRow key={row.position.id} row={row} onEdit={onEdit} onDelete={onDelete} />

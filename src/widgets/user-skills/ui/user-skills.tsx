@@ -14,9 +14,12 @@ import { UserProfileTabs } from '@/widgets/user-profile-tabs';
 import { SkillsCategorySection } from './skills-category-section';
 import { SkillItem } from './skill-item';
 import { SkillsActions } from './skills-actions';
+
 import { AddUserSkillDialog } from '@/features/users/add-user-skill';
 import { EditingUserSkill, EditUserSkillDialog } from '@/features/users/edit-user-skill';
 import { useDeleteUserSkill } from '@/features/users/delete-user-skill';
+
+import { EmptyState, ErrorState } from '@/shared/ui/states';
 
 interface UserSkillsProps {
   userId: string;
@@ -107,32 +110,35 @@ export function UserSkills({ userId }: UserSkillsProps) {
     return <div>Loading...</div>;
   }
 
-  if (profileError || skillsError || categoriesError) {
-    return <div>Error</div>;
-  }
-
-  if (!profileData?.profile || !skillsData?.skills || !categoriesData?.skillCategories) {
-    return <div>Data not found</div>;
+  if (profileError || skillsError || categoriesError || !profileData?.profile || !skillsData?.skills || !categoriesData?.skillCategories) {
+    return <ErrorState title="Failed to load skills" />;
   }
 
   return (
     <section className="mb-15">
       <UserProfileTabs userId={userId} />
 
-      <div className="flex flex-col gap-4 px-42 mt-2">
-        {groupedSkills.map((category) => (
-          <SkillsCategorySection key={category.id} title={category.name}>
-            {category.skills.map((skill) => (
-              <SkillItem
-                key={skill.name}
-                skill={skill}
-                selectable={deleteMode}
-                selected={selectedSkills.has(skill.name)}
-                onClick={canManage ? () => handleSkillClick(skill) : undefined}
-              />
+      <div className="mt-2 flex flex-col gap-4 px-4 sm:px-20 xl:px-42">
+        {profileData.profile.skills.length > 0 ? (
+          <>
+            {groupedSkills.map((category) => (
+              <SkillsCategorySection key={category.id} title={category.name}>
+                {category.skills.map((skill) => (
+                  <SkillItem
+                    key={skill.name}
+                    skill={skill}
+                    selectable={deleteMode}
+                    selected={selectedSkills.has(skill.name)}
+                    onClick={canManage ? () => handleSkillClick(skill) : undefined}
+                  />
+                ))}
+              </SkillsCategorySection>
             ))}
-          </SkillsCategorySection>
-        ))}
+          </>
+        ) : (
+          <EmptyState title="No skills yet" message="" />
+        )}
+
         <SkillsActions
           canManage={canManage}
           deleteMode={deleteMode}

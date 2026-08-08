@@ -5,11 +5,17 @@ import { Fragment, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import { useCv } from '@/entities/cv/api/use-cv';
+
 import { AddProject } from '@/features/project/add-project';
 import { RemoveProject } from '@/features/project/remove-project';
 import { useSort } from '@/shared/lib/hooks/use-sort';
-import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
-import type { DataTableColumn } from '@/shared/ui/data-table/types';
+
+import {
+  DataTable,
+  DataTableHeader,
+  DataTableState,
+  type DataTableColumn,
+} from '@/shared/ui/data-table';
 import { TableCell, TableRow } from '@/shared/ui/table';
 import { TableToolbar } from '@/shared/ui/table-toolbar';
 

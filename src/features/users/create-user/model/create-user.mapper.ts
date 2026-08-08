@@ -1,5 +1,5 @@
 import type { CreateUserInput } from '@/entities/user';
-import { UserFormValues } from '@/shared/model/user-form.types';
+import { UserFormValues } from '@/features/users/model/user-form.types';
 
 export function mapCreateUserInput(values: UserFormValues): CreateUserInput {
   return {

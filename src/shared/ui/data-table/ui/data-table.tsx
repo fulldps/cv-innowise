@@ -1,3 +1,4 @@
+import { cn } from '@/shared/lib/utils';
 import { Table } from '@/shared/ui/table';
 
 interface DataTableProps {
@@ -10,8 +11,8 @@ interface DataTableProps {
 
 export function DataTable({ colGroup, children, className }: DataTableProps) {
   return (
-    <section className="overflow-hidden pr-5">
-      <Table className={className ?? 'w-full table-fixed'}>
+    <section className="overflow-x-auto overflow-y-hidden pr-2">
+      <Table className={cn('w-full table-fixed', className)}>
         {colGroup}
 
         {children}

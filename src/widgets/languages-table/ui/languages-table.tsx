@@ -1,6 +1,4 @@
-import { DataTable } from '@/shared/ui/data-table';
-import { DataTableHeader } from '@/shared/ui/data-table/data-table-header';
-import { DataTableState } from '@/shared/ui/data-table/data-table-state';
+import { DataTable, DataTableHeader, DataTableState } from '@/shared/ui/data-table';
 
 import { LanguagesTableRow } from './languages-table-row';
 
@@ -39,9 +37,9 @@ export function LanguagesTable({
     <DataTable
       colGroup={
         <colgroup>
-          <col className="w-120" />
-          <col className="w-120" />
-          <col />
+          <col className="w-20 xl:w-120" />
+          <col className="w-20 xl:w-120" />
+          <col className="w-20 xl:w-60" />
           <col className="w-12" />
         </colgroup>
       }
@@ -54,8 +52,8 @@ export function LanguagesTable({
         isEmpty={rows.length === 0}
         columnsCount={languagesTableColumns.length}
         loadingText="Loading..."
-        emptyText="No languages found."
-        errorText="Failed to load languages."
+        emptyText="No languages found"
+        errorText="Failed to load languages"
       >
         {rows.map((row) => (
           <LanguagesTableRow key={row.language.id} row={row} onEdit={onEdit} onDelete={onDelete} />

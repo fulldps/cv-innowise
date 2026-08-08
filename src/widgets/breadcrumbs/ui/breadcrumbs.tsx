@@ -4,8 +4,8 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import { User } from 'lucide-react';
 
-import { useBreadcrumbs } from '../model/use-breadcrumbs';
 import { useUser } from '@/entities/user';
+import { useBreadcrumbs } from '../model/use-breadcrumbs';
 
 import {
   Breadcrumb,
@@ -16,61 +16,73 @@ import {
   BreadcrumbSeparator,
 } from '@/shared/ui/breadcrumb';
 
-export function Breadcrumbs() {
+import { MobileMenuButton } from './mobile-menu-button';
+
+interface BreadcrumbsProps {
+  onOpenMobileSidebar(): void;
+}
+
+export function Breadcrumbs({ onOpenMobileSidebar }: BreadcrumbsProps) {
   const { breadcrumbs, profileUserId } = useBreadcrumbs();
 
   const { data } = useUser(profileUserId ?? undefined);
 
-  if (breadcrumbs.length === 0) {
-    return null;
-  }
-
   const hasNestedBreadcrumbs = breadcrumbs.length > 1;
 
   return (
-    <Breadcrumb className="p-3 pb-0">
-      <BreadcrumbList className="text-[16px]">
-        {breadcrumbs.map((breadcrumb, index) => {
-          const isLast = index === breadcrumbs.length - 1;
+    <div className="flex items-center">
+      <div className="mt-2">
+        <MobileMenuButton onClick={onOpenMobileSidebar} />
+      </div>
 
-          let label = breadcrumb.label;
-          const isProfileBreadcrumb = profileUserId && breadcrumb.label === null;
+      {breadcrumbs.length > 0 && (
+        <Breadcrumb className="p-3 pb-0">
+          <BreadcrumbList className="text-[16px]">
+            {breadcrumbs.map((breadcrumb, index) => {
+              const isLast = index === breadcrumbs.length - 1;
 
-          if (isProfileBreadcrumb) {
-            const fullName = data?.user?.profile.full_name || data?.user?.email || '';
+              let label = breadcrumb.label;
+              const isProfileBreadcrumb = profileUserId && breadcrumb.label === null;
 
-            label = (
-              <span className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                {fullName}
-              </span>
-            );
-          }
+              if (isProfileBreadcrumb) {
+                const fullName = data?.user?.profile.full_name || data?.user?.email || '';
 
-          return (
-            <Fragment key={breadcrumb.href}>
-              <BreadcrumbItem>
-                {isLast ? (
-                  <BreadcrumbPage
-                    className={hasNestedBreadcrumbs ? 'text-destructive' : 'text-muted-foreground'}
-                  >
-                    {label}
-                  </BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink
-                    render={<Link href={breadcrumb.href} />}
-                    className="text-foreground"
-                  >
-                    {label}
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
+                label = (
+                  <span className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    {fullName}
+                  </span>
+                );
+              }
 
-              {!isLast && <BreadcrumbSeparator />}
-            </Fragment>
-          );
-        })}
-      </BreadcrumbList>
-    </Breadcrumb>
+              return (
+                <Fragment key={breadcrumb.href}>
+                  <BreadcrumbItem>
+                    {isLast ? (
+                      <BreadcrumbPage
+                        className={
+                          hasNestedBreadcrumbs ? 'text-destructive' : 'text-muted-foreground'
+                        }
+                      >
+                        {label}
+                      </BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink
+                        render={<Link href={breadcrumb.href} />}
+                        className="text-foreground"
+                      >
+                        {label}
+                      </BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+
+                  {!isLast && <BreadcrumbSeparator />}
+                </Fragment>
+              );
+            })}
+          </BreadcrumbList>
+        </Breadcrumb>
+      )}
+    </div>
   );
 }
