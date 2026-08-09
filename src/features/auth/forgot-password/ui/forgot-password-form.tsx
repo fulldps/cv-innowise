@@ -40,13 +40,15 @@ export function ForgotPasswordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[35rem] max-w-[calc(100vw_-_2rem)]">
       <div className="mb-15 flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <Controller
             control={control}
             name="email"
-            render={({ field }) => <FloatingInput {...field} label="Email" className="w-140 h-12" />}
+            render={({ field }) => (
+              <FloatingInput {...field} label="Email" className="h-12 w-full" />
+            )}
           />
           {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
         </div>
