@@ -64,6 +64,7 @@ export function FloatingSelect({
       </Select>
 
       <label
+        htmlFor={generatedId}
         className={cn(
           'pointer-events-none absolute left-1.5 rounded-none text-muted-foreground transition-all duration-200',
           floated

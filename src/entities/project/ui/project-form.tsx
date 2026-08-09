@@ -4,6 +4,7 @@ import { Controller, type UseFormReturn } from 'react-hook-form';
 
 import { FloatingInput } from '@/shared/ui/floating-input';
 import { FloatingSelect } from '@/shared/ui/floating-select';
+import { Input } from '@/shared/ui/input';
 import { Textarea } from '@/shared/ui/textarea';
 
 import type { ProjectFormValues } from '../model/schema';
@@ -17,10 +18,9 @@ interface ProjectFormProps {
   form: UseFormReturn<ProjectFormValues>;
   projects: ProjectOption[];
   disabled?: boolean;
-  projectLocked?: boolean;
 }
 
-export function ProjectForm({ form, projects, disabled, projectLocked }: ProjectFormProps) {
+export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
   const {
     control,
     formState: { errors },
@@ -38,7 +38,7 @@ export function ProjectForm({ form, projects, disabled, projectLocked }: Project
               value={field.value}
               onValueChange={field.onChange}
               options={projects}
-              disabled={disabled || projectLocked}
+              disabled={disabled}
               aria-invalid={!!errors.projectId}
             />
           )}

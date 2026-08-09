@@ -131,6 +131,9 @@
     scrollbar-gutter: stable;
     scrollbar-color: var(--color-muted-foreground) var(--color-background);
   }
+  html:has(.auth-layout) {
+    scrollbar-gutter: auto;
+  }
 }
 
 @media print {
