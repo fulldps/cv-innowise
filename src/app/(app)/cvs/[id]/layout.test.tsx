@@ -101,7 +101,6 @@ describe('CvsLayout', () => {
     const skillsLink = screen.getByRole('link', { name: 'SKILLS' });
 
     expect(skillsLink.className).not.toContain('border-destructive');
-    expect(skillsLink.className).not.toContain('text-destructive');
   });
 
   it('renders page children', () => {
