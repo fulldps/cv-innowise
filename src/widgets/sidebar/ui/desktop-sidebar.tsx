@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { LogoutButton } from '@/features/auth/logout/ui/logout-button';
 import { cn } from '@/shared/lib/utils';
 
 import { SidebarCollapseButton } from './sidebar-collapse-button';
@@ -24,6 +25,8 @@ export function DesktopSidebar() {
       </div>
 
       <SidebarFooter collapsed={collapsed} />
+
+      <LogoutButton collapsed={collapsed} />
 
       <SidebarCollapseButton collapsed={collapsed} onToggle={handleToggle} />
     </aside>

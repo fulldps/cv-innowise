@@ -14,7 +14,7 @@ export default async function ResetPasswordPage({
   }
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center">
+    <div className="flex min-h-dvh flex-col items-center justify-center">
       <main className="flex flex-col items-center gap-15">
         <div className="flex flex-col items-center gap-3">
           <h1 className="text-3xl">Reset password</h1>

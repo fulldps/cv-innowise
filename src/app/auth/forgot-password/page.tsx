@@ -2,7 +2,7 @@ import { ForgotPasswordForm } from '@/features/auth/forgot-password/ui/forgot-pa
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="flex min-h-full flex-col items-center justify-center">
+    <div className="flex min-h-dvh flex-col items-center justify-center">
       <main className="flex flex-col items-center gap-15">
         <div className="flex flex-col items-center gap-3">
           <h1 className="text-3xl">Forgot password</h1>
