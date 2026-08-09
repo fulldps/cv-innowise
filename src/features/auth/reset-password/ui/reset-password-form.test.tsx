@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { toast } from 'sonner';
 
@@ -35,7 +35,7 @@ describe('ResetPasswordForm', () => {
 
     render(<ResetPasswordForm token="reset-token" />);
 
-    await user.type(screen.getByPlaceholderText('Password'), 'short');
+    await user.type(screen.getByLabelText('New password'), 'short');
 
     await user.click(screen.getByRole('button', { name: /reset password/i }));
 
@@ -54,7 +54,7 @@ describe('ResetPasswordForm', () => {
 
     render(<ResetPasswordForm token="reset-token" />);
 
-    await user.type(screen.getByPlaceholderText('Password'), 'password123');
+    await user.type(screen.getByLabelText('New password'), 'password123');
 
     await user.click(screen.getByRole('button', { name: /reset password/i }));
 
@@ -73,7 +73,7 @@ describe('ResetPasswordForm', () => {
 
     render(<ResetPasswordForm token="reset-token" />);
 
-    await user.type(screen.getByPlaceholderText('Password'), 'newpassword123');
+    await user.type(screen.getByLabelText('New password'), 'newpassword123');
 
     await user.click(screen.getByRole('button', { name: /reset password/i }));
 

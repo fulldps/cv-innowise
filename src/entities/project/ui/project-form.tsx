@@ -4,8 +4,7 @@ import { Controller, type UseFormReturn } from 'react-hook-form';
 
 import { FloatingInput } from '@/shared/ui/floating-input';
 import { FloatingSelect } from '@/shared/ui/floating-select';
-import { Input } from '@/shared/ui/input';
-import { Textarea } from '@/shared/ui/textarea';
+import { FloatingTextarea } from '@/shared/ui/floating-textarea';
 
 import type { ProjectFormValues } from '../model/schema';
 
@@ -74,7 +73,11 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
         control={control}
         name="responsibilities"
         render={({ field }) => (
-          <Textarea {...field} disabled={disabled} placeholder="Responsibilities (one per line)" />
+          <FloatingTextarea
+            {...field}
+            disabled={disabled}
+            label="Responsibilities (one per line)"
+          />
         )}
       />
 
@@ -82,7 +85,7 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
         control={control}
         name="roles"
         render={({ field }) => (
-          <Textarea {...field} disabled={disabled} placeholder="Roles (one per line)" />
+          <FloatingTextarea {...field} disabled={disabled} label="Roles (one per line)" />
         )}
       />
     </div>
