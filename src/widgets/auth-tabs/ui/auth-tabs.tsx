@@ -18,7 +18,7 @@ export function AuthTabs() {
   const pathname = usePathname();
 
   return (
-    <header className="flex gap-1">
+    <header className="flex max-w-[calc(100vw_-_2rem)] gap-1">
       {tabs.map((tab) => {
         const isActive = pathname === tab.href;
         return (
@@ -26,7 +26,7 @@ export function AuthTabs() {
             key={tab.href}
             href={tab.href}
             className={cn(
-              'flex h-12 w-42 items-center justify-center border-b-2',
+              'flex h-12 w-42 min-w-0 items-center justify-center border-b-2',
               isActive
                 ? 'border-destructive text-destructive'
                 : 'border-transparent hover:border-destructive',
