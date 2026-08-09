@@ -19,7 +19,7 @@ import { AddUserSkillDialog } from '@/features/users/add-user-skill';
 import { EditingUserSkill, EditUserSkillDialog } from '@/features/users/edit-user-skill';
 import { useDeleteUserSkill } from '@/features/users/delete-user-skill';
 
-import { EmptyState, ErrorState } from '@/shared/ui/states';
+import { EmptyState, ErrorState, LoadingState } from '@/shared/ui/states';
 
 interface UserSkillsProps {
   userId: string;
@@ -107,7 +107,7 @@ export function UserSkills({ userId }: UserSkillsProps) {
   };
 
   if (profileLoading || skillsLoading || categoriesLoading) {
-    return <div>Loading...</div>;
+    return <LoadingState />;
   }
 
   if (profileError || skillsError || categoriesError || !profileData?.profile || !skillsData?.skills || !categoriesData?.skillCategories) {
