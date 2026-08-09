@@ -52,7 +52,7 @@ export function ProfileAvatar({ user, canEdit, disabled, setDisabled }: ProfileA
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={isDragging ? 'relative rounded-full ring-2 ring-[#C72F31]' : 'relative'}
+        className={isDragging ? 'relative rounded-full ring-2 ring-destructive' : 'relative'}
       >
         <button
           type="button"
@@ -100,7 +100,7 @@ export function ProfileAvatar({ user, canEdit, disabled, setDisabled }: ProfileA
                   disabled:pointer-events-none
                 "
           >
-            <X className="h-4 w-4 text-[#C72F31]" />
+            <X className="h-4 w-4 text-destructive" />
           </button>
         )}
       </div>
