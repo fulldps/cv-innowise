@@ -1,5 +1,6 @@
 'use client';
 
+import { LogoutButton } from '@/features/auth/logout/ui/logout-button';
 import { Sheet, SheetContent } from '@/shared/ui/sheet';
 
 import { SidebarNavigation } from './sidebar-navigation';
@@ -25,6 +26,10 @@ export function MobileSidebar({ open, onOpenChange }: MobileSidebarProps) {
 
           <div className="mb-6">
             <SidebarFooter collapsed={false} />
+
+            <div className="mt-2">
+              <LogoutButton collapsed={false} />
+            </div>
           </div>
         </div>
       </SheetContent>
