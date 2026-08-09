@@ -24,7 +24,7 @@ export function LogoutButton({ collapsed = false }: LogoutButtonProps) {
       onClick={handleLogout}
       aria-label="Log out"
       className={cn(
-        'flex h-12 items-center gap-3 rounded-r-full pl-4 text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground',
+        'flex h-12 items-center cursor-pointer gap-3 rounded-r-full pl-4 text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground',
         collapsed ? 'mr-2' : 'mr-6',
       )}
     >
