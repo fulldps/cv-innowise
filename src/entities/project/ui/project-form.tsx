@@ -17,9 +17,10 @@ interface ProjectFormProps {
   form: UseFormReturn<ProjectFormValues>;
   projects: ProjectOption[];
   disabled?: boolean;
+  projectLocked?: boolean;
 }
 
-export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
+export function ProjectForm({ form, projects, disabled, projectLocked }: ProjectFormProps) {
   const {
     control,
     formState: { errors },
@@ -37,7 +38,7 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
               value={field.value}
               onValueChange={field.onChange}
               options={projects}
-              disabled={disabled}
+              disabled={disabled || projectLocked}
               aria-invalid={!!errors.projectId}
             />
           )}
