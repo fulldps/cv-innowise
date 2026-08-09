@@ -2,7 +2,7 @@
 
 import { Controller, type UseFormReturn } from 'react-hook-form';
 
-import { Input } from '@/shared/ui/input';
+import { FloatingInput } from '@/shared/ui/floating-input';
 import { Textarea } from '@/shared/ui/textarea';
 
 import type { CvFormValues } from '../model/schema';
@@ -20,35 +20,23 @@ export function CvForm({ form, disabled }: CvFormProps) {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col">
-        <label htmlFor="name" className="text-xs">
-          Name
-        </label>
+      <div className="flex flex-col gap-1">
         <Controller
           control={control}
           name="name"
           render={({ field }) => (
-            <Input className="h-12" id="name" disabled={disabled} {...field} placeholder="Name" />
+            <FloatingInput label="Name" {...field} className="h-12" disabled={disabled} />
           )}
         />
         {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
       </div>
 
-      <div className="flex flex-col">
-        <label htmlFor="education" className="text-xs">
-          Education
-        </label>
+      <div className="flex flex-col gap-1">
         <Controller
           control={control}
           name="education"
           render={({ field }) => (
-            <Input
-              className="h-12"
-              id="education"
-              disabled={disabled}
-              {...field}
-              placeholder="Education"
-            />
+            <FloatingInput label="Education" {...field} className="h-12" disabled={disabled} />
           )}
         />
       </div>
