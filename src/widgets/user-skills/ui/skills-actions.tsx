@@ -71,7 +71,7 @@ export function SkillsActions({
                 className={`
                 flex h-6 min-w-6 items-center justify-center
                 rounded-full
-                bg-primary-foreground
+                bg-primary
                 px-1.5
                 text-sm
                 font-semibold

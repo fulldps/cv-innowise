@@ -38,7 +38,7 @@ export function SidebarFooter({ collapsed }: SidebarFooterProps) {
               className="size-9 shrink-0 rounded-full object-cover"
             />
           ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#bd2525] text-lg font-bold text-sidebar-primary-foreground">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-destructive text-lg font-bold text-background">
               {initials}
             </div>
           )}

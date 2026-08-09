@@ -69,7 +69,7 @@ export function Breadcrumbs({ onOpenMobileSidebar }: BreadcrumbsProps) {
                     ) : (
                       <BreadcrumbLink
                         render={<Link href={breadcrumb.href} />}
-                        className="text-foreground"
+                        className="text-muted-foreground"
                       >
                         {label}
                       </BreadcrumbLink>

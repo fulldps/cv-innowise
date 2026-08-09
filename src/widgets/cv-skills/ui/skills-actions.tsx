@@ -60,7 +60,7 @@ export function SkillsActions({
         {deleteMode ? (
           <>
             <span>Delete</span>
-            <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-primary-foreground px-1.5 text-sm font-semibold text-destructive">
+            <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-primary px-1.5 text-sm font-semibold text-destructive">
               {selectedCount}
             </span>
           </>
