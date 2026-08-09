@@ -17,24 +17,31 @@ export default function CvsLayout({ children }: Readonly<{ children: React.React
 
   return (
     <div className="flex flex-col gap-8">
-      <nav className="flex gap-4 border-b">
-        {tabs.map((tab) => {
-          const href = `/cvs/${id}/${tab.segment}`;
-          const isActive = pathname.startsWith(href);
-          return (
-            <Link
-              key={tab.segment}
-              href={href}
-              className={cn(
-                '-mb-px border-b-2 border-transparent px-11 py-3 max-lg:px-4',
-                isActive && 'border-destructive text-destructive',
-              )}
-            >
-              {tab.label}
-            </Link>
-          );
-        })}
+      <nav className="lg:w-140">
+        <ul className="flex w-full items-center">
+          {tabs.map((tab) => {
+            const href = `/cvs/${id}/${tab.segment}`;
+            const isActive = pathname.startsWith(href);
+
+            return (
+              <li key={tab.segment} className="flex-1">
+                <Link
+                  href={href}
+                  className={cn(
+                    'flex w-full justify-center border-b-2 py-3 text-[13px] font-semibold transition-colors',
+                    isActive
+                      ? 'border-destructive text-destructive'
+                      : 'border-transparent text-primary hover:text-destructive',
+                  )}
+                >
+                  {tab.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
+
       {children}
     </div>
   );
