@@ -15,19 +15,21 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
 
-interface RemoveProjectProps {
+import { EditProject, type EditableProject } from './edit-project';
+
+interface ProjectActionsProps {
   cvId: string;
-  projectId: string;
-  name: string;
+  project: EditableProject;
 }
 
-export function RemoveProject({ cvId, projectId, name }: RemoveProjectProps) {
+export function ProjectActions({ cvId, project }: ProjectActionsProps) {
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [removeCvProject, { loading }] = useRemoveCvProject();
 
   const handleRemove = async () => {
     try {
-      await removeCvProject({ variables: { project: { cvId, projectId } } });
+      await removeCvProject({ variables: { project: { cvId, projectId: project.projectId } } });
       toast.success('Project removed successfully');
     } catch (error) {
       console.error(error);
@@ -47,13 +49,22 @@ export function RemoveProject({ cvId, projectId, name }: RemoveProjectProps) {
           }
         />
         <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setEditOpen(true)}>Edit project</DropdownMenuItem>
           <DropdownMenuItem onClick={() => setConfirmOpen(true)}>Remove project</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
+      <EditProject
+        key={project.projectId}
+        cvId={cvId}
+        project={project}
+        open={editOpen}
+        onOpenChange={setEditOpen}
+      />
+
       <ConfirmDeleteDialog
         entityLabel="project"
-        entityName={name}
+        entityName={project.name}
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
         onDelete={handleRemove}

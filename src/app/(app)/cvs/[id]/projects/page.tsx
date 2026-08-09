@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import { useCv } from '@/entities/cv/api/use-cv';
 
 import { AddProject } from '@/features/project/add-project';
-import { RemoveProject } from '@/features/project/remove-project';
+import { ProjectActions } from '@/features/project/project-actions';
 import { useSort } from '@/shared/lib/hooks/use-sort';
 
 import {
@@ -85,7 +85,17 @@ export default function Page() {
                   {project.end_date ?? 'Till now'}
                 </TableCell>
                 <TableCell className="px-4 text-right">
-                  <RemoveProject cvId={id} projectId={project.project.id} name={project.name} />
+                  <ProjectActions
+                    cvId={id}
+                    project={{
+                      projectId: project.project.id,
+                      name: project.name,
+                      start_date: project.start_date,
+                      end_date: project.end_date,
+                      roles: project.roles,
+                      responsibilities: project.responsibilities,
+                    }}
+                  />
                 </TableCell>
               </TableRow>
 
