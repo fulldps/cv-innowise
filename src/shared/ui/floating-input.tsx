@@ -32,7 +32,11 @@ export function FloatingInput({
         {...props}
         id={inputId}
         value={value}
-        className={cn('peer', className)}
+        className={cn(
+          'peer',
+          !floated && '[&::-webkit-datetime-edit]:text-transparent',
+          className,
+        )}
         onFocus={(e) => {
           setFocused(true);
           onFocus?.(e);
