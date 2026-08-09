@@ -39,14 +39,14 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[35rem] max-w-[calc(100vw_-_2rem)]">
       <div className="flex flex-col gap-4 mb-15">
         <div className="flex flex-col gap-1">
           <Controller
             control={control}
             name="email"
             render={({ field }) => (
-              <FloatingInput {...field} label="Email" className="w-140 h-12" />
+              <FloatingInput {...field} label="Email" className="h-12 w-full" />
             )}
           />
           {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
@@ -55,7 +55,9 @@ export function LoginForm() {
           <Controller
             control={control}
             name="password"
-            render={({ field }) => <FloatingPasswordInput {...field} label="Password" className="w-140 h-12" />}
+            render={({ field }) => (
+              <FloatingPasswordInput {...field} label="Password" className="h-12 w-full" />
+            )}
           />
           {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
         </div>
