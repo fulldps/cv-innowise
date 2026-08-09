@@ -2,8 +2,8 @@
 
 import { Controller, type UseFormReturn } from 'react-hook-form';
 
+import { FloatingInput } from '@/shared/ui/floating-input';
 import { FloatingSelect } from '@/shared/ui/floating-select';
-import { Input } from '@/shared/ui/input';
 import { Textarea } from '@/shared/ui/textarea';
 
 import type { ProjectFormValues } from '../model/schema';
@@ -50,7 +50,9 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
           <Controller
             control={control}
             name="start_date"
-            render={({ field }) => <Input {...field} type="date" disabled={disabled} />}
+            render={({ field }) => (
+              <FloatingInput label="Start date" type="date" {...field} disabled={disabled} />
+            )}
           />
           {errors.start_date && (
             <p className="text-sm text-destructive">{errors.start_date.message}</p>
@@ -60,7 +62,9 @@ export function ProjectForm({ form, projects, disabled }: ProjectFormProps) {
           <Controller
             control={control}
             name="end_date"
-            render={({ field }) => <Input {...field} type="date" disabled={disabled} />}
+            render={({ field }) => (
+              <FloatingInput label="End date" type="date" {...field} disabled={disabled} />
+            )}
           />
         </div>
       </div>
