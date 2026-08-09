@@ -16,7 +16,7 @@ import { AddUserLanguageDialog } from '@/features/users/add-user-language';
 import { EditUserLanguageDialog, EditingUserLanguage } from '@/features/users/edit-user-language';
 import { useDeleteUserLanguage } from '@/features/users/delete-user-language';
 
-import { EmptyState, ErrorState } from '@/shared/ui/states';
+import { EmptyState, ErrorState, LoadingState } from '@/shared/ui/states';
 
 interface UserLanguagesProps {
   userId: string;
@@ -56,7 +56,7 @@ export function UserLanguages({ userId }: UserLanguagesProps) {
     useDeleteUserLanguage(userId);
 
   if (profileLoading || languagesLoading) {
-    return <div>Loading...</div>;
+    return <LoadingState />;
   }
 
   if (profileError || languagesError || !profileData?.profile || !languagesData?.languages) {

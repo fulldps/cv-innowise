@@ -4,13 +4,14 @@ import { useParams } from 'next/navigation';
 
 import { useCv } from '@/entities/cv/api/use-cv';
 import { UpdateCv } from '@/features/cv/update-cv';
+import { ErrorState, LoadingState } from '@/shared/ui/states';
 
 export default function Page() {
   const { id } = useParams<{ id: string }>();
   const { cv, loading, error } = useCv(id);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Something went wrong...</div>;
+  if (loading) return <LoadingState />;
+  if (error) return <ErrorState />;
   if (!cv) return null;
 
   return (

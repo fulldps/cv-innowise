@@ -10,6 +10,7 @@ import { useSkills } from '@/entities/skill';
 import { USER_ROLE, useCurrentUser } from '@/entities/user';
 import { AddCvSkill } from '@/features/cv/add-cv-skill';
 import { EditCvSkill } from '@/features/cv/edit-cv-skill';
+import { ErrorState, LoadingState } from '@/shared/ui/states';
 
 import { useCvSkills } from '../model/use-cv-skills';
 import { SkillBar } from './skill-bar';
@@ -38,8 +39,8 @@ export function CvSkills({ cvId }: { cvId: string }) {
     closeEditDialog,
   } = useCvSkills();
 
-  if (loading || skillsLoading || categoriesLoading) return <div>Loading...</div>;
-  if (error) return <div>Something went wrong...</div>;
+  if (loading || skillsLoading || categoriesLoading) return <LoadingState />;
+  if (error) return <ErrorState />;
   if (!cv || !skillsData?.skills || !categoriesData?.skillCategories) return null;
 
   const canManage = cv.user?.id === currentUser.id || currentUser.role === USER_ROLE.Admin;

@@ -1,5 +1,6 @@
 import { TableBody, TableCell, TableRow } from '@/shared/ui/table';
 import { EmptyState, ErrorState } from '@/shared/ui/states';
+import { Spinner } from '@/shared/ui/spinner';
 
 interface DataTableStateProps {
   loading: boolean;
@@ -22,7 +23,6 @@ export function DataTableState({
   isEmpty,
   columnsCount,
   children,
-  loadingText = 'Loading...',
   emptyText = 'No data found',
   errorText = 'Failed to load data',
 }: DataTableStateProps) {
@@ -31,8 +31,8 @@ export function DataTableState({
       {loading ? (
         <TableRow className="hover:bg-transparent">
           <TableCell colSpan={columnsCount} className="p-0">
-            <div className="flex min-h-105 items-center justify-center text-muted-foreground">
-              {loadingText}
+            <div className="flex min-h-105 items-center justify-center">
+              <Spinner className="h-8 w-8" />
             </div>
           </TableCell>
         </TableRow>
