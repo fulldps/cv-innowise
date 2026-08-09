@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/shared/ui/button';
 
 import type { PreviewCv } from '../model/types';
@@ -8,7 +10,7 @@ interface CvPreviewProps {
 
 export function CvPreview({ cv }: CvPreviewProps) {
   return (
-    <div className="mx-auto max-w-4xl px-10 py-8 text-sm max-lg:px-4">
+    <div className="cv-print mx-auto max-w-4xl px-10 py-8 text-sm max-lg:px-4">
       <header className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-3xl font-normal">{cv.fullName}</h1>
@@ -19,7 +21,8 @@ export function CvPreview({ cv }: CvPreviewProps) {
 
         <Button
           variant="outline"
-          className="rounded-full border-destructive px-6 text-xs tracking-wide text-destructive hover:text-destructive"
+          onClick={() => window.print()}
+          className="no-print rounded-full border-destructive px-6 text-xs tracking-wide text-destructive hover:text-destructive"
         >
           EXPORT PDF
         </Button>

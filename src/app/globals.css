@@ -132,3 +132,26 @@
     scrollbar-color: var(--color-muted-foreground) var(--color-background);
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .cv-print,
+  .cv-print * {
+    visibility: visible;
+  }
+
+  .cv-print {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cv-print .no-print {
+    display: none;
+  }
+}
