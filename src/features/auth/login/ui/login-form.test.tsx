@@ -32,8 +32,8 @@ describe('LoginForm', () => {
 
     render(<LoginForm />);
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com');
-    await userEvent.type(screen.getByPlaceholderText('Password'), 'wrongpass');
+    await userEvent.type(screen.getByLabelText('Email'), 'test@test.com');
+    await userEvent.type(screen.getByLabelText('Password'), 'wrongpass');
     await userEvent.click(screen.getByRole('button', { name: /log in/i }));
 
     expect(await screen.findByText('Invalid credentials')).toBeInTheDocument();
@@ -48,8 +48,8 @@ describe('LoginForm', () => {
 
     render(<LoginForm />);
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com');
-    await userEvent.type(screen.getByPlaceholderText('Password'), 'password123');
+    await userEvent.type(screen.getByLabelText('Email'), 'test@test.com');
+    await userEvent.type(screen.getByLabelText('Password'), 'password123');
     await userEvent.click(screen.getByRole('button', { name: /log in/i }));
 
     await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/users'));

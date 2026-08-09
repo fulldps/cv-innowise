@@ -32,8 +32,8 @@ describe('SignupForm', () => {
 
     render(<SignupForm />);
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com');
-    await userEvent.type(screen.getByPlaceholderText('Password'), 'password123');
+    await userEvent.type(screen.getByLabelText('Email'), 'test@test.com');
+    await userEvent.type(screen.getByLabelText('Password'), 'password123');
     await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
     expect(await screen.findByText('Email already exists')).toBeInTheDocument();
@@ -48,8 +48,8 @@ describe('SignupForm', () => {
 
     render(<SignupForm />);
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'new@test.com');
-    await userEvent.type(screen.getByPlaceholderText('Password'), 'password123');
+    await userEvent.type(screen.getByLabelText('Email'), 'new@test.com');
+    await userEvent.type(screen.getByLabelText('Password'), 'password123');
     await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
     await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/'));

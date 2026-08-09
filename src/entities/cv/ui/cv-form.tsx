@@ -3,7 +3,7 @@
 import { Controller, type UseFormReturn } from 'react-hook-form';
 
 import { FloatingInput } from '@/shared/ui/floating-input';
-import { Textarea } from '@/shared/ui/textarea';
+import { FloatingTextarea } from '@/shared/ui/floating-textarea';
 
 import type { CvFormValues } from '../model/schema';
 
@@ -42,19 +42,15 @@ export function CvForm({ form, disabled }: CvFormProps) {
       </div>
 
       <div className="flex flex-col">
-        <label htmlFor="description" className="text-xs">
-          Description
-        </label>
         <Controller
           control={control}
           name="description"
           render={({ field }) => (
-            <Textarea
-              id="description"
+            <FloatingTextarea
               disabled={disabled}
               {...field}
               className="h-40 pb-28"
-              placeholder="Description"
+              label="Description"
             />
           )}
         />

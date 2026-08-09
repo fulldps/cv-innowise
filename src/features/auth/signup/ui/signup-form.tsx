@@ -6,8 +6,8 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { signupSchema, type SignupValues } from '@/features/auth/signup/model/schema';
 import { Button } from '@/shared/ui/button';
-import { Input } from '@/shared/ui/input';
-import { PasswordInput } from '@/shared/ui/PasswordInput';
+import { FloatingInput } from '@/shared/ui/floating-input';
+import { FloatingPasswordInput } from '@/shared/ui/floating-password-input';
 
 export function SignupForm() {
   const {
@@ -45,13 +45,7 @@ export function SignupForm() {
             control={control}
             name="email"
             render={({ field }) => (
-              <Input
-                {...field}
-                className="w-140 h-12"
-                placeholder="Email"
-                type="email"
-                autoComplete="email"
-              />
+              <FloatingInput {...field} label="Email" className="w-140 h-12" />
             )}
           />
           {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
@@ -60,7 +54,9 @@ export function SignupForm() {
           <Controller
             control={control}
             name="password"
-            render={({ field }) => <PasswordInput {...field} autoComplete="new-password" />}
+            render={({ field }) => (
+              <FloatingPasswordInput {...field} label="Password" className="w-140 h-12" />
+            )}
           />
           {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
         </div>

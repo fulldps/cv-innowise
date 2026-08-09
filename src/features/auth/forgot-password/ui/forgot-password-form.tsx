@@ -10,7 +10,7 @@ import {
   type ForgotPasswordValues,
 } from '@/features/auth/forgot-password/model/schema';
 import { Button } from '@/shared/ui/button';
-import { Input } from '@/shared/ui/input';
+import { FloatingInput } from '@/shared/ui/floating-input';
 
 export function ForgotPasswordForm() {
   const {
@@ -46,15 +46,7 @@ export function ForgotPasswordForm() {
           <Controller
             control={control}
             name="email"
-            render={({ field }) => (
-              <Input
-                {...field}
-                className="h-12 w-140"
-                placeholder="Email"
-                type="email"
-                autoComplete="email"
-              />
-            )}
+            render={({ field }) => <FloatingInput {...field} label="Email" className="w-140 h-12" />}
           />
           {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
         </div>

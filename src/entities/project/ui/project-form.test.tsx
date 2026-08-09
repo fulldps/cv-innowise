@@ -35,8 +35,8 @@ describe('ProjectForm', () => {
     expect(screen.getByRole('combobox', { name: 'Project' })).toBeInTheDocument();
     expect(screen.getByLabelText('Start date')).toBeInTheDocument();
     expect(screen.getByLabelText('End date')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Responsibilities (one per line)')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Roles (one per line)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Responsibilities (one per line)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Roles (one per line)')).toBeInTheDocument();
   });
 
   it('renders available projects in the project select', async () => {
@@ -60,8 +60,8 @@ describe('ProjectForm', () => {
     const projectSelect = screen.getByRole('combobox', { name: 'Project' });
     const startDateInput = screen.getByLabelText('Start date');
     const endDateInput = screen.getByLabelText('End date');
-    const responsibilitiesInput = screen.getByPlaceholderText('Responsibilities (one per line)');
-    const rolesInput = screen.getByPlaceholderText('Roles (one per line)');
+    const responsibilitiesInput = screen.getByLabelText('Responsibilities (one per line)');
+    const rolesInput = screen.getByLabelText('Roles (one per line)');
 
     await user.click(projectSelect);
     await user.click(screen.getByText('HRM System'));
@@ -98,7 +98,7 @@ describe('ProjectForm', () => {
     expect(screen.getByRole('combobox', { name: 'Project' })).toBeDisabled();
     expect(screen.getByLabelText('Start date')).toBeDisabled();
     expect(screen.getByLabelText('End date')).toBeDisabled();
-    expect(screen.getByPlaceholderText('Responsibilities (one per line)')).toBeDisabled();
-    expect(screen.getByPlaceholderText('Roles (one per line)')).toBeDisabled();
+    expect(screen.getByLabelText('Responsibilities (one per line)')).toBeDisabled();
+    expect(screen.getByLabelText('Roles (one per line)')).toBeDisabled();
   });
 });

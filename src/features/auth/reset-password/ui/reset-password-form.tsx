@@ -10,7 +10,7 @@ import {
   type ResetPasswordValues,
 } from '@/features/auth/reset-password/model/schema';
 import { Button } from '@/shared/ui/button';
-import { PasswordInput } from '@/shared/ui/PasswordInput';
+import { FloatingPasswordInput } from '@/shared/ui/floating-password-input';
 
 export function ResetPasswordForm({ token }: { token: string }) {
   const {
@@ -49,7 +49,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
           <Controller
             control={control}
             name="newPassword"
-            render={({ field }) => <PasswordInput {...field} autoComplete="new-password" />}
+            render={({ field }) => <FloatingPasswordInput {...field} label="New password" className="w-140 h-12" />}
           />
           {errors.newPassword && (
             <p className="text-sm text-destructive">{errors.newPassword.message}</p>

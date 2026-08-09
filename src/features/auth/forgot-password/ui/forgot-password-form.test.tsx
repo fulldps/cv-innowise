@@ -38,7 +38,7 @@ describe('ForgotPasswordForm', () => {
 
     render(<ForgotPasswordForm />);
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com');
+    await userEvent.type(screen.getByLabelText('Email'), 'test@test.com');
 
     await userEvent.click(screen.getByRole('button', { name: /reset password/i }));
 
@@ -53,7 +53,7 @@ describe('ForgotPasswordForm', () => {
 
     render(<ForgotPasswordForm />);
 
-    await userEvent.type(screen.getByPlaceholderText('Email'), 'test@test.com');
+    await userEvent.type(screen.getByLabelText('Email'), 'test@test.com');
 
     await userEvent.click(screen.getByRole('button', { name: /reset password/i }));
 

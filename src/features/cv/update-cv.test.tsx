@@ -59,7 +59,7 @@ describe('UpdateCv', () => {
 
     expect(screen.getByLabelText('Name')).toHaveValue('My CV');
     expect(screen.getByLabelText('Education')).toHaveValue('BSUIR');
-    expect(screen.getByPlaceholderText('Description')).toHaveValue('Frontend developer');
+    expect(screen.getByLabelText('Description')).toHaveValue('Frontend developer');
 
     expect(screen.getByRole('button', { name: /update/i })).toBeInTheDocument();
   });
@@ -104,7 +104,7 @@ describe('UpdateCv', () => {
 
     const nameInput = screen.getByLabelText('Name');
     const educationInput = screen.getByLabelText('Education');
-    const descriptionInput = screen.getByPlaceholderText('Description');
+    const descriptionInput = screen.getByLabelText('Description');
 
     await user.clear(nameInput);
     await user.type(nameInput, 'Updated CV');
