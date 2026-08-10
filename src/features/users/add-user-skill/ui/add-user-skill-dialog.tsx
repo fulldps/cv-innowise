@@ -51,7 +51,6 @@ export function AddUserSkillDialog({
   };
 
   const onSubmit = async (values: AddUserSkillFormValues) => {
-
     try {
       await addUserSkill(values);
 

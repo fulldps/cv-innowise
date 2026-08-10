@@ -10,7 +10,10 @@ import type { EditingUserSkill } from '../model/edit-user-skill.types';
 export function useEditUserSkill(userId: string) {
   const [mutate, state] = useMutation(UPDATE_PROFILE_SKILL_MUTATION);
 
-  const editUserSkill = async (values: EditUserSkillFormValues, editingUserSkill: EditingUserSkill) => {
+  const editUserSkill = async (
+    values: EditUserSkillFormValues,
+    editingUserSkill: EditingUserSkill,
+  ) => {
     return mutate({
       variables: {
         skill: mapUpdateUserSkillInput(values, editingUserSkill, userId),

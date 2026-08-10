@@ -35,8 +35,12 @@ export function ProjectsTableRow({ row, columnsCount, onEdit, onDelete }: Projec
       <TableRow className="border-b-0">
         <TableCell className="truncate px-4 font-medium">{project.name}</TableCell>
         <TableCell className="truncate px-4">{project.domain}</TableCell>
-        <TableCell className="truncate px-4 max-lg:hidden">{formatDate(project.start_date)}</TableCell>
-        <TableCell className="truncate px-4 max-lg:hidden">{formatDate(project.end_date)}</TableCell>
+        <TableCell className="truncate px-4 max-lg:hidden">
+          {formatDate(project.start_date)}
+        </TableCell>
+        <TableCell className="truncate px-4 max-lg:hidden">
+          {formatDate(project.end_date)}
+        </TableCell>
         <TableCell className="px-4">
           <div className="flex justify-end">
             {row.canEdit && (

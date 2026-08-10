@@ -14,8 +14,8 @@ describe('createLanguageSchema', () => {
   });
 
   it('rejects a blank name', () => {
-    expect(
-      createLanguageSchema.safeParse({ name: '', nativeName: '', iso2: 'en' }).success,
-    ).toBe(false);
+    expect(createLanguageSchema.safeParse({ name: '', nativeName: '', iso2: 'en' }).success).toBe(
+      false,
+    );
   });
 });
