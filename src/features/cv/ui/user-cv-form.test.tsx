@@ -4,13 +4,7 @@ import { useForm } from 'react-hook-form';
 import { UserCvForm } from './user-cv-form';
 import type { UserCvFormValues } from '../model/user-cv-form.types';
 
-function TestForm({
-  disabled = false,
-  errors = {},
-}: {
-  disabled?: boolean;
-  errors?: Record<string, { message?: string }>;
-}) {
+function TestForm({ disabled = false }: { disabled?: boolean }) {
   const form = useForm<UserCvFormValues>({
     defaultValues: {
       name: 'My CV',
