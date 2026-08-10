@@ -42,7 +42,9 @@ import { useProfileAvatar } from './use-profile-avatar';
 const setDisabled = jest.fn();
 
 const fileSelectEvent = (file: File | undefined) =>
-  ({ target: { files: file ? [file] : [], value: 'x' } }) as unknown as ChangeEvent<HTMLInputElement>;
+  ({
+    target: { files: file ? [file] : [], value: 'x' },
+  }) as unknown as ChangeEvent<HTMLInputElement>;
 
 beforeEach(() => {
   jest.clearAllMocks();

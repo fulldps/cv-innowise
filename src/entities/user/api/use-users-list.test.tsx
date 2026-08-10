@@ -10,7 +10,11 @@ import { useUsersList } from './use-users-list';
 
 describe('useUsersList', () => {
   it('returns the users array and a null error', () => {
-    mockUseQuery.mockReturnValue({ data: { users: [{ id: '1' }] }, loading: false, error: undefined });
+    mockUseQuery.mockReturnValue({
+      data: { users: [{ id: '1' }] },
+      loading: false,
+      error: undefined,
+    });
 
     const { result } = renderHook(() => useUsersList());
 

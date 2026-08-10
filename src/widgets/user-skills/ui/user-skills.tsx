@@ -110,7 +110,14 @@ export function UserSkills({ userId }: UserSkillsProps) {
     return <LoadingState />;
   }
 
-  if (profileError || skillsError || categoriesError || !profileData?.profile || !skillsData?.skills || !categoriesData?.skillCategories) {
+  if (
+    profileError ||
+    skillsError ||
+    categoriesError ||
+    !profileData?.profile ||
+    !skillsData?.skills ||
+    !categoriesData?.skillCategories
+  ) {
     return <ErrorState title="Failed to load skills" />;
   }
 

@@ -11,8 +11,16 @@ import { useUserFormOptions } from './use-user-form-options';
 describe('useUserFormOptions', () => {
   it('combines departments and positions', () => {
     mockUseQuery
-      .mockReturnValueOnce({ data: { departments: [{ id: 'd1' }] }, loading: false, error: undefined })
-      .mockReturnValueOnce({ data: { positions: [{ id: 'p1' }] }, loading: false, error: undefined });
+      .mockReturnValueOnce({
+        data: { departments: [{ id: 'd1' }] },
+        loading: false,
+        error: undefined,
+      })
+      .mockReturnValueOnce({
+        data: { positions: [{ id: 'p1' }] },
+        loading: false,
+        error: undefined,
+      });
 
     const { result } = renderHook(() => useUserFormOptions());
 

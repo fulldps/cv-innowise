@@ -6,4 +6,9 @@ export {
   DELETE_PROJECT_MUTATION,
 } from './api/project.mutations';
 
-export type { Project, CreateProjectInput, UpdateProjectInput, DeleteProjectInput } from './model/types';
+export type {
+  Project,
+  CreateProjectInput,
+  UpdateProjectInput,
+  DeleteProjectInput,
+} from './model/types';
